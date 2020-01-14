@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.I2C.Port;
@@ -14,6 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
+import java.security.KeyPair;
+
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -30,9 +34,18 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  private VictorSP left;
-  private VictorSP right;
+  private CANSparkMax left;
+  private CANSparkMax right;
+
+  private CANSparkMax left_back;
+  private CANSparkMax right_back; 
   private ColorSensorV3 sensor;
+
+  private CANPIDController leftPidController;
+  private CANPIDController rightPidController;
+
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, targetRPM;
+
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -43,11 +56,28 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    left = new VictorSP(0);
-    right = new VictorSP(1);
+
+    left = new CANSparkMax(10, MotorType.kBrushless);
+    right = new CANSparkMax(11, MotorType.kBrushless);
+    left_back = new CANSparkMax(20, MotorType.kBrushless);
+    right_back = new CANSparkMax(21, MotorType.kBrushless);
+
     SmartDashboard.putNumber("power", 0);
     sensor = new ColorSensorV3(Port.kOnboard);
 
+    leftPidController = left.getPIDController();
+    rightPidController = right.getPIDController();
+
+    rightPidController.getP(0.0002);
+
+    rightPidController.getI(0);
+    rightPidController.getD(0.02);
+    rightPidController.setIZone(0);
+    rightPidController.getFF(0.00022);
+    rightPidController.setOutputRange(-0.9, 0.9);
+    
+    SmartDashboard.putNumber("target RPM", 0)
+    SmartDashboard.putNumber("kP",)
   }
 
   public String wheelColor(Color sensorColor, double ir, int proximity) {
