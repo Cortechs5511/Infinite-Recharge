@@ -61,14 +61,14 @@ public class SetDistance extends CommandBase {
     targetDistanceR = SmartDashboard.getNumber("Target DistanceR", targetDistanceR);
 
     m_subsystem.leftNEOPID.setP(kP);
-    m_subsystem.leftNEOPID.setP(kI);
-    m_subsystem.leftNEOPID.setP(kD);
-    m_subsystem.leftNEOPID.setP(kFF);
+    m_subsystem.leftNEOPID.setI(kI);
+    m_subsystem.leftNEOPID.setD(kD);
+    m_subsystem.leftNEOPID.setFF(kFF);
 
     m_subsystem.rightNEOPID.setP(kP);
-    m_subsystem.rightNEOPID.setP(kI);
-    m_subsystem.rightNEOPID.setP(kD);
-    m_subsystem.rightNEOPID.setP(kFF);
+    m_subsystem.rightNEOPID.setI(kI);
+    m_subsystem.rightNEOPID.setD(kD);
+    m_subsystem.rightNEOPID.setFF(kFF);
 
     m_subsystem.leftNEOPID.setReference(targetDistanceL, ControlType.kPosition);
     m_subsystem.rightNEOPID.setReference(targetDistanceR, ControlType.kPosition);
