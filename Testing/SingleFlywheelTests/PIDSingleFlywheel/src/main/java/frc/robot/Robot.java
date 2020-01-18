@@ -14,13 +14,13 @@ public class Robot extends TimedRobot {
   private CANSparkMax m_left = new CANSparkMax(1, MotorType.kBrushless);
   private CANSparkMax m_right = new CANSparkMax(2, MotorType.kBrushless);
 
-  private CANPIDController leftNEOPID = m_left.getPIDController();
-  private CANPIDController rightNEOPID = m_right.getPIDController();
+  private CANPIDController m_NEOPID = m_left.getPIDController();
 
   private CANEncoder m_leftEncoder = m_left.getEncoder();
   private CANEncoder m_rightEncoder = m_right.getEncoder();
 
-  public double kP, kI, kD, kIz, kFF, targetSpeed;
+  private double m_targetSpeed;
+  private boolean rampMode = false;
 
   @Override
   public void robotInit() {
@@ -30,51 +30,52 @@ public class Robot extends TimedRobot {
     m_left.setIdleMode(IdleMode.kCoast);
     m_right.setIdleMode(IdleMode.kCoast);
 
+    m_NEOPID.setOutputRange(0, 0.95);
+
     m_left.setClosedLoopRampRate(1.5);
     m_right.setClosedLoopRampRate(1.5);
 
-    SmartDashboard.putNumber("P", 0.0002);
+    m_left.setSmartCurrentLimit(254, 254, 254000);
+    m_right.setSmartCurrentLimit(254, 254, 254000);
+
+    m_left.setSecondaryCurrentLimit(255);
+    m_right.setSecondaryCurrentLimit(255);    
+
+    SmartDashboard.putNumber("P", 0.00033);
     SmartDashboard.putNumber("I", 0);
-    SmartDashboard.putNumber("D", 0.002);
-    SmartDashboard.putNumber("FF", 0.00022);
+    SmartDashboard.putNumber("D", 0.0027);
+    SmartDashboard.putNumber("FF", 0.000185);
     SmartDashboard.putNumber("Target Speed", 0);
 
-    leftNEOPID.setP(0.0002);
-    leftNEOPID.setI(0);
-    leftNEOPID.setD(0.002);
-    leftNEOPID.setFF(0.00022);
+    SmartDashboard.putBoolean("Ramp Mode", rampMode);
 
-    rightNEOPID.setP(0.0002);
-    rightNEOPID.setI(0);
-    rightNEOPID.setD(0.002);
-    rightNEOPID.setFF(0.00022);
+    m_NEOPID.setP(0.00033);
+    m_NEOPID.setI(0);
+    m_NEOPID.setD(0.0027);
+    m_NEOPID.setFF(0.000185);
   }
 
   @Override
   public void teleopInit() {
     SmartDashboard.putNumber("Target Speed", 0);
   }
+
   @Override
   public void teleopPeriodic() {
-    kP = SmartDashboard.getNumber("P", 0.0002);
-    kI = SmartDashboard.getNumber("I", 0);
-    kD = SmartDashboard.getNumber("D", 0.002);
-    kFF = SmartDashboard.getNumber("FF", 0.00022);
-    targetSpeed = SmartDashboard.getNumber("Target Speed", 0);
+    if (SmartDashboard.getNumber("Target Speed", 0) > 200) {
+      m_targetSpeed = SmartDashboard.getNumber("Target Speed", 0);
+    }
+    else {
+      m_targetSpeed = 0;
+    }
 
-    leftNEOPID.setP(kP);
-    leftNEOPID.setI(kI);
-    leftNEOPID.setD(kD);
-    leftNEOPID.setFF(kFF);
+    m_NEOPID.setP(SmartDashboard.getNumber("P", 0.00033));
+    m_NEOPID.setI(SmartDashboard.getNumber("I", 0));
+    m_NEOPID.setD(SmartDashboard.getNumber("D", 0.0027));
+    m_NEOPID.setFF(SmartDashboard.getNumber("FF", 0.000185));
 
-    rightNEOPID.setP(kP);
-    rightNEOPID.setI(kI);
-    rightNEOPID.setD(kD);
-    rightNEOPID.setFF(kFF);
-
-    leftNEOPID.setReference(targetSpeed, ControlType.kVelocity);
-    rightNEOPID.setReference(targetSpeed, ControlType.kVelocity);
-    
+    m_NEOPID.setReference(m_targetSpeed, ControlType.kVelocity);
+    m_right.set(m_left.get());
   }
 
   @Override
@@ -82,7 +83,33 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Current Speed L", m_leftEncoder.getVelocity());
     SmartDashboard.putNumber("Current Speed R", m_rightEncoder.getVelocity());
 
+    rampMode = SmartDashboard.getBoolean("Ramp Mode", false);
+
+    if (rampMode == true) {
+      m_left.setClosedLoopRampRate(0.25);
+      m_right.setClosedLoopRampRate(0.25);
+    }
+    else {
+      m_left.setClosedLoopRampRate(1.5);
+      m_right.setClosedLoopRampRate(1.5);  
+    }
+    
+    SmartDashboard.putNumber("Ramp Speed", m_left.getClosedLoopRampRate());
+
+    if ((m_targetSpeed - 200 > m_leftEncoder.getVelocity()) && (rampMode = true)) {
+      SmartDashboard.putBoolean("Target Reached", false);
+    }
+    else {
+      SmartDashboard.putBoolean("Target Reached", true);
+    }
+
     SmartDashboard.putNumber("Left Temperature", m_left.getMotorTemperature());
     SmartDashboard.putNumber("Right Temperature", m_right.getMotorTemperature());    
+
+    SmartDashboard.putNumber("Left Input", m_left.get());
+    SmartDashboard.putNumber("Right Input", m_right.get());
+
+    SmartDashboard.putNumber("Left Current", m_left.getOutputCurrent());
+    SmartDashboard.putNumber("Right Current", m_right.getOutputCurrent());
   }
 }
