@@ -21,10 +21,10 @@ public class SetDistance extends CommandBase {
 
   @Override
   public void initialize() {
-    SmartDashboard.putNumber("P", 0.0002);
-    SmartDashboard.putNumber("I", 0);
-    SmartDashboard.putNumber("D", 0.002);
-    SmartDashboard.putNumber("FF", 0.00022);
+    SmartDashboard.putNumber("P", 0.00005);
+    SmartDashboard.putNumber("I", 0.000001);
+    SmartDashboard.putNumber("D", 0);
+    SmartDashboard.putNumber("FF", 0.000156);
     SmartDashboard.putNumber("Target DistanceL", 0);
     SmartDashboard.putNumber("Target DistanceR", 0);
     m_drive.leftNEOPID.setOutputRange(-0.9, 0.9);
@@ -38,10 +38,10 @@ public class SetDistance extends CommandBase {
     SmartDashboard.putNumber("NEO Speed Left", m_drive.leftenc.getPosition());
     SmartDashboard.putNumber("NEO Speed Right", m_drive.rightenc.getPosition());
 
-    kP = SmartDashboard.getNumber("P", kP);
-    kI = SmartDashboard.getNumber("I", kI);
-    kD = SmartDashboard.getNumber("D", kD);
-    kFF = SmartDashboard.getNumber("FF", kFF);
+    kP = SmartDashboard.getNumber("P", 0.00005);
+    kI = SmartDashboard.getNumber("I", 0.000001);
+    kD = SmartDashboard.getNumber("D", 0);
+    kFF = SmartDashboard.getNumber("FF", 0.000156);
 
     targetDistanceL = SmartDashboard.getNumber("Target DistanceL", targetDistanceL);
     targetDistanceR = SmartDashboard.getNumber("Target DistanceR", targetDistanceR);

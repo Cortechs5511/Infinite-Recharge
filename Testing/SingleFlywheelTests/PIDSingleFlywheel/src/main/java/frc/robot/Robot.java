@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
     m_right.setClosedLoopRampRate(1.5);
 
     m_left.setSmartCurrentLimit(254, 254, 254000);
+    
     m_right.setSmartCurrentLimit(254, 254, 254000);
 
     m_left.setSecondaryCurrentLimit(255);
@@ -43,16 +44,16 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("P", 0.00033);
     SmartDashboard.putNumber("I", 0);
-    SmartDashboard.putNumber("D", 0.0027);
-    SmartDashboard.putNumber("FF", 0.000185);
+    SmartDashboard.putNumber("D", 0.003);
+    SmartDashboard.putNumber("FF", 0.0002);
     SmartDashboard.putNumber("Target Speed", 0);
 
     SmartDashboard.putBoolean("Ramp Mode", rampMode);
 
     m_NEOPID.setP(0.00033);
     m_NEOPID.setI(0);
-    m_NEOPID.setD(0.0027);
-    m_NEOPID.setFF(0.000185);
+    m_NEOPID.setD(0.003);
+    m_NEOPID.setFF(0.0002);
   }
 
   @Override
@@ -71,8 +72,8 @@ public class Robot extends TimedRobot {
 
     m_NEOPID.setP(SmartDashboard.getNumber("P", 0.00033));
     m_NEOPID.setI(SmartDashboard.getNumber("I", 0));
-    m_NEOPID.setD(SmartDashboard.getNumber("D", 0.0027));
-    m_NEOPID.setFF(SmartDashboard.getNumber("FF", 0.000185));
+    m_NEOPID.setD(SmartDashboard.getNumber("D", 0.003));
+    m_NEOPID.setFF(SmartDashboard.getNumber("FF", 0.0002));
 
     m_NEOPID.setReference(m_targetSpeed, ControlType.kVelocity);
     m_right.set(m_left.get());
@@ -95,13 +96,6 @@ public class Robot extends TimedRobot {
     }
     
     SmartDashboard.putNumber("Ramp Speed", m_left.getClosedLoopRampRate());
-
-    if ((m_targetSpeed - 200 > m_leftEncoder.getVelocity()) && (rampMode = true)) {
-      SmartDashboard.putBoolean("Target Reached", false);
-    }
-    else {
-      SmartDashboard.putBoolean("Target Reached", true);
-    }
 
     SmartDashboard.putNumber("Left Temperature", m_left.getMotorTemperature());
     SmartDashboard.putNumber("Right Temperature", m_right.getMotorTemperature());    

@@ -23,7 +23,7 @@ public class Drive extends SubsystemBase {
 
   public CANEncoder leftenc = left0.getEncoder();
   public CANEncoder rightenc = right0.getEncoder();
-  
+
   public Drive() {
     leftenc.setPositionConversionFactor(42);
     rightenc.setPositionConversionFactor(42);
