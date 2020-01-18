@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.Drive;
 import frc.robot.OI;
 
 import com.revrobotics.ControlType;
@@ -10,8 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetDistance extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Drive m_drive;
-  private OI m_oi;
+  private Drive m_drive;
   
   public SetDistance(Drive subsystem) {
     m_drive = subsystem;
@@ -29,6 +28,9 @@ public class SetDistance extends CommandBase {
     SmartDashboard.putNumber("Target DistanceR", 0);
     m_drive.leftNEOPID.setOutputRange(-0.9, 0.9);
     m_drive.rightNEOPID.setOutputRange(-0.9, 0.9);
+    
+    m_drive.left.set(0.25);
+    m_drive.right.set(0.25);
   }
 
   @Override
@@ -61,6 +63,9 @@ public class SetDistance extends CommandBase {
 
     m_drive.rightNEOPID.setReference(targetDistanceR, ControlType.kPosition);
     m_drive.right1.set(m_drive.right0.get());
+    
+    m_drive.left.set(0.25);
+    m_drive.right.set(0.25);
   }
 
   @Override

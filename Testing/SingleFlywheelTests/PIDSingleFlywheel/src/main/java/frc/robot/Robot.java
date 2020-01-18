@@ -17,7 +17,6 @@ public class Robot extends TimedRobot {
   private CANPIDController m_NEOPID = m_left.getPIDController();
 
   private CANEncoder m_leftEncoder = m_left.getEncoder();
-  private CANEncoder m_rightEncoder = m_right.getEncoder();
 
   private double m_targetSpeed;
   private boolean rampMode = false;
@@ -59,6 +58,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     SmartDashboard.putNumber("Target Speed", 0);
+    m_left.stopMotor();
+    m_right.stopMotor();
   }
 
   @Override
@@ -81,14 +82,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("Current Speed L", m_leftEncoder.getVelocity());
-    SmartDashboard.putNumber("Current Speed R", m_rightEncoder.getVelocity());
+    SmartDashboard.putNumber("Current Speed", m_leftEncoder.getVelocity());
 
     rampMode = SmartDashboard.getBoolean("Ramp Mode", false);
 
     if (rampMode == true) {
-      m_left.setClosedLoopRampRate(0.25);
-      m_right.setClosedLoopRampRate(0.25);
+      m_left.setClosedLoopRampRate(0.15);
+      m_right.setClosedLoopRampRate(0.15);
     }
     else {
       m_left.setClosedLoopRampRate(1.5);

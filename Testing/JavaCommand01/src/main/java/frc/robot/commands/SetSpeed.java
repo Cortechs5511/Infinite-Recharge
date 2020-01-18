@@ -6,8 +6,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetSpeed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Drive m_drive;
-  private OI m_oi;
+  private OI m_oi = OI.getInstance();
+  private double leftInput;
+  private double rightInput;
+  private Drive m_drive;
 
   public SetSpeed(Drive subsystem) {
     m_drive = subsystem;
@@ -20,8 +22,21 @@ public class SetSpeed extends CommandBase {
 
   @Override
   public void execute() {
-    m_drive.left.set(m_oi.leftStick.getY());
-    m_drive.right.set(m_oi.rightStick.getY());
+    leftInput = m_oi.leftStick.getY();
+    rightInput = m_oi.rightStick.getY();
+
+    if (Math.abs(leftInput) > 0.05) {
+      m_drive.left.set(leftInput * 0.9);
+    }
+    else {
+      m_drive.left.set(0);
+    }
+    if (Math.abs(rightInput) > 0.05) {
+      m_drive.right.set(rightInput * 0.9);
+    }
+    else {
+      m_drive.right.set(0);
+    }
   }
 
   @Override

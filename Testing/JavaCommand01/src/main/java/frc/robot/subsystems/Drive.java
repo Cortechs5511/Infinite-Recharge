@@ -38,8 +38,8 @@ public class Drive extends SubsystemBase {
     right0.setIdleMode(IdleMode.kCoast);
     right1.setIdleMode(IdleMode.kCoast);
     
-    left0.setInverted(false);
-    left1.setInverted(false);
+    left0.setInverted(true);
+    left1.setInverted(true);
     right0.setInverted(false);
     right1.setInverted(false);
 
