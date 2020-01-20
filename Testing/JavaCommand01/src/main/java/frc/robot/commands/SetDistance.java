@@ -15,7 +15,7 @@ public class SetDistance extends CommandBase {
     m_drive = subsystem;
     addRequirements(subsystem);
   }
-  private double kP, kI, kD, kFF, targetDistanceL, targetDistanceR;
+  private double kP, kI, kD, kFF, targetDistance;
 
   @Override
   public void initialize() {
@@ -23,13 +23,8 @@ public class SetDistance extends CommandBase {
     SmartDashboard.putNumber("I", 0.000001);
     SmartDashboard.putNumber("D", 0);
     SmartDashboard.putNumber("FF", 0.000156);
-    SmartDashboard.putNumber("Target DistanceL", 0);
-    SmartDashboard.putNumber("Target DistanceR", 0);
-    m_drive.leftNEOPID.setOutputRange(-0.9, 0.9);
-    m_drive.rightNEOPID.setOutputRange(-0.9, 0.9);
-    
-    m_drive.left.set(0.25);
-    m_drive.right.set(0.25);
+    SmartDashboard.putNumber("Target Distance", 0);
+    m_drive.NEOPID.setOutputRange(-0.9, 0.9);
   }
 
   @Override
@@ -42,27 +37,16 @@ public class SetDistance extends CommandBase {
     kD = SmartDashboard.getNumber("D", 0);
     kFF = SmartDashboard.getNumber("FF", 0.000156);
 
-    targetDistanceL = SmartDashboard.getNumber("Target DistanceL", targetDistanceL);
-    targetDistanceR = SmartDashboard.getNumber("Target DistanceR", targetDistanceR);
+    targetDistance = SmartDashboard.getNumber("Target Distance", 0);
 
-    m_drive.leftNEOPID.setP(kP);
-    m_drive.leftNEOPID.setI(kI);
-    m_drive.leftNEOPID.setD(kD);
-    m_drive.leftNEOPID.setFF(kFF);
+    m_drive.NEOPID.setP(kP);
+    m_drive.NEOPID.setI(kI);
+    m_drive.NEOPID.setD(kD);
+    m_drive.NEOPID.setFF(kFF);
 
-    m_drive.rightNEOPID.setP(kP);
-    m_drive.rightNEOPID.setI(kI);
-    m_drive.rightNEOPID.setD(kD);
-    m_drive.rightNEOPID.setFF(kFF);
-
-    m_drive.leftNEOPID.setReference(targetDistanceL, ControlType.kPosition);
+    m_drive.NEOPID.setReference(targetDistance, ControlType.kPosition);
     m_drive.left1.set(m_drive.left0.get());
-
-    m_drive.rightNEOPID.setReference(targetDistanceR, ControlType.kPosition);
     m_drive.right1.set(m_drive.right0.get());
-    
-    m_drive.left.set(0.25);
-    m_drive.right.set(0.25);
   }
 
   @Override

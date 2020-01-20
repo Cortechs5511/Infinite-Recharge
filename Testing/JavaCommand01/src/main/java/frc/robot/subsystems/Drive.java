@@ -19,8 +19,7 @@ public class Drive extends SubsystemBase {
   public CANSparkMax right1 = new CANSparkMax(21, MotorType.kBrushless);
   public SpeedControllerGroup right = new SpeedControllerGroup(right0, right1);
 
-  public CANPIDController leftNEOPID = left0.getPIDController();
-  public CANPIDController rightNEOPID = right0.getPIDController();
+  public CANPIDController NEOPID = left0.getPIDController();
 
   public CANEncoder leftenc = left0.getEncoder();
   public CANEncoder rightenc = right0.getEncoder();
@@ -48,6 +47,13 @@ public class Drive extends SubsystemBase {
     left1.disableVoltageCompensation();
     right0.disableVoltageCompensation();
     right1.disableVoltageCompensation();
+
+    left0.setClosedLoopRampRate(0.5);
+    left1.setClosedLoopRampRate(0.5);
+    right0.setClosedLoopRampRate(0.5);
+    right1.setClosedLoopRampRate(0.5);
+    //note to future programmers:
+    //if using neo, use ramp rate
 
     left0.setSmartCurrentLimit(60, 60, 9000);
     left1.setSmartCurrentLimit(60, 60, 9000);
