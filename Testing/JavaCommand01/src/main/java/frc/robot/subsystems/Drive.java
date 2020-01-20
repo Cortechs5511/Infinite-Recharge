@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drive extends SubsystemBase {
@@ -38,10 +39,15 @@ public class Drive extends SubsystemBase {
     right0.setIdleMode(IdleMode.kCoast);
     right1.setIdleMode(IdleMode.kCoast);
     
-    left0.setInverted(true);
-    left1.setInverted(true);
-    right0.setInverted(false);
-    right1.setInverted(false);
+    left0.setInverted(false);
+    left1.setInverted(false);
+    right0.setInverted(true);
+    right1.setInverted(true);
+
+    left0.disableVoltageCompensation();
+    left1.disableVoltageCompensation();
+    right0.disableVoltageCompensation();
+    right1.disableVoltageCompensation();
 
     left0.setSmartCurrentLimit(60, 60, 9000);
     left1.setSmartCurrentLimit(60, 60, 9000);
@@ -51,5 +57,7 @@ public class Drive extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Left Speed", leftenc.getVelocity());
+    SmartDashboard.putNumber("Right Speed", rightenc.getVelocity());
   }
 }

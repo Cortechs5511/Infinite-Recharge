@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Drive;
-import frc.robot.OI;
 
 import com.revrobotics.ControlType;
 
@@ -35,8 +34,6 @@ public class SetDistance extends CommandBase {
 
   @Override
   public void execute() {
-    m_drive.left.set(m_oi.leftStick.getY());
-    m_drive.right.set(m_oi.rightStick.getY());
     SmartDashboard.putNumber("NEO Speed Left", m_drive.leftenc.getPosition());
     SmartDashboard.putNumber("NEO Speed Right", m_drive.rightenc.getPosition());
 

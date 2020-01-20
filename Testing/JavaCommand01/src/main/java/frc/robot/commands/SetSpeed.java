@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Drive;
 import frc.robot.OI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetSpeed extends CommandBase {
@@ -18,6 +19,7 @@ public class SetSpeed extends CommandBase {
 
   @Override
   public void initialize() {
+    SmartDashboard.putNumber("speed", 0);
   }
 
   @Override
@@ -37,6 +39,9 @@ public class SetSpeed extends CommandBase {
     else {
       m_drive.right.set(0);
     }
+  
+  m_drive.left.set(SmartDashboard.getNumber("speed", 0));
+  m_drive.right.set(SmartDashboard.getNumber("speed", 0));
   }
 
   @Override
