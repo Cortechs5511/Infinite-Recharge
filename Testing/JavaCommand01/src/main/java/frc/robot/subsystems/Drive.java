@@ -32,6 +32,11 @@ public class Drive extends SubsystemBase {
     left1.clearFaults();
     right0.clearFaults();
     right1.clearFaults();
+
+    left0.restoreFactoryDefaults();
+    left1.restoreFactoryDefaults();
+    right0.restoreFactoryDefaults();
+    right1.restoreFactoryDefaults();
     
     left0.setIdleMode(IdleMode.kCoast);
     left1.setIdleMode(IdleMode.kCoast);
@@ -59,6 +64,11 @@ public class Drive extends SubsystemBase {
     left1.setSmartCurrentLimit(60, 60, 9000);
     right0.setSmartCurrentLimit(60, 60, 9000);
     right1.setSmartCurrentLimit(60, 60, 9000);
+
+    leftenc.setPositionConversionFactor(42);
+    rightenc.setPositionConversionFactor(42);    
+
+    SmartDashboard.putNumber("Target Distance", 0);
   }
 
   @Override
