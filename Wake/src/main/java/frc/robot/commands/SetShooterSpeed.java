@@ -11,7 +11,7 @@ public class SetShooterSpeed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private OI m_oi = OI.getInstance();
   private Shooter m_Shooter;
-  private double targetSpeed = 0f;
+  private double targetSpeed, currentSpeed, difference;
 
   public SetShooterSpeed(Shooter subsystem) {
     m_Shooter = subsystem;
@@ -26,18 +26,29 @@ public class SetShooterSpeed extends CommandBase {
 
   @Override
   public void execute() {
-    if (m_oi.getShooter()) {
+    if (m_oi.getShooterLong()) {
       targetSpeed = 4200;
+    }
+    else if (m_oi.getShooterShort()) {
+      targetSpeed = 3300;
     }
     else {
       targetSpeed = 0;
     }
     
+    currentSpeed = m_Shooter.shootenc.getVelocity();
+    difference = Math.abs(targetSpeed - currentSpeed);
+
     m_Shooter.shootPID.setReference(targetSpeed, ControlType.kVelocity);
     m_Shooter.shoot1.set(m_Shooter.shoot0.get());
-    /* This needs a system to decrease ramp speed once target has reached.
-    In testing, we saw that the current ramp rate of 1.5 sec. was too little
-    for the PID to effectively compensate for the RPM. */
+    
+    if (difference < 100) {
+      m_Shooter.shoot0.setClosedLoopRampRate(0.15);
+      m_Shooter.shoot1.setClosedLoopRampRate(0.15);  
+    } else if (difference > 1200) {
+      m_Shooter.shoot0.setClosedLoopRampRate(1.5);
+      m_Shooter.shoot1.setClosedLoopRampRate(1.5);  
+    }
   }
 
   @Override

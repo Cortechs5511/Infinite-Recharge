@@ -21,17 +21,20 @@ public class OI {
     public Joystick getRightStick() {
         return rightStick;
     }
-    public boolean getIntake() {
-        return leftStick.getRawButton(0); //all button bindings tentative
+    public boolean getIntake() { // sets intake to 90% output
+        return leftStick.getRawButton(0); 
     }
-    public boolean getShooter() {
-        return rightStick.getRawButton(0);
-    }
-    public boolean getWristUp() {
+    public boolean getWristUp() { // PID command up for wrist
         return leftStick.getRawButton(1); 
     }
-    public boolean getWristDown() {
+    public boolean getWristDown() { // PID command down for wrist
         return rightStick.getRawButton(1);
+    }
+    public boolean getShooterLong() { // 4200RPM PID command for shooter (behind control panel)
+        return rightStick.getRawButton(2);
+    }    
+    public boolean getShooterShort() {  // 3300RPM PID command for shooter (near init line)
+        return leftStick.getRawButton(2);
     }
     
 }

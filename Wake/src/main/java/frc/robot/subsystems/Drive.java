@@ -22,12 +22,12 @@ public class Drive extends SubsystemBase {
   public CANPIDController leftNEOPID = left0.getPIDController();
   public CANPIDController rightNEOPID = right0.getPIDController();
 
-  public CANEncoder leftenc = left0.getEncoder();
-  public CANEncoder rightenc = right0.getEncoder();
+  public CANEncoder leftEnc = left0.getEncoder();
+  public CANEncoder rightEnc = right0.getEncoder();
 
   public Drive() {
-    leftenc.setPositionConversionFactor(42);
-    rightenc.setPositionConversionFactor(42);
+    leftEnc.setPositionConversionFactor(42);
+    rightEnc.setPositionConversionFactor(42);
 
     left0.clearFaults();
     left1.clearFaults();
@@ -71,8 +71,8 @@ public class Drive extends SubsystemBase {
     right0.setSmartCurrentLimit(60, 60, 9000);
     right1.setSmartCurrentLimit(60, 60, 9000);
 
-    leftenc.setPositionConversionFactor(42);
-    rightenc.setPositionConversionFactor(42);   
+    leftEnc.setPositionConversionFactor(42);
+    rightEnc.setPositionConversionFactor(42);   
    
     leftNEOPID.setP(0.101);
     leftNEOPID.setI(0);
@@ -90,7 +90,7 @@ public class Drive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Left Speed", leftenc.getVelocity());
-    SmartDashboard.putNumber("Right Speed", rightenc.getVelocity());
+    SmartDashboard.putNumber("Left Speed", leftEnc.getVelocity());
+    SmartDashboard.putNumber("Right Speed", rightEnc.getVelocity());
   }
 }

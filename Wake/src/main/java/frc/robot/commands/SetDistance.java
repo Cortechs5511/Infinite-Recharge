@@ -19,8 +19,8 @@ public class SetDistance extends CommandBase {
 
   @Override
   public void initialize() {
-    m_drive.leftenc.setPosition(0);
-    m_drive.rightenc.setPosition(0);
+    m_drive.leftEnc.setPosition(0);
+    m_drive.rightEnc.setPosition(0);
   }
 
   @Override
