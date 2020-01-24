@@ -19,7 +19,7 @@ public class DriveSubsystem extends SubsystemBase {
   public SpeedControllerGroup right = new SpeedControllerGroup(right_1, right_2);
 
   public CANEncoder left_encoder = left_1.getEncoder();
-
+  public CANEncoder right_encoder = right_1.getEncoder();
 
   public DriveSubsystem() {
 
