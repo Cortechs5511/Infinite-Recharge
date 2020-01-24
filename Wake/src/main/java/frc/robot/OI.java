@@ -24,10 +24,14 @@ public class OI {
     public boolean getIntake() {
         return leftStick.getRawButton(0); //all button bindings tentative
     }
+    public boolean getShooter() {
+        return rightStick.getRawButton(0);
+    }
     public boolean getWristUp() {
         return leftStick.getRawButton(1); 
     }
     public boolean getWristDown() {
         return rightStick.getRawButton(1);
     }
+    
 }
