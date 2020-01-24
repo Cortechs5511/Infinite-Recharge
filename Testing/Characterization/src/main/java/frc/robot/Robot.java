@@ -4,6 +4,9 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -21,6 +24,7 @@ public class Robot extends TimedRobot {
   Joystick rightStick = new Joystick(1);
 
   Supplier<Double> gyroAngleRadians;
+  AHRS navx = new AHRS();
 
   NetworkTableEntry autoSpeedEntry = NetworkTableInstance.getDefault().getEntry("/robot/autospeed");
   NetworkTableEntry telemetryEntry = NetworkTableInstance.getDefault().getEntry("/robot/telemetry");
@@ -52,7 +56,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     if (!isReal()) SmartDashboard.putData(new SimEnabler());
 
-    gyroAngleRadians = () -> 0.0;
+    gyroAngleRadians = () -> -1 * Math.toRadians(navx.getAngle());
 
     double encoderConstant = (1 / 8.2) * 6 * Math.PI;
 
@@ -105,6 +109,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     System.out.println("Robot in autonomous mode");
   }
+  
   @Override
   public void autonomousPeriodic() {
     double now = Timer.getFPGATimestamp();
