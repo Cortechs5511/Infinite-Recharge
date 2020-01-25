@@ -26,10 +26,13 @@ public class SetIntakePower extends CommandBase {
   public void execute() {
     input = m_oi.getIntake.get();
     if (input == true) {
-        m_Intake.intake.set(ControlMode.PercentOutput, 0.9);
+      m_Intake.intake.set(ControlMode.PercentOutput, 0.9);
     }
     else {
-        m_Intake.intake.set(ControlMode.PercentOutput, 0);
+      m_Intake.intake.set(ControlMode.PercentOutput, 0);
+    }
+    if ((m_oi.getIntake.get() == true) && (m_Intake.getBottomSensor.get() == false)) {
+      m_Intake.setFeeder0Speed(0.9);
     }
   }
 

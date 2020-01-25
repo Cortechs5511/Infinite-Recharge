@@ -9,7 +9,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -23,7 +22,6 @@ public class Intake extends SubsystemBase {
   private WPI_VictorSPX feeder0 = new WPI_VictorSPX(40);
   private WPI_VictorSPX feeder1 = new WPI_VictorSPX(41);
   private WPI_VictorSPX feeder2 = new WPI_VictorSPX(42);
-  private SpeedControllerGroup feeder = new SpeedControllerGroup(feeder0, feeder1);
 
   private Encoder intakeEncoder = new Encoder(0, 1);
   private Encoder feedEncoder = new Encoder(2,3);
@@ -75,6 +73,9 @@ public class Intake extends SubsystemBase {
   public void setFeederSpeed(double input) {
     feeder1.set(input);
     feeder2.set(input);
+  }
+  public void setFeeder0Speed(double input) {
+    feeder0.set(input);
   }
   
   public void resetFeedEncoder() {
