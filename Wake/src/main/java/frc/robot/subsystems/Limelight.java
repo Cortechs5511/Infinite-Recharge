@@ -9,7 +9,6 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight extends SubsystemBase {
     
-public double multiplier = 0.0;
 public double x, y, area;
 double distanceMultiplierRPM = 0.0;
 
@@ -35,7 +34,7 @@ public Limelight() {
   }
 
   public double calculateRPM() {
-    double distance = ((63.65 * multiplier) / (Math.tan(Math.toRadians(y + 16.94))));
+    double distance = ((63.65) / Math.tan(Math.toRadians(y+16.94))) * (((-Math.abs(y)) / 300) + 1);
     double rpm = distance * distanceMultiplierRPM;
     return rpm;
   }
