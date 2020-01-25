@@ -64,6 +64,12 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putBoolean("Top Sensor", getTopSensor.get());
     SmartDashboard.putBoolean("Bottom Sensor", getBottomSensor.get());
+    SmartDashboard.putNumber("Intake Encoder", intakeEncoder.get());
+    SmartDashboard.putNumber("Feeder Encoder", feedEncoder.get());
+    SmartDashboard.putBoolean("Forward Limit Switch", wrist.isFwdLimitSwitchClosed()==1);
+    SmartDashboard.putBoolean("Reverse Limit Switch", wrist.isRevLimitSwitchClosed()==1);
+
+    
   }
 
   public void moveWrist(double x) {
