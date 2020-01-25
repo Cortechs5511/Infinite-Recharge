@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Limelight;
@@ -23,7 +23,6 @@ public class LimelightAlign extends CommandBase {
     SmartDashboard.putNumber("Angle P", 0.0);
     SmartDashboard.putNumber("Angle I", 0.0);
     SmartDashboard.putNumber("Angle D", 0.0);
-    SmartDashboard.putNumber("Angle PID Setpoint", 0.0);
   }
 
   @Override
