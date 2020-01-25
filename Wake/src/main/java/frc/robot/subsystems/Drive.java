@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -21,6 +22,7 @@ public class Drive extends SubsystemBase {
 
   public CANPIDController leftNEOPID = left0.getPIDController();
   public CANPIDController rightNEOPID = right0.getPIDController();
+  public PIDController anglePID = new PIDController(0.0, 0.0, 0.0);
 
   public CANEncoder leftEnc = left0.getEncoder();
   public CANEncoder rightEnc = right0.getEncoder();
@@ -86,6 +88,8 @@ public class Drive extends SubsystemBase {
     rightNEOPID.setFF(0);
     leftNEOPID.setOutputRange(-0.3, 0.3);
 
+    anglePID.setPID(0.0, 0.0, 0.0);
+    anglePID.enableContinuousInput(-30, 30);
   }
 
   @Override
