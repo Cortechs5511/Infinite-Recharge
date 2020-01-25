@@ -11,9 +11,9 @@ public class SetDistance extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private Drive m_drive;
 
-  public SetDistance(Drive subsystem) {
-    m_drive = subsystem;
-    addRequirements(subsystem);
+  public SetDistance(Drive drive) {
+    m_drive = drive;
+    addRequirements(drive);
   }
   private double targetDistance;
 

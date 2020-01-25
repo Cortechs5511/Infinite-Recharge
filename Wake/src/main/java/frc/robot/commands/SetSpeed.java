@@ -12,9 +12,9 @@ public class SetSpeed extends CommandBase {
   private double rightInput;
   private Drive m_drive;
 
-  public SetSpeed(Drive subsystem) {
-    m_drive = subsystem;
-    addRequirements(subsystem);
+  public SetSpeed(Drive drive) {
+    m_drive = drive;
+    addRequirements(drive);
   }
 
   @Override

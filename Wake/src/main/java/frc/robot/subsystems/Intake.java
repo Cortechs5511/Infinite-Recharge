@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Intake extends SubsystemBase {
   private TalonSRX wrist = new TalonSRX(30);
 
-  private WPI_VictorSPX intake = new WPI_VictorSPX(31);
+  public WPI_VictorSPX intake = new WPI_VictorSPX(31);
 
   /* feeder0 and feeder1 are on the tower */
   private WPI_VictorSPX feeder0 = new WPI_VictorSPX(40);
@@ -24,8 +24,8 @@ public class Intake extends SubsystemBase {
 
   private Encoder intakeEncoder = new Encoder(0, 1);
 
-  private DigitalInput bottomSensor = new DigitalInput(0);
-  private DigitalInput topSensor = new DigitalInput(1);
+  public DigitalInput bottomSensor = new DigitalInput(0);
+  public DigitalInput topSensor = new DigitalInput(1);
 
 
 
