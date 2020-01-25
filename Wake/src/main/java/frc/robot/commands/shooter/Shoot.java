@@ -10,16 +10,11 @@ public class Shoot extends SequentialCommandGroup {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private OI m_oi = OI.getInstance();
   //temporary code before limelight based RPM control
-  public Shoot(Shooter shooter, Intake intake) {
-    if (m_oi.getShooterLong()== true) {
+  public Shoot(Shooter shooter, Intake intake, Limelight limelight) {
+    if (m_oi.getShooterLong.get()== true) {
       addCommands(
-        new LongAccel(shooter),
+        new Accel(shooter, limelight),
         new ShooterStop(shooter, intake));  
-    } 
-    else if (m_oi.getShooterShort()== true) {
-      addCommands(
-        new ShortAccel(shooter),
-        new ShooterStop(shooter, intake));
     } 
   }
 }

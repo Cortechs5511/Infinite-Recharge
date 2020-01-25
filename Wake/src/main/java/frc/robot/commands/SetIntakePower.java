@@ -24,7 +24,7 @@ public class SetIntakePower extends CommandBase {
 
   @Override
   public void execute() {
-    input = m_oi.getIntake();
+    input = m_oi.getIntake.get();
     if (input == true) {
         m_Intake.intake.set(ControlMode.PercentOutput, 0.9);
     }

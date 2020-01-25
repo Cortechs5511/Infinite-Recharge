@@ -23,10 +23,10 @@ public class SetWristPower extends CommandBase {
 
   @Override
   public void execute() {
-    if (m_oi.getWristDown() == true) {
+    if (m_oi.getWristDown.get() == true) {
         input = -0.9;
     }
-    else if (m_oi.getWristUp() == true) {
+    else if (m_oi.getWristUp.get() == true) {
         input = 0.9;
     }
     else {

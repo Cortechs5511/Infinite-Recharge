@@ -24,8 +24,8 @@ public class SetSpeed extends CommandBase {
 
   @Override
   public void execute() {
-    leftInput = m_oi.leftStick.getY();
-    rightInput = m_oi.rightStick.getY();
+    leftInput = m_oi.getLeftY.get();
+    rightInput = m_oi.getLeftY.get();
 
     if (Math.abs(leftInput) > 0.05) {
       m_drive.left.set(leftInput * 0.9);
