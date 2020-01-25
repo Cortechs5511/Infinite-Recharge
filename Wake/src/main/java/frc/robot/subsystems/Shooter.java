@@ -14,7 +14,7 @@ public class Shooter extends SubsystemBase {
 
     public CANPIDController shootPID = shoot0.getPIDController();
     
-    public CANEncoder shootenc = shoot0.getEncoder();
+    public CANEncoder shootEnc = shoot0.getEncoder();
     
 public Shooter() {
     shoot0.restoreFactoryDefaults();
