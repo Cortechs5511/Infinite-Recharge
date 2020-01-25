@@ -3,10 +3,9 @@ package frc.robot.commands;
 import frc.robot.subsystems.Intake;
 import frc.robot.OI;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+/* Linear decrease on wrist speed based on encoder */
 public class SetWristPower extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private OI m_oi = OI.getInstance();
@@ -33,12 +32,12 @@ public class SetWristPower extends CommandBase {
     else {
         input = 0;
     }
-    m_Intake.wrist.set(ControlMode.PercentOutput, input);
+    m_Intake.moveWrist(input);
   }
 
   @Override
   public void end(boolean interrupted) {
-      m_Intake.wrist.set(ControlMode.PercentOutput, 0);
+      m_Intake.moveWrist(0);
   }
 
   @Override

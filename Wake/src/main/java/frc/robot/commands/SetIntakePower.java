@@ -3,8 +3,6 @@ package frc.robot.commands;
 import frc.robot.subsystems.Intake;
 import frc.robot.OI;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetIntakePower extends CommandBase {
@@ -26,16 +24,16 @@ public class SetIntakePower extends CommandBase {
   public void execute() {
     input = m_oi.getIntake();
     if (input == true) {
-        m_Intake.intake.set(ControlMode.PercentOutput, 0.9);
+      m_Intake.pullBallIn();
     }
     else {
-        m_Intake.intake.set(ControlMode.PercentOutput, 0);
+        m_Intake.stopBall();
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-      m_Intake.intake.set(ControlMode.PercentOutput, 0);
+      m_Intake.stopBall();
   }
 
   @Override
