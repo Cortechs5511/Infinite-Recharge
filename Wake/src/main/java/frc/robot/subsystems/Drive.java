@@ -1,31 +1,40 @@
 package frc.robot.subsystems;
 
+import java.util.function.Supplier;
+
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drive extends SubsystemBase {
-  public CANSparkMax left0 = new CANSparkMax(10, MotorType.kBrushless);
-  public CANSparkMax left1 = new CANSparkMax(11, MotorType.kBrushless);
-  public SpeedControllerGroup left = new SpeedControllerGroup(left0, left1);
+  private CANSparkMax left0 = new CANSparkMax(10, MotorType.kBrushless);
+  private CANSparkMax left1 = new CANSparkMax(11, MotorType.kBrushless);
 
-  public CANSparkMax right0 = new CANSparkMax(20, MotorType.kBrushless);
-  public CANSparkMax right1 = new CANSparkMax(21, MotorType.kBrushless);
-  public SpeedControllerGroup right = new SpeedControllerGroup(right0, right1);
+  private CANSparkMax right0 = new CANSparkMax(20, MotorType.kBrushless);
+  private CANSparkMax right1 = new CANSparkMax(21, MotorType.kBrushless);
 
-  public CANPIDController leftNEOPID = left0.getPIDController();
-  public CANPIDController rightNEOPID = right0.getPIDController();
+  private CANPIDController leftNEOPID = left0.getPIDController();
+  private CANPIDController rightNEOPID = right0.getPIDController();
   public PIDController anglePID = new PIDController(0.0, 0.0, 0.0);
 
-  public CANEncoder leftEnc = left0.getEncoder();
-  public CANEncoder rightEnc = right0.getEncoder();
+  private CANEncoder leftEnc = left0.getEncoder();
+  private CANEncoder rightEnc = right0.getEncoder();
+  
+  public Supplier<Double> getLeftOutput = () -> left0.get();
+  public Supplier<Double> getRightOutput = () -> right0.get();
+
+  public Supplier<Double> getLeftPosition = () -> leftEnc.getPosition();
+  public Supplier<Double> getRightPosition = () -> rightEnc.getPosition();
+
+  public Supplier<Double> getLeftVelocity = () -> leftEnc.getVelocity();
+  public Supplier<Double> getRightVelocity = () -> rightEnc.getVelocity();
 
   public Drive() {
     leftEnc.setPositionConversionFactor(42);
@@ -40,6 +49,9 @@ public class Drive extends SubsystemBase {
     left1.restoreFactoryDefaults();
     right0.restoreFactoryDefaults();
     right1.restoreFactoryDefaults();
+
+    left1.follow(left0);
+    right1.follow(right0);
     
     left0.setIdleMode(IdleMode.kCoast);
     left1.setIdleMode(IdleMode.kCoast);
@@ -65,8 +77,6 @@ public class Drive extends SubsystemBase {
     left1.setClosedLoopRampRate(0.5);
     right0.setClosedLoopRampRate(0.5);
     right1.setClosedLoopRampRate(0.5);
-    //note to future programmers:
-    //if using neo, use ramp rate
 
     left0.setSmartCurrentLimit(60, 60, 9000);
     left1.setSmartCurrentLimit(60, 60, 9000);
@@ -91,6 +101,32 @@ public class Drive extends SubsystemBase {
     anglePID.setPID(0.0, 0.0, 0.0);
     anglePID.enableContinuousInput(-30, 30);
   }
+
+  public void setLeft(double leftInput) {
+    left0.set(leftInput);
+  }
+  public void setRight(double rightInput) {
+    right0.set(rightInput);
+  }
+
+  public void setLeftPIDReference(double ref) {
+    leftNEOPID.setReference(ref, ControlType.kPosition);
+  }
+  public void setRightPIDReference(double ref) {
+    rightNEOPID.setReference(ref, ControlType.kPosition);
+  }
+
+  public void setAnglePIDReference(double ref) {
+    anglePID.setSetpoint(ref);
+  }
+
+  public void resetLeftEnc() {
+    leftEnc.setPosition(0);
+  }
+  public void resetRightEnc() {
+    rightEnc.setPosition(0);
+  }
+
 
   @Override
   public void periodic() {

@@ -5,14 +5,12 @@ import frc.robot.OI;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/* Linear decrease on wrist speed based on encoder */
-public class SetWristPower extends CommandBase {
+public class SetFeederPower extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private OI m_oi = OI.getInstance();
   private Intake m_Intake;
-  private double input = 0;
 
-  public SetWristPower(Intake subsystem) {
+  public SetFeederPower(Intake subsystem) {
     m_Intake = subsystem;
     addRequirements(subsystem);
   }
@@ -23,21 +21,21 @@ public class SetWristPower extends CommandBase {
 
   @Override
   public void execute() {
-    if (m_oi.getWristDown.get() == true) {
-        input = -0.9;
-    }
-    else if (m_oi.getWristUp.get() == true) {
-        input = 0.9;
+    m_Intake.resetFeedEncoder();
+    /* needs to be updated with actual value */
+    /* to do - figure out switch integration as error checking */
+    int x = 0;
+    if (m_Intake.getFeedEncoder.get() < x) {
+      m_Intake.setFeederSpeed(0.9);
     }
     else {
-        input = 0;
+      m_Intake.setFeederSpeed(0);
     }
-    m_Intake.moveWrist(input);
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_Intake.moveWrist(0);
+    m_Intake.setFeederSpeed(0);
   }
 
   @Override

@@ -34,14 +34,14 @@ public class LimelightAlign extends CommandBase {
     m_drive.anglePID.setPID(angle_kP, angle_kI, angle_kD);
     m_drive.anglePID.setSetpoint(setpoint);
     double val = m_drive.anglePID.calculate(m_limelight.x, setpoint);
-    m_drive.left.set(val);
-    m_drive.right.set(-val);
+    m_drive.setLeft(val);
+    m_drive.setRight(-val);
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_drive.left.stopMotor();
-    m_drive.right.stopMotor();
+    m_drive.setLeft(0);
+    m_drive.setRight(0);
   }
 
   @Override

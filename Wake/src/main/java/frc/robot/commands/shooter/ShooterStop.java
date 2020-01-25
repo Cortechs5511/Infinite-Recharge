@@ -3,8 +3,6 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 
-import com.revrobotics.ControlType;
-
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Intake;
 
@@ -18,7 +16,6 @@ public class ShooterStop extends CommandBase {
   private boolean previous, current;
   private int count = 0;
 
-
   public ShooterStop(Shooter shooter, Intake intake) {
     m_Shooter = shooter;
     m_Intake = intake;
@@ -28,14 +25,14 @@ public class ShooterStop extends CommandBase {
 
   @Override
   public void initialize() {
-    previous = m_Intake.topSensor.get();
+    previous = m_Intake.getTopSensor.get();
     timer.reset();
     timer.start();
   }
 
   @Override
   public void execute() {
-      current = m_Intake.topSensor.get();
+      current = m_Intake.getTopSensor.get();
       if (previous != current) {
         count++;
         timer.reset();
@@ -48,13 +45,9 @@ public class ShooterStop extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    m_Shooter.shoot0.setClosedLoopRampRate(1.5);
-    m_Shooter.shoot1.setClosedLoopRampRate(1.5);
-
-    m_Shooter.shootPID.setReference(0, ControlType.kVelocity);
-   
-    m_Shooter.shoot0.stopMotor();
-    m_Shooter.shoot1.stopMotor();
+    m_Shooter.setRampRate(1.5);
+    m_Shooter.setPIDReference(0);  
+    m_Shooter.setSpeed(0);
   }
 
   @Override

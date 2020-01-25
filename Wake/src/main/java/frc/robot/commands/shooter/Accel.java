@@ -4,8 +4,6 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Limelight;
 import frc.robot.OI;
 
-import com.revrobotics.ControlType;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Accel extends CommandBase {
@@ -25,28 +23,25 @@ public class Accel extends CommandBase {
 
   @Override
   public void initialize() {
-    m_Shooter.shoot0.setClosedLoopRampRate(1.5);
-    m_Shooter.shoot1.setClosedLoopRampRate(1.5);
+    m_Shooter.setRampRate(1.5);
     
     calculatedRPM = m_Limelight.calculateRPM();
   }
-
+  
   @Override
   public void execute() {
     if (m_oi.getShooterLong.get()) {
       targetSpeed = calculatedRPM;
     }
 
-    m_Shooter.shootPID.setReference(targetSpeed, ControlType.kVelocity);
-    m_Shooter.shoot1.set(m_Shooter.shoot0.get());
+    m_Shooter.setPIDReference(targetSpeed);
 
-    currentSpeed = m_Shooter.shootEnc.getVelocity();
+    currentSpeed = m_Shooter.getSpeed.get();
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_Shooter.shoot0.setClosedLoopRampRate(0.15);
-    m_Shooter.shoot1.setClosedLoopRampRate(0.15);
+    m_Shooter.setRampRate(0.15);
   }
 
   @Override

@@ -2,7 +2,6 @@ package frc.robot.commands.drive;
 
 import frc.robot.subsystems.Drive;
 import frc.robot.OI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetSpeed extends CommandBase {
@@ -19,7 +18,6 @@ public class SetSpeed extends CommandBase {
 
   @Override
   public void initialize() {
-    SmartDashboard.putNumber("speed", 0);
   }
 
   @Override
@@ -28,26 +26,23 @@ public class SetSpeed extends CommandBase {
     rightInput = m_oi.getLeftY.get();
 
     if (Math.abs(leftInput) > 0.05) {
-      m_drive.left.set(leftInput * 0.9);
+      m_drive.setLeft(leftInput * 0.9);
     }
     else {
-      m_drive.left.set(0);
+      m_drive.setLeft(0);
     }
     if (Math.abs(rightInput) > 0.05) {
-      m_drive.right.set(rightInput * 0.9);
+      m_drive.setRight(rightInput * 0.9);
     }
     else {
-      m_drive.right.set(0);
-    }
-  
-  m_drive.left.set(SmartDashboard.getNumber("speed", 0));
-  m_drive.right.set(SmartDashboard.getNumber("speed", 0));
+      m_drive.setRight(0);
+    }  
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_drive.left.stopMotor();
-    m_drive.right.stopMotor();
+    m_drive.setLeft(0);
+    m_drive.setLeft(0);
   }
 
   @Override

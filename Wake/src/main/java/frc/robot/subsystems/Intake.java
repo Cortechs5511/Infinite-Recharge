@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -8,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
@@ -23,13 +26,16 @@ public class Intake extends SubsystemBase {
   private SpeedControllerGroup feeder = new SpeedControllerGroup(feeder0, feeder1);
 
   private Encoder intakeEncoder = new Encoder(0, 1);
-
-  public DigitalInput bottomSensor = new DigitalInput(0);
-  public DigitalInput topSensor = new DigitalInput(1);
-
-
-
   private Encoder feedEncoder = new Encoder(2,3);
+
+  private DigitalInput bottomSensor = new DigitalInput(0);
+  private DigitalInput topSensor = new DigitalInput(1);
+  
+  public Supplier<Boolean> getBottomSensor = () -> bottomSensor.get();
+  public Supplier<Boolean> getTopSensor = () -> bottomSensor.get();
+
+  public Supplier<Integer> getIntakeEncoder = () -> intakeEncoder.get();
+  public Supplier<Integer> getFeedEncoder = () -> feedEncoder.get();
 
   public Intake() {
     wrist.configFactoryDefault();
@@ -40,6 +46,7 @@ public class Intake extends SubsystemBase {
 
     wrist.setNeutralMode(NeutralMode.Coast);
     intake.setNeutralMode(NeutralMode.Brake);
+
     feeder0.setNeutralMode(NeutralMode.Brake);
     feeder1.setNeutralMode(NeutralMode.Brake);
     feeder2.setNeutralMode(NeutralMode.Brake);
@@ -57,31 +64,20 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    /* write swtich values to SD */
-  }
-
-  public void pullBallIn() {
-    intake.set(ControlMode.PercentOutput, 0.9);
-  }
-
-  public void stopBall() {
-    intake.set(ControlMode.PercentOutput,0.0);
+    SmartDashboard.putBoolean("Top Sensor", getTopSensor.get());
+    SmartDashboard.putBoolean("Bottom Sensor", getBottomSensor.get());
   }
 
   public void moveWrist(double x) {
     wrist.set(ControlMode.PercentOutput,x);
   }
 
-  public void moveFeederIn() {
-    feedEncoder.reset();
-    /* needs to be updated with actual value */
-    /* to do - figure out switch integration as error checking */
-    int x = 0;
-    while (feedEncoder.get() < x) {
-      feeder.set(0.9);
-    }
-    feeder.set(0);
+  public void setFeederSpeed(double input) {
+    feeder1.set(input);
+    feeder2.set(input);
   }
-
-
+  
+  public void resetFeedEncoder() {
+    feedEncoder.reset();
+  }
 }
