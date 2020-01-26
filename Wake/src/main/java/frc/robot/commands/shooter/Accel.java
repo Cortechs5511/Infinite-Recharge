@@ -30,7 +30,7 @@ public class Accel extends CommandBase {
   
   @Override
   public void execute() {
-    if (m_oi.getShooterLong.get()) {
+    if (m_oi.getShooter.get()) {
       targetSpeed = calculatedRPM;
     }
 

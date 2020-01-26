@@ -8,24 +8,21 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight extends SubsystemBase {
-    
-public double x, y, area;
-double distanceMultiplierRPM = 0.0;
+  public double x, y, area;
+  private double distanceMultiplierRPM = 0.0;
+  private NetworkTable table = NetworkTableInstance.getDefault().getTable("jeff");
+  private NetworkTableEntry tx = table.getEntry("tx");
+  private NetworkTableEntry ty = table.getEntry("ty");
+  private NetworkTableEntry ta = table.getEntry("ta");
 
-public Limelight() {
-}
+public Limelight() {}
 
   @Override
   public void periodic() {
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-    NetworkTableEntry tx = table.getEntry("tx");
-    NetworkTableEntry ty = table.getEntry("ty");
-    NetworkTableEntry ta = table.getEntry("ta");
-
     //read values periodically
-    x = tx.getDouble(0.0);
-    y = ty.getDouble(0.0);
-    area = ta.getDouble(0.0);
+    double x = tx.getDouble(0.001);
+    double y = ty.getDouble(0.0);
+    double area = ta.getDouble(0.0);
 
     //post to smart dashboard periodically
     SmartDashboard.putNumber("LimelightX", x);
@@ -35,6 +32,7 @@ public Limelight() {
 
   public double calculateRPM() {
     double distance = ((63.65) / Math.tan(Math.toRadians(y+16.94))) * (((-Math.abs(y)) / 300) + 1);
+    SmartDashboard.putNumber("Distance", distance);
     double rpm = distance * distanceMultiplierRPM;
     return rpm;
   }

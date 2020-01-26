@@ -25,7 +25,7 @@ public Shooter() {
     shoot0.restoreFactoryDefaults();
     shoot1.restoreFactoryDefaults();
 
-    shoot0.setInverted(false);
+    shoot0.setInverted(false); //may need to be changed
     shoot1.setInverted(true);
 
     shoot0.setIdleMode(IdleMode.kCoast);
