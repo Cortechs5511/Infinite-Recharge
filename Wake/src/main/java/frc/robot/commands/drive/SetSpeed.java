@@ -23,7 +23,7 @@ public class SetSpeed extends CommandBase {
   @Override
   public void execute() {
     leftInput = m_oi.getLeftY.get();
-    rightInput = m_oi.getLeftY.get();
+    rightInput = m_oi.getRightY.get();
 
     if (Math.abs(leftInput) > 0.05) {
       m_drive.setLeft(leftInput * 0.9);
@@ -42,7 +42,7 @@ public class SetSpeed extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_drive.setLeft(0);
-    m_drive.setLeft(0);
+    m_drive.setRight(0);
   }
 
   @Override

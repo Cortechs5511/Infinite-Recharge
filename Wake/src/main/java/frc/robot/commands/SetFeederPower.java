@@ -20,14 +20,12 @@ public class SetFeederPower extends CommandBase {
 
   @Override
   public void execute() { 
-    if (m_Intake.getTopSensor.get() == true) {
+    if (m_Intake.getTopSensor.get() == false) { //means there is a ball in top sensors
       m_Intake.setFeederSpeed(0);
-    }
-    else if (m_Intake.getBottomSensor.get() == true) {
+    } else if (m_Intake.getBottomSensor.get() == false) { //means there is no ball in the top sensor, ball in the bottom sensor
       m_Intake.setFeederSpeed(0.5);
-    }
-    else {
-      m_Intake.setFeederSpeed(0);
+    } else {
+      m_Intake.setFeederSpeed(0); // no ball in the top or bottom sensor
     }
   }
 

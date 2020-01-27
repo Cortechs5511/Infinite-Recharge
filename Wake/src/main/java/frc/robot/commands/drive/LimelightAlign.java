@@ -10,6 +10,7 @@ public class LimelightAlign extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private Drive m_drive;
   private Limelight m_limelight;
+  private double val = 0f;
 
   public LimelightAlign(Drive drive, Limelight limelight) {
     m_drive = drive;
@@ -23,6 +24,9 @@ public class LimelightAlign extends CommandBase {
     SmartDashboard.putNumber("Angle P", 0.0);
     SmartDashboard.putNumber("Angle I", 0.0);
     SmartDashboard.putNumber("Angle D", 0.0);
+    SmartDashboard.putNumber("Angle PID Output", 0);
+    
+    m_drive.anglePID.setTolerance(0);
   }
 
   @Override
@@ -33,9 +37,18 @@ public class LimelightAlign extends CommandBase {
     double setpoint = 0.0;
     m_drive.anglePID.setPID(angle_kP, angle_kI, angle_kD);
     m_drive.anglePID.setSetpoint(setpoint);
-    double val = m_drive.anglePID.calculate(m_limelight.x, setpoint);
+    val = m_drive.anglePID.calculate(m_limelight.x);
+
+    if (Math.abs(val) > 0.8) {
+      val = (0.8 * (val/Math.abs(val)));
+    } else if (Math.abs(val) < 0.05) {
+      val = 0;
+    }
+
     m_drive.setLeft(val);
     m_drive.setRight(-val);
+
+    SmartDashboard.putNumber("Angle PID Output", val);
   }
 
   @Override

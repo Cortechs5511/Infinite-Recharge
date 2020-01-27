@@ -3,8 +3,6 @@ package frc.robot.commands;
 import frc.robot.subsystems.Intake;
 import frc.robot.OI;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetIntakePower extends CommandBase {
@@ -25,20 +23,21 @@ public class SetIntakePower extends CommandBase {
   @Override
   public void execute() {
     input = m_oi.getIntake.get();
-    if (input == true) {
-      m_Intake.intake.set(ControlMode.PercentOutput, 0.9);
+    if (input == true) { // if button is pressed, intake spins
+      m_Intake.setIntakePower(0.9);
+    } else {
+      m_Intake.setIntakePower(0);
     }
-    else {
-      m_Intake.intake.set(ControlMode.PercentOutput, 0);
-    }
-    if ((m_oi.getIntake.get() == true) && (m_Intake.getBottomSensor.get() == false)) {
-      m_Intake.setFeeder0Speed(0.9);
+    if ((input == true) && (m_Intake.getBottomSensor.get() == true)) { //if button is pressed and bottom sensor is open, feeder spins
+      m_Intake.setFeeder2Speed(0.9);
+    } else {
+      m_Intake.setFeeder2Speed(0);
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-      m_Intake.intake.set(ControlMode.PercentOutput, 0);
+      m_Intake.setIntakePower(0);
   }
 
   @Override

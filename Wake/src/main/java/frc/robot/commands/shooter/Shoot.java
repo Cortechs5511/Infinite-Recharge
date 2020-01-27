@@ -11,10 +11,10 @@ public class Shoot extends SequentialCommandGroup {
   private OI m_oi = OI.getInstance();
   //temporary code before limelight based RPM control
   public Shoot(Shooter shooter, Intake intake, Limelight limelight) {
-    if (m_oi.getShooterLong.get()== true) {
+    if (m_oi.getShooter.get()== true) {
       addCommands(
         new Accel(shooter, limelight),
-        new ShooterStop(shooter, intake));  
+        new Cruise(shooter, intake));  
     } 
   }
 }

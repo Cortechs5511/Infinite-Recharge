@@ -6,17 +6,16 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Intake;
 
-public class ShooterStop extends CommandBase {
+public class Cruise extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private Timer timer = new Timer();
   
   private Shooter m_Shooter;
   private Intake m_Intake; 
 
-  private boolean previous, current;
-  private int count = 0;
+  private boolean exit = false;
 
-  public ShooterStop(Shooter shooter, Intake intake) {
+  public Cruise(Shooter shooter, Intake intake) {
     m_Shooter = shooter;
     m_Intake = intake;
     addRequirements(m_Shooter);
@@ -25,21 +24,21 @@ public class ShooterStop extends CommandBase {
 
   @Override
   public void initialize() {
-    previous = m_Intake.getTopSensor.get();
     timer.reset();
     timer.start();
   }
 
   @Override
   public void execute() {
-      current = m_Intake.getTopSensor.get();
-      if (previous != current) {
-        count++;
+      if (m_Intake.getTopSensor.get() == false) { // if there is a ball in the top, timer resets
         timer.reset();
+      } else { // else (there is no ball, or the sensor is dead), timer starts counting
         timer.start();
       }
-      if (timer.get() > 3) {
-          count += 254;
+      if (timer.get() > 1) { // if timer is greater than 1 second, shooter stops
+        exit = true;
+      } else {
+        exit = false;
       }
   }
 
@@ -52,11 +51,6 @@ public class ShooterStop extends CommandBase {
 
   @Override
   public boolean isFinished() {
-      if (count > 5) {
-          return true;
-      }
-      else {
-          return false;
-      }
+      return exit;
   }
 }
