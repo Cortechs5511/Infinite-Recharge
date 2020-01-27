@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import java.util.function.Supplier;
 
 import com.revrobotics.CANEncoder;
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
@@ -35,6 +36,8 @@ public class Drive extends SubsystemBase {
 
   public Supplier<Double> getLeftVelocity = () -> leftEnc.getVelocity();
   public Supplier<Double> getRightVelocity = () -> rightEnc.getVelocity();
+
+  public AHRS navx = new AHRS();
 
   public Drive() {
     leftEnc.setPositionConversionFactor(42);
