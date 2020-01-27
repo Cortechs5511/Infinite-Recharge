@@ -1,37 +1,49 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Shooter;
+import frc.robot.OI;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetFeederPower extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private Intake m_Intake;
+  private Feeder m_Feeder;
+  private Shooter m_Shooter;
+  private OI m_oi = OI.getInstance();
 
-  public SetFeederPower(Intake subsystem) {
-    m_Intake = subsystem;
-    addRequirements(subsystem);
+  public SetFeederPower(Feeder feeder, Shooter shooter) {
+    m_Feeder = feeder;
+    m_Shooter = shooter;
+    addRequirements(feeder);
+    addRequirements(shooter);
   }
 
   @Override
   public void initialize() {
-    m_Intake.resetFeedEncoder();
+    m_Feeder.resetFeedEncoder();
   }
 
   @Override
   public void execute() { 
-    if (m_Intake.getTopSensor.get() == false) { //means there is a ball in top sensors
-      m_Intake.setFeederSpeed(0);
-    } else if (m_Intake.getBottomSensor.get() == false) { //means there is no ball in the top sensor, ball in the bottom sensor
-      m_Intake.setFeederSpeed(0.5);
+    if ((m_Feeder.getTopSensor.get() == false) && (m_Shooter.targetReached))  { //means there is a ball in top sensors
+      m_Feeder.setFeederSpeed(0);
+    } else if ((m_Feeder.getBottomSensor.get() == false) || (m_Shooter.targetReached)) { //means there is no ball in the top sensor, ball in the bottom sensor
+      m_Feeder.setFeederSpeed(0.5);
     } else {
-      m_Intake.setFeederSpeed(0); // no ball in the top or bottom sensor
+      m_Feeder.setFeederSpeed(0); // no ball in the top or bottom sensor
+    }
+    if ((m_oi.getIntake.get() == true) && (m_Feeder.getBottomSensor.get() == true)) { //if button is pressed and bottom sensor is open, feeder spins
+      m_Feeder.setFeeder2Speed(0.9);
+    } else {
+      m_Feeder.setFeeder2Speed(0);
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_Intake.setFeederSpeed(0);
+    m_Feeder.setFeederSpeed(0);
+    m_Feeder.setFeeder2Speed(0);
   }
 
   @Override

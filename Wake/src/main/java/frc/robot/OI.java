@@ -15,8 +15,6 @@ public class OI {
 
     public Supplier<Boolean> getWristUp = () -> leftStick.getRawButton(2); // PID command up for wrist
     public Supplier<Boolean> getWristDown = () -> rightStick.getRawButton(2); // PID command down for wrist
-
-    public Supplier<Boolean> getShooter = () -> rightStick.getRawButton(1); // PID Command for shooting near init line
     
     private OI() {}
 

@@ -2,16 +2,14 @@ package frc.robot.commands.shooter;
 
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Limelight;
-import frc.robot.OI;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Accel extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private OI m_oi = OI.getInstance();
   private Shooter m_Shooter;
   private Limelight m_Limelight;
-  private double targetSpeed, currentSpeed, calculatedRPM;
+  private double currentSpeed, calculatedRPM;
   private int count = 0;
 
   public Accel(Shooter shooter, Limelight limelight) {
@@ -30,11 +28,7 @@ public class Accel extends CommandBase {
   
   @Override
   public void execute() {
-    if (m_oi.getShooter.get()) {
-      targetSpeed = calculatedRPM;
-    }
-
-    m_Shooter.setPIDReference(targetSpeed);
+    m_Shooter.setPIDReference(calculatedRPM);
 
     currentSpeed = m_Shooter.getSpeed.get();
   }
@@ -46,7 +40,7 @@ public class Accel extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    if (Math.abs(targetSpeed - currentSpeed) < 100) {
+    if (Math.abs(calculatedRPM - currentSpeed) < 100) {
       count++;
     }
     else {
@@ -54,6 +48,7 @@ public class Accel extends CommandBase {
     }
 
     if (count > 25) {
+      m_Shooter.targetReached = true;
       return true;
     }
     else {

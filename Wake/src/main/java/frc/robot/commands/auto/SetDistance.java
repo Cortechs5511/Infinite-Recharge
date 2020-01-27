@@ -1,4 +1,4 @@
-package frc.robot.commands.drive;
+package frc.robot.commands.auto;
 
 import frc.robot.subsystems.Drive;
 

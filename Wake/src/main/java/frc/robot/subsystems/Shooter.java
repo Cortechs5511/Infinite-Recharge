@@ -20,6 +20,7 @@ public class Shooter extends SubsystemBase {
     private CANEncoder shootEnc = shoot0.getEncoder();
     
     public Supplier<Double> getSpeed = () -> shootEnc.getVelocity();
+    public Boolean targetReached = false;
     
 public Shooter() {
     shoot0.restoreFactoryDefaults();
@@ -58,6 +59,7 @@ public Shooter() {
   public void setPIDReference (double ref) {
     shootPID.setReference(ref, ControlType.kVelocity);
   }
+
   @Override
   public void periodic() {
   }
