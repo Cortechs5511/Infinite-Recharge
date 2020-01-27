@@ -21,7 +21,7 @@ public class LimelightAlign extends CommandBase {
 
   @Override
   public void initialize() {
-    SmartDashboard.putNumber("Angle P", 0.0);
+    SmartDashboard.putNumber("Angle P", 0.0); //continue testing with flashed limelight
     SmartDashboard.putNumber("Angle I", 0.0);
     SmartDashboard.putNumber("Angle D", 0.0);
     SmartDashboard.putNumber("Angle PID Output", 0);

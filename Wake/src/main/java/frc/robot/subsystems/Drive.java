@@ -53,8 +53,8 @@ public class Drive extends SubsystemBase {
     right0.restoreFactoryDefaults();
     right1.restoreFactoryDefaults();
 
-    left1.follow(left0);
-    right1.follow(right0);
+    left1.follow(left0); //make sure we test this
+    right1.follow(right0); // TEST THIS
     
     left0.setIdleMode(IdleMode.kCoast);
     left1.setIdleMode(IdleMode.kCoast);
@@ -93,7 +93,7 @@ public class Drive extends SubsystemBase {
     leftNEOPID.setI(0);
     leftNEOPID.setD(50.3);
     leftNEOPID.setFF(0);
-    leftNEOPID.setOutputRange(-0.3, 0.3);
+    leftNEOPID.setOutputRange(-0.3, 0.3); //consider changing this during drive testing
 
     rightNEOPID.setP(0.101);
     rightNEOPID.setI(0);

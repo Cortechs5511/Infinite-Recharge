@@ -33,14 +33,14 @@ public class RobotContainer {
   public RobotContainer() {
     configureButtonBindings();
     m_Drive.setDefaultCommand(m_SetSpeed);
-    m_Limelight.setDefaultCommand(m_LimelightAlign);
+    //m_Limelight.setDefaultCommand(m_LimelightAlign);
     m_Feeder.setDefaultCommand(m_SetFeederPower);
   }
 
   private void configureButtonBindings() {
     new JoystickButton(leftStick, 7).toggleWhenPressed(m_LimelightAlign, true); // testing for limelight calibration
     new JoystickButton(rightStick, 1).whenHeld(m_Shoot, true); // button triggers sequential command group
-  }
+  } //toggleWhenPressed, whenHeld
 
   public Command getAutonomousCommand() {
     return m_SetDistance;

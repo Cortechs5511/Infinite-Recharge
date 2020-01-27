@@ -7,12 +7,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class SetDistance extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private Drive m_drive;
+  private double targetDistance = 0.0;
 
   public SetDistance(Drive drive) {
     m_drive = drive;
     addRequirements(drive);
   }
-  private double targetDistance;
 
   @Override
   public void initialize() {

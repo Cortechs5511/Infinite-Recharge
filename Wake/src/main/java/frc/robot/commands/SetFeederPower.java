@@ -26,14 +26,23 @@ public class SetFeederPower extends CommandBase {
 
   @Override
   public void execute() { 
-    if ((m_Feeder.getTopSensor.get() == false) && (m_Shooter.targetReached))  { //means there is a ball in top sensors
+    /*if ((m_Feeder.getTopSensor.get() == false) && (m_Shooter.targetReached))  { //means there is a ball in top sensors
       m_Feeder.setFeederSpeed(0);
     } else if ((m_Feeder.getBottomSensor.get() == false) || (m_Shooter.targetReached)) { //means there is no ball in the top sensor, ball in the bottom sensor
       m_Feeder.setFeederSpeed(0.5);
     } else {
       m_Feeder.setFeederSpeed(0); // no ball in the top or bottom sensor
+    }*/
+
+    if ((m_Feeder.getBottomSensor.get() == false) && (m_Feeder.getTopSensor.get())) { //move up a stage
+      m_Feeder.setFeederSpeed(0.5);
+    } else if (m_Shooter.targetReached){ //feed to shoot
+      m_Feeder.setFeederSpeed(0.5);
+    } else {
+      m_Feeder.setFeederSpeed(0); //none of the above
     }
-    if ((m_oi.getIntake.get() == true) && (m_Feeder.getBottomSensor.get() == true)) { //if button is pressed and bottom sensor is open, feeder spins
+
+    if ((m_oi.getIntake.get()) && (m_Feeder.getBottomSensor.get())) { //if button is pressed and bottom sensor is open, feeder spins
       m_Feeder.setFeeder2Speed(0.9);
     } else {
       m_Feeder.setFeeder2Speed(0);

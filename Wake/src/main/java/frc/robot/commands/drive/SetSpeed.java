@@ -25,13 +25,13 @@ public class SetSpeed extends CommandBase {
     leftInput = m_oi.getLeftY.get();
     rightInput = m_oi.getRightY.get();
 
-    if (Math.abs(leftInput) > 0.05) {
+    if (Math.abs(leftInput) > 0.1) {
       m_drive.setLeft(leftInput * 0.9);
     }
     else {
       m_drive.setLeft(0);
     }
-    if (Math.abs(rightInput) > 0.05) {
+    if (Math.abs(rightInput) > 0.1) {
       m_drive.setRight(rightInput * 0.9);
     }
     else {

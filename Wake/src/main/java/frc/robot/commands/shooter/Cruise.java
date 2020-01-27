@@ -36,7 +36,7 @@ public class Cruise extends CommandBase {
       timer.start();
     }
     if (timer.get() > 1) { // if timer is greater than 1 second, shooter stops
-      exit = true;
+      exit = true; //if the last ball is falling short, increase to 1.5 seconds
     } else {
       exit = false;
     }
@@ -45,7 +45,7 @@ public class Cruise extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_Shooter.setRampRate(1.5);
-    m_Shooter.setPIDReference(0);  
+    m_Shooter.setPIDReference(0);
     m_Shooter.setSpeed(0);
   }
 

@@ -42,7 +42,7 @@ public Shooter() {
 
     shootPID.setOutputRange(0, 0.95);
 
-    shootPID.setP(0.00033);
+    shootPID.setP(0.00033); //will need to be re-tested on the new shooter
     shootPID.setI(0);
     shootPID.setD(0.003);
     shootPID.setFF(0.0002);
@@ -51,6 +51,7 @@ public Shooter() {
   public void setSpeed(double input) {
     shoot0.set(input);
   }
+  
   public void setRampRate(double rate) {
     shoot0.setClosedLoopRampRate(rate);
     shoot1.setClosedLoopRampRate(rate);

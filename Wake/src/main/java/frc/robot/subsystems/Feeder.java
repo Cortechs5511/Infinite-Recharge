@@ -16,8 +16,8 @@ public class Feeder extends SubsystemBase {
   private WPI_VictorSPX feeder1 = new WPI_VictorSPX(41);
   private WPI_VictorSPX feeder2 = new WPI_VictorSPX(42);
 
-  private Encoder intakeEncoder = new Encoder(0, 1);
-  private Encoder feedEncoder = new Encoder(2, 3);
+  private Encoder intakeEncoder = new Encoder(0, 1); //black wheels
+  private Encoder feedEncoder = new Encoder(2, 3); //tower
 
   private DigitalInput bottomSensor = new DigitalInput(4);
   private DigitalInput topSensor = new DigitalInput(5);
@@ -39,13 +39,14 @@ public class Feeder extends SubsystemBase {
 
     feeder0.setInverted(true); //may need to be changed depending on motor config
     feeder1.setInverted(false);
+    feeder2.setInverted(false); //test this
   }
 
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Top Sensor", getTopSensor.get());
     SmartDashboard.putBoolean("Bottom Sensor", getBottomSensor.get());
-    SmartDashboard.putNumber("Feeder Encoder", intakeEncoder.get());
+    SmartDashboard.putNumber("Intake Encoder", intakeEncoder.get()); //intakeEncoder in feeder subsystem = black wheels
     SmartDashboard.putNumber("Feeder Encoder", feedEncoder.get());
   }
 

@@ -37,17 +37,20 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putBoolean("Forward Limit Switch", wrist.isFwdLimitSwitchClosed()==1);
     SmartDashboard.putBoolean("Reverse Limit Switch", wrist.isRevLimitSwitchClosed()==1);   
 
-    if (m_oi.getWristDown.get() == true) {
+    if (m_oi.getWristDown.get()) {
       wristInput = -0.9;
-    } else if (m_oi.getWristUp.get() == true) {
+    } else if (m_oi.getWristUp.get()) {
       wristInput = 0.9;
     } else {
       wristInput = 0;
     }
+
+    if (m_oi.getIntake.get()) {
+      intake.set(0.8);
+    } else {
+      intake.set(0);
+    }
     
     wrist.set(ControlMode.PercentOutput, wristInput);
     }
-  public void setIntakePower(double input) {
-    intake.set(input);
-  }
 }
