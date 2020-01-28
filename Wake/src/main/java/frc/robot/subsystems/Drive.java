@@ -66,10 +66,10 @@ public class Drive extends SubsystemBase {
     right0.setInverted(true);
     right1.setInverted(true);
 
-    left0.disableVoltageCompensation();
-    left1.disableVoltageCompensation();
-    right0.disableVoltageCompensation();
-    right1.disableVoltageCompensation();
+    left0.enableVoltageCompensation(9);
+    left1.enableVoltageCompensation(9);
+    right0.enableVoltageCompensation(9);
+    right1.enableVoltageCompensation(9);
 
     left0.setOpenLoopRampRate(0.5);
     left1.setOpenLoopRampRate(0.5);
