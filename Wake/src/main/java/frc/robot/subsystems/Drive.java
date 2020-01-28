@@ -101,7 +101,6 @@ public class Drive extends SubsystemBase {
     rightNEOPID.setFF(0);
     leftNEOPID.setOutputRange(-0.3, 0.3);
 
-    anglePID.setPID(0.0, 0.0, 0.0);
     anglePID.enableContinuousInput(-30, 30);
   }
 

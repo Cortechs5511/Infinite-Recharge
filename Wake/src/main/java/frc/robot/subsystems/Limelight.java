@@ -10,7 +10,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class Limelight extends SubsystemBase {
   public double x, y, area;
   private double distanceMultiplierRPM = 0.0;
-  private NetworkTable table = NetworkTableInstance.getDefault().getTable("jeff");
+  private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   private NetworkTableEntry tx = table.getEntry("tx");
   private NetworkTableEntry ty = table.getEntry("ty");
   private NetworkTableEntry ta = table.getEntry("ta");
@@ -35,5 +35,15 @@ public Limelight() {}
     SmartDashboard.putNumber("Distance", distance);
     double rpm = distance * distanceMultiplierRPM;
     return rpm;
+  }
+
+  public double getX() {
+    return x;
+  }
+  public double getY() {
+    return y;
+  }
+  public double getArea() {
+    return area;
   }
 }
