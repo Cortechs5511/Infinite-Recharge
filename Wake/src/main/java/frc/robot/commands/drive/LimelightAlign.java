@@ -3,13 +3,13 @@ package frc.robot.commands.drive;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Limelight;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class LimelightAlign extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private Drive m_drive;
   private Limelight m_limelight;
+  private double val;
 
   public LimelightAlign(Drive drive, Limelight limelight) {
     m_drive = drive;
@@ -20,33 +20,21 @@ public class LimelightAlign extends CommandBase {
 
   @Override
   public void initialize() {
-    SmartDashboard.putNumber("Angle P", 0.0); //continue testing with flashed limelight
-    SmartDashboard.putNumber("Angle I", 0.0);
-    SmartDashboard.putNumber("Angle D", 0.0);
-    SmartDashboard.putNumber("Angle PID Output", 0);
-    
-    m_drive.anglePID.setTolerance(0);
   }
 
   @Override
   public void execute() {
-    double angle_kP = SmartDashboard.getNumber("Angle P", 0.0);
-    double angle_kI = SmartDashboard.getNumber("Angle I", 0.0);
-    double angle_kD = SmartDashboard.getNumber("Angle D", 0.0);
-    double setpoint = 0.0;
-    m_drive.anglePID.setPID(angle_kP, angle_kI, angle_kD);
-    double val = m_drive.anglePID.calculate(m_limelight.getX(), setpoint);
+    val = m_limelight.getX();
 
-    if (Math.abs(val) > 0.8) {
-      val = (0.8 * (val/Math.abs(val)));
-    } else if (Math.abs(val) < 0.05) {
+    m_drive.setLeftPIDReference(0);
+
+    if (Math.abs(val) > 28) {
+      val = (28 * (val/Math.abs(val)));
+    } else if (Math.abs(val) < 0.5) { // deadband angle should be tuned
       val = 0;
     }
 
-    m_drive.setLeft(val);
-    m_drive.setRight(-val);
-
-    SmartDashboard.putNumber("Angle PID Output", val);
+    m_drive.limelightPID(val);
   }
 
   @Override
@@ -57,6 +45,10 @@ public class LimelightAlign extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    if ((val == 0) && ((m_drive.getLeftVelocity.get() == 0) && (m_drive.getRightVelocity.get() == 0))) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
