@@ -40,7 +40,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(leftStick, 1).toggleWhenPressed(m_LimelightAlign, true); // testing for limelight calibration
     new JoystickButton(rightStick, 1).whenHeld(m_Shoot, true); // button triggers sequential command group
-    SmartDashboard.putData("Record", new DataRecorder(m_Drive));
+    //SmartDashboard.putData("Record", new DataRecorder(m_Drive));
   } //toggleWhenPressed, whenHeld
 
   public Command getAutonomousCommand() {

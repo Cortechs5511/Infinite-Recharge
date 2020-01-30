@@ -118,11 +118,6 @@ public class Drive extends SubsystemBase {
     rightNEOPID.setReference(ref, ControlType.kPosition);
   }
 
-  public void limelightPID(double input) { // sets the left encoder for limelight align PID loophole
-    leftEnc.setPosition(input);
-    right0.set(left0.get());
-  }
-
   public void resetLeftEnc() {
     leftEnc.setPosition(0);
   }
