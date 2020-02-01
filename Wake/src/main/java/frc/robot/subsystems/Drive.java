@@ -23,7 +23,7 @@ public class Drive extends SubsystemBase {
 
   private CANPIDController leftNEOPID = left0.getPIDController();
   private CANPIDController rightNEOPID = right0.getPIDController();
-  public PIDController anglePID = new PIDController(0.0, 0.0, 0.0);
+  public PIDController anglePID = new PIDController(0.0, 0.0, 0.0, 0.0119047619047619);
 
   private CANEncoder leftEnc = left0.getEncoder();
   private CANEncoder rightEnc = right0.getEncoder();
@@ -38,6 +38,8 @@ public class Drive extends SubsystemBase {
   public Supplier<Double> getRightVelocity = () -> rightEnc.getVelocity();
 
   public AHRS navx = new AHRS();
+
+  private double angle_kP, angle_kI, angle_kD;
 
   public Drive() {
     leftEnc.setPositionConversionFactor(42);
@@ -102,6 +104,11 @@ public class Drive extends SubsystemBase {
     leftNEOPID.setOutputRange(-0.3, 0.3);
 
     anglePID.disableContinuousInput();
+    anglePID.setIntegratorRange(-1, 1);
+    SmartDashboard.putNumber("Angle P", 0.02);
+    SmartDashboard.putNumber("Angle I", 0.01);
+    SmartDashboard.putNumber("Angle D", 0.001);
+    SmartDashboard.putNumber("Threshold", 1);
   }
 
   public void setLeft(double leftInput) {
@@ -130,5 +137,13 @@ public class Drive extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Left Speed", leftEnc.getVelocity());
     SmartDashboard.putNumber("Right Speed", rightEnc.getVelocity());
+
+    SmartDashboard.putNumber("Left Power", left0.get());
+    SmartDashboard.putNumber("Right Power", right0.get());
+
+    angle_kP = SmartDashboard.getNumber("Angle P", 0.02);
+    angle_kI = SmartDashboard.getNumber("Angle I", 0.01);
+    angle_kD = SmartDashboard.getNumber("Angle D", 0.001);
+    anglePID.setPID(angle_kP, angle_kI, angle_kD);
   }
 }

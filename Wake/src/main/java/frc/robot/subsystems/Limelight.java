@@ -20,9 +20,9 @@ public Limelight() {}
   @Override
   public void periodic() {
     //read values periodically
-    double x = tx.getDouble(0.001); //continue working on getting x and tx
-    double y = ty.getDouble(0.0);
-    double area = ta.getDouble(0.0);
+    x = tx.getDouble(0.001); //continue working on getting x and tx
+    y = ty.getDouble(0.0);
+    area = ta.getDouble(0.0);
 
     //post to smart dashboard periodically
     SmartDashboard.putNumber("LimelightX", x);
