@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 
 public class DataRecorder extends CommandBase {
-    private static final int MAX_ROWS = 50 * 10;
+    private static final int MAX_ROWS = 500;
     private static final int COLUMNS = 5;
     private Drive m_drive;
     public double[][] data = new double[MAX_ROWS][COLUMNS];
@@ -28,9 +28,9 @@ public class DataRecorder extends CommandBase {
             data[row][col++] = m_drive.getRightVelocity.get();
             data[row][col++] = m_drive.getLeftOutput.get();
             data[row][col++] = m_drive.getRightOutput.get();
-            data[row][col++] = iteration;
             // navx
             // data[row][col++] = m_drive.getRightOutput.get();
+            data[row][col++] = iteration;
             row++;
         }
         iteration++;
@@ -67,6 +67,7 @@ public class DataRecorder extends CommandBase {
             err.printStackTrace();
         } finally {
             try {
+                //out.flush(); //<-- code to test
                 out.close();
             } catch (IOException e) {
                 e.printStackTrace();
