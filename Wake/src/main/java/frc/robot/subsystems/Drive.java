@@ -101,7 +101,7 @@ public class Drive extends SubsystemBase {
     rightNEOPID.setFF(0);
     leftNEOPID.setOutputRange(-0.3, 0.3);
 
-    anglePID.enableContinuousInput(-30, 30);
+    anglePID.disableContinuousInput();
   }
 
   public void setLeft(double leftInput) {
