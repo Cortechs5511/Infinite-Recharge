@@ -27,6 +27,8 @@ public class Drive extends SubsystemBase {
 
   private CANEncoder leftEnc = left0.getEncoder();
   private CANEncoder rightEnc = right0.getEncoder();
+
+  private AHRS navx = new AHRS();
   
   public Supplier<Double> getLeftOutput = () -> left0.get();
   public Supplier<Double> getRightOutput = () -> right0.get();
@@ -37,7 +39,8 @@ public class Drive extends SubsystemBase {
   public Supplier<Double> getLeftVelocity = () -> leftEnc.getVelocity();
   public Supplier<Double> getRightVelocity = () -> rightEnc.getVelocity();
 
-  public AHRS navx = new AHRS();
+  public Supplier<Double> getGyroAngle = () -> navx.getAngle();
+
 
   private double angle_kP, angle_kI, angle_kD;
 

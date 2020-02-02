@@ -8,8 +8,8 @@ public class OI {
     public Joystick leftStick = new Joystick(0);
     private Joystick rightStick = new Joystick(1);
 
-    public Supplier<Double> getLeftY = () -> -leftStick.getY();
-    public Supplier<Double> getRightY = () -> -rightStick.getY();
+    public Supplier<Double> getLeftY = () -> leftStick.getY();
+    public Supplier<Double> getRightY = () -> rightStick.getY();
 
     public Supplier<Boolean> getIntake = () -> leftStick.getRawButton(1); // 90% output for intake
 

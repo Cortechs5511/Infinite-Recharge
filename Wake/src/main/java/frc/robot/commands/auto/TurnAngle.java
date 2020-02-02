@@ -32,7 +32,7 @@ public class TurnAngle extends CommandBase {
         double angle_kD = SmartDashboard.getNumber("Angle D", 0.0);
         m_drive.anglePID.setPID(angle_kP, angle_kI, angle_kD);
         m_drive.anglePID.setSetpoint(kTargetAngleDegrees);
-        double navxAngle = m_drive.navx.getAngle();
+        double navxAngle = m_drive.getGyroAngle.get();
         double val = m_drive.anglePID.calculate(navxAngle, kTargetAngleDegrees);
         if (Math.abs(val) < 0.05) {
             val = 0;

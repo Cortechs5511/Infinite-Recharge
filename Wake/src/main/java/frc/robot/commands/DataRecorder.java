@@ -7,13 +7,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 
 public class DataRecorder extends CommandBase {
-    private static final int MAX_ROWS = 500;
-    private static final int COLUMNS = 5;
+    private static final int MAX_ROWS = 9000;
+    private static final int COLUMNS = 8;
     private Drive m_drive;
     public double[][] data = new double[MAX_ROWS][COLUMNS];
     private int row = 0;
     private int col = 0;
-    private int iteration = 0;
+    private double time = 0;
 
     public DataRecorder(Drive drive) {
         m_drive = drive;
@@ -22,24 +22,23 @@ public class DataRecorder extends CommandBase {
     @Override
     public void execute() {
         col = 0;
-        if ((m_drive.getLeftVelocity.get() == 0) && (m_drive.getRightVelocity.get() == 0)){
-        }else{
-            data[row][col++] = m_drive.getLeftVelocity.get();
-            data[row][col++] = m_drive.getRightVelocity.get();
-            data[row][col++] = m_drive.getLeftOutput.get();
-            data[row][col++] = m_drive.getRightOutput.get();
-            // navx
-            // data[row][col++] = m_drive.getRightOutput.get();
-            data[row][col++] = iteration;
-            row++;
-        }
-        iteration++;
+        data[row][col++] = m_drive.getLeftVelocity.get();
+        data[row][col++] = m_drive.getRightVelocity.get();
+        //data[row][col++] = m_drive.getLeftPosition.get();
+        //data[row][col++] = m_drive.getRightPosition.get();
+        data[row][col++] = m_drive.getLeftOutput.get();
+        data[row][col++] = m_drive.getRightOutput.get();
+        data[row][col++] = m_drive.getGyroAngle.get();
+        data[row][col++] = time;
+
+        row++;
+        time += 0.02;
     }
 
     @Override
     public boolean isFinished() {
-        if ((row == (MAX_ROWS - 2)) || ((data[row][0] == 0) && (data[row][1] == 0))) {
-            return row > 0;
+        if (time >= 170) {
+            return true;
         } else {
             return false;
         }
@@ -47,7 +46,6 @@ public class DataRecorder extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-
         FileWriter out;
         try {
             out = new FileWriter("/home/lvuser/data.csv");
@@ -67,7 +65,7 @@ public class DataRecorder extends CommandBase {
             err.printStackTrace();
         } finally {
             try {
-                //out.flush(); //<-- code to test
+                // out.flush(); //<-- code to test
                 out.close();
             } catch (IOException e) {
                 e.printStackTrace();
