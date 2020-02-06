@@ -3,7 +3,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Shooter;
 import frc.robot.OI;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetFeederPower extends CommandBase {
@@ -22,14 +22,17 @@ public class SetFeederPower extends CommandBase {
   @Override
   public void initialize() {
     m_Feeder.resetFeedEncoder();
+
+    SmartDashboard.putNumber("Tower Power", 0.4);
   }
 
   @Override
   public void execute() {
+    double towerPower = SmartDashboard.getNumber("Tower Power", 0.4);
     if ((m_Feeder.getBottomSensor.get() == false) && (m_Feeder.getTopSensor.get())) { //move up a stage
-      m_Feeder.setFeederSpeed(0.4);
+      m_Feeder.setFeederSpeed(towerPower);
     } else if (m_Shooter.targetReached){ //feed to shoot
-      m_Feeder.setFeederSpeed(0.4);
+      m_Feeder.setFeederSpeed(-towerPower);
     } else {
       m_Feeder.setFeederSpeed(0); //none of the above
     }

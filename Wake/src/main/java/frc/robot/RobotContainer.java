@@ -26,8 +26,8 @@ public class RobotContainer {
   
   private final Shoot m_Shoot = new Shoot(m_shooter, m_feeder, m_limelight);
   private final ShootAlign m_ShootAlign = new ShootAlign(m_drive, m_shooter, m_feeder, m_limelight);
-  private final Accel m_Accel = new Accel(m_shooter, m_limelight); // not sure whether commands inherited in sequentialcommandgroup must be imported
-  private final Cruise m_Cruise = new Cruise(m_shooter, m_feeder);
+  //private final Accel m_Accel = new Accel(m_shooter, m_limelight); // not sure whether commands inherited in sequentialcommandgroup must be imported
+  //private final Cruise m_Cruise = new Cruise(m_shooter, m_feeder);
 
   Joystick leftStick = new Joystick(0);
   Joystick rightStick = new Joystick(1);
@@ -39,8 +39,8 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(leftStick, 1).toggleWhenPressed(m_LimelightAlign, true); // testing for limelight calibration
-    new JoystickButton(rightStick, 1).whenHeld(m_Shoot, true); // button triggers sequential command group
+    new JoystickButton(leftStick, 1).whenHeld(m_Shoot, true); 
+    new JoystickButton(rightStick, 1).whenHeld(m_ShootAlign, true);
     SmartDashboard.putData("Record", new DataRecorder(m_drive));
   }
 
