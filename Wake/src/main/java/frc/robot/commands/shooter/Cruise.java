@@ -7,11 +7,11 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Feeder;
 
 public class Cruise extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private Timer timer = new Timer();
-  
+
   private Shooter m_Shooter;
-  private Feeder m_Feeder; 
+  private Feeder m_Feeder;
 
   private boolean exit = false;
 
@@ -36,7 +36,7 @@ public class Cruise extends CommandBase {
       timer.start();
     }
     if (timer.get() > 1) { // if timer is greater than 1 second, shooter stops
-      exit = true; //if the last ball is falling short, increase to 1.5 seconds
+      exit = true; // if the last ball is falling short, increase to 1.5 seconds (suggestion)
     } else {
       exit = false;
     }
@@ -51,6 +51,6 @@ public class Cruise extends CommandBase {
 
   @Override
   public boolean isFinished() {
-      return exit;
+    return exit;
   }
 }

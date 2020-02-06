@@ -6,7 +6,7 @@ import frc.robot.subsystems.Limelight;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Accel extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private Shooter m_Shooter;
   private Limelight m_Limelight;
   private double currentSpeed, calculatedRPM;
@@ -22,10 +22,10 @@ public class Accel extends CommandBase {
   @Override
   public void initialize() {
     m_Shooter.setRampRate(1.5);
-    
+
     calculatedRPM = m_Limelight.calculateRPM();
   }
-  
+
   @Override
   public void execute() {
     m_Shooter.setPIDReference(calculatedRPM);
@@ -40,18 +40,16 @@ public class Accel extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    if (Math.abs(calculatedRPM - currentSpeed) < 100) {
+    if (Math.abs(calculatedRPM - currentSpeed) < 100) { // about a 1/2 second
       count++;
-    }
-    else {
+    } else {
       count = 0;
     }
 
     if (count > 25) {
       m_Shooter.targetReached = true;
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }

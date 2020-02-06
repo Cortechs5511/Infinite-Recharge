@@ -20,16 +20,16 @@ public class TurnAngle extends CommandBase {
 
     @Override
     public void initialize() {
-        SmartDashboard.putNumber("Angle P", 0.0);
-        SmartDashboard.putNumber("Angle I", 0.0);
-        SmartDashboard.putNumber("Angle D", 0.0);
+        SmartDashboard.putNumber("Angle P", 0.02);
+        SmartDashboard.putNumber("Angle I", 0.01);
+        SmartDashboard.putNumber("Angle D", 0.001);
     }
 
     @Override
     public void execute() {
-        double angle_kP = SmartDashboard.getNumber("Angle P", 0.0);
-        double angle_kI = SmartDashboard.getNumber("Angle I", 0.0);
-        double angle_kD = SmartDashboard.getNumber("Angle D", 0.0);
+        double angle_kP = SmartDashboard.getNumber("Angle P", 0.02);
+        double angle_kI = SmartDashboard.getNumber("Angle I", 0.01);
+        double angle_kD = SmartDashboard.getNumber("Angle D", 0.001);
         m_drive.anglePID.setPID(angle_kP, angle_kI, angle_kD);
         m_drive.anglePID.setSetpoint(kTargetAngleDegrees);
         double navxAngle = m_drive.getGyroAngle.get();

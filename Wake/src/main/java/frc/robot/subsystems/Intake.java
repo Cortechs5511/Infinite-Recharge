@@ -16,7 +16,7 @@ public class Intake extends SubsystemBase {
 
   private OI m_oi = OI.getInstance();
   private double wristInput = 0f;
-  
+
   public Intake() {
     wrist.configFactoryDefault();
     intake.configFactoryDefault();
@@ -24,23 +24,18 @@ public class Intake extends SubsystemBase {
     wrist.setNeutralMode(NeutralMode.Coast);
     intake.setNeutralMode(NeutralMode.Brake);
 
-    wrist.config_kP(0, 0);
-    wrist.config_kI(0, 0);
-    wrist.config_kD(0, 0);
-    wrist.config_kF(0, 0);
-
     intake.configOpenloopRamp(0.5);
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Forward Limit Switch", wrist.isFwdLimitSwitchClosed()==1);
-    SmartDashboard.putBoolean("Reverse Limit Switch", wrist.isRevLimitSwitchClosed()==1);   
+    SmartDashboard.putBoolean("Forward Limit Switch", wrist.isFwdLimitSwitchClosed() == 1);
+    SmartDashboard.putBoolean("Reverse Limit Switch", wrist.isRevLimitSwitchClosed() == 1);
 
     if (m_oi.getWristDown.get()) {
-      wristInput = -0.9;
+      wristInput = -0.2;
     } else if (m_oi.getWristUp.get()) {
-      wristInput = 0.9;
+      wristInput = 0.35;
     } else {
       wristInput = 0;
     }
@@ -50,7 +45,7 @@ public class Intake extends SubsystemBase {
     } else {
       intake.set(0);
     }
-    
+
     wrist.set(ControlMode.PercentOutput, wristInput);
-    }
+  }
 }
