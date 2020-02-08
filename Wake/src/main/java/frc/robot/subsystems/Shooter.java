@@ -9,6 +9,7 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
@@ -35,8 +36,6 @@ public class Shooter extends SubsystemBase {
     shoot0.setSmartCurrentLimit(200, 200, 200000);
     shoot1.setSmartCurrentLimit(200, 200, 200000);
 
-    shoot1.follow(shoot0);
-
     shoot0.setInverted(false); // may need to be changed
     shoot1.setInverted(true);
 
@@ -50,6 +49,7 @@ public class Shooter extends SubsystemBase {
 
   public void setSpeed(double input) {
     shoot0.set(input);
+    shoot1.set(input);
   }
 
   public void setRampRate(double rate) {
@@ -63,5 +63,7 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Target Reached", targetReached);
+    shoot1.set(shoot0.get());
   }
 }

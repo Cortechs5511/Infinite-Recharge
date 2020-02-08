@@ -39,7 +39,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(leftStick, 1).whenHeld(m_shoot, true); 
+    new JoystickButton(leftStick, 1).whenHeld(m_shoot, false); 
     new JoystickButton(rightStick, 1).whenHeld(m_shootAlign, true);
     SmartDashboard.putData("Record", new DataRecorder(m_drive));
   }

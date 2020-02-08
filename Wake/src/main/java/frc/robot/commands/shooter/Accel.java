@@ -36,6 +36,7 @@ public class Accel extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_Shooter.setRampRate(0.15);
+    count = 0;
   }
 
   @Override
