@@ -28,7 +28,7 @@ public class Accel extends CommandBase {
 
   @Override
   public void execute() {
-    m_Shooter.setPIDReference(calculatedRPM);
+    m_Shooter.setPIDReference(4200);
 
     currentSpeed = m_Shooter.getSpeed.get();
   }

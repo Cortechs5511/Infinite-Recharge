@@ -18,14 +18,14 @@ public class RobotContainer {
   private final Limelight m_limelight = new Limelight();
   private final Shooter m_shooter = new Shooter();
 
-  private final SetFeederPower m_SetFeederPower = new SetFeederPower(m_feeder, m_shooter);
+  private final SetFeederPower m_setFeederPower = new SetFeederPower(m_feeder, m_shooter);
 
-  private final SetDistance m_SetDistance = new SetDistance(m_drive);
-  private final SetSpeed m_SetSpeed = new SetSpeed(m_drive);
-  private final LimelightAlign m_LimelightAlign = new LimelightAlign(m_drive, m_limelight);
+  private final SetDistance m_setDistance = new SetDistance(m_drive);
+  private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
+  private final LimelightAlign m_limelightAlign = new LimelightAlign(m_drive, m_limelight);
   
-  private final Shoot m_Shoot = new Shoot(m_shooter, m_feeder, m_limelight);
-  private final ShootAlign m_ShootAlign = new ShootAlign(m_drive, m_shooter, m_feeder, m_limelight);
+  private final Shoot m_shoot = new Shoot(m_shooter, m_feeder, m_limelight);
+  private final ShootAlign m_shootAlign = new ShootAlign(m_drive, m_shooter, m_feeder, m_limelight);
   //private final Accel m_Accel = new Accel(m_shooter, m_limelight); // not sure whether commands inherited in sequentialcommandgroup must be imported
   //private final Cruise m_Cruise = new Cruise(m_shooter, m_feeder);
 
@@ -34,18 +34,18 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureButtonBindings();
-    m_drive.setDefaultCommand(m_SetSpeed);
-    m_feeder.setDefaultCommand(m_SetFeederPower);
+    m_drive.setDefaultCommand(m_setSpeed);
+    m_feeder.setDefaultCommand(m_setFeederPower);
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(leftStick, 1).whenHeld(m_Shoot, true); 
-    new JoystickButton(rightStick, 1).whenHeld(m_ShootAlign, true);
+    new JoystickButton(leftStick, 1).whenHeld(m_shoot, true); 
+    new JoystickButton(rightStick, 1).whenHeld(m_shootAlign, true);
     SmartDashboard.putData("Record", new DataRecorder(m_drive));
   }
 
   public Command getAutonomousCommand() {
-    return m_SetDistance;
+    return m_setDistance;
   }
 
   public void teleopInit(Robot robot) {
