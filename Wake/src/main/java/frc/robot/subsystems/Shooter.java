@@ -65,5 +65,6 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putBoolean("Target Reached", targetReached);
     shoot1.set(shoot0.get());
+    SmartDashboard.putNumber("Shooter rpm", shootEnc.getVelocity());
   }
 }

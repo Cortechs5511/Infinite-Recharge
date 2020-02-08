@@ -11,8 +11,8 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Robot extends TimedRobot {
-  private CANSparkMax m_left = new CANSparkMax(1, MotorType.kBrushless);
-  private CANSparkMax m_right = new CANSparkMax(2, MotorType.kBrushless);
+  private CANSparkMax m_left = new CANSparkMax(50, MotorType.kBrushless);
+  private CANSparkMax m_right = new CANSparkMax(51, MotorType.kBrushless);
 
   private CANPIDController m_NEOPID = m_left.getPIDController();
 

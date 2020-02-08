@@ -22,16 +22,13 @@ public class SetFeederPower extends CommandBase {
   @Override
   public void initialize() {
     m_Feeder.resetFeedEncoder();
-
     SmartDashboard.putNumber("Tower Power", 0.4);
   }
 
   @Override
   public void execute() {
     double towerPower = SmartDashboard.getNumber("Tower Power", 0.4);
-    if (m_Shooter.targetReached) { //move up a stage
-      m_Feeder.setFeederSpeed(-towerPower);
-    } else if ((m_Feeder.getBottomSensor.get() == false) && (m_Feeder.getTopSensor.get())) { //feed to shoot
+    if ((m_Feeder.getBottomSensor.get() == false) && (m_Feeder.getTopSensor.get())) { //feed to shoot
       m_Feeder.setFeederSpeed(-towerPower);
     } else {
       m_Feeder.setFeederSpeed(0); //none of the above

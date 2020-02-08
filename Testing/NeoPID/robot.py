@@ -7,8 +7,8 @@ from rev import CANSparkMax
 
 class MyRobot(wpilib.TimedRobot):
     def robotInit(self):
-        self.neo0: CANSparkMax = CANSparkMax(1, rev.MotorType.kBrushless)
-        self.neo1: CANSparkMax = CANSparkMax(11, rev.MotorType.kBrushless)
+        self.neo0: CANSparkMax = CANSparkMax(50, rev.MotorType.kBrushless)
+        self.neo1: CANSparkMax = CANSparkMax(51, rev.MotorType.kBrushless)
 
         neos = wpilib.SpeedControllerGroup(self.neo0, self.neo1)
         self.neo1.setInverted(True)

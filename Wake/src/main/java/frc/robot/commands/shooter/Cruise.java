@@ -10,8 +10,6 @@ public class Cruise extends CommandBase {
 
   private Shooter m_Shooter;
   private Feeder m_Feeder;
-
-  private boolean exit = false;
   private double count = 0f;
 
   public Cruise(Shooter shooter, Feeder feeder) {
@@ -23,6 +21,7 @@ public class Cruise extends CommandBase {
 
   @Override
   public void initialize() {
+    m_Feeder.setFeederSpeed(-0.4);
   }
 
   @Override
@@ -41,6 +40,7 @@ public class Cruise extends CommandBase {
     m_Shooter.setPIDReference(0);
     m_Shooter.setSpeed(0);
     m_Shooter.targetReached = false;
+    m_Feeder.setFeederSpeed(0);
   }
 
   @Override
