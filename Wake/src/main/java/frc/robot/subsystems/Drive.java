@@ -23,13 +23,13 @@ public class Drive extends SubsystemBase {
 
   private CANPIDController leftNEOPID = left0.getPIDController();
   private CANPIDController rightNEOPID = right0.getPIDController();
-  public PIDController anglePID = new PIDController(0.0, 0.0, 0.0, 0.0119047619047619);
+  public PIDController anglePID = new PIDController(0.0, 0.0, 0.0);
 
   private CANEncoder leftEnc = left0.getEncoder();
   private CANEncoder rightEnc = right0.getEncoder();
 
   private AHRS navx = new AHRS();
-  
+
   public Supplier<Double> getLeftOutput = () -> left0.get();
   public Supplier<Double> getRightOutput = () -> right0.get();
 
@@ -41,13 +41,9 @@ public class Drive extends SubsystemBase {
 
   public Supplier<Double> getGyroAngle = () -> navx.getAngle();
 
-
   private double angle_kP, angle_kI, angle_kD;
 
   public Drive() {
-    leftEnc.setPositionConversionFactor(42);
-    rightEnc.setPositionConversionFactor(42);
-
     left0.clearFaults();
     left1.clearFaults();
     right0.clearFaults();
@@ -58,14 +54,14 @@ public class Drive extends SubsystemBase {
     right0.restoreFactoryDefaults();
     right1.restoreFactoryDefaults();
 
-    left1.follow(left0); //make sure we test this
-    right1.follow(right0); // TEST THIS
-    
+    left1.follow(left0);
+    right1.follow(right0);
+
     left0.setIdleMode(IdleMode.kCoast);
     left1.setIdleMode(IdleMode.kCoast);
     right0.setIdleMode(IdleMode.kCoast);
     right1.setIdleMode(IdleMode.kCoast);
-    
+
     left0.setInverted(false);
     left1.setInverted(false);
     right0.setInverted(true);
@@ -81,7 +77,7 @@ public class Drive extends SubsystemBase {
     right0.setOpenLoopRampRate(0.5);
     right1.setOpenLoopRampRate(0.5);
 
-    left0.setClosedLoopRampRate(0.5);
+    left0.setClosedLoopRampRate(0.5); // still to be tested
     left1.setClosedLoopRampRate(0.5);
     right0.setClosedLoopRampRate(0.5);
     right1.setClosedLoopRampRate(0.5);
@@ -92,13 +88,13 @@ public class Drive extends SubsystemBase {
     right1.setSmartCurrentLimit(60, 60, 9000);
 
     leftEnc.setPositionConversionFactor(42);
-    rightEnc.setPositionConversionFactor(42);   
-   
+    rightEnc.setPositionConversionFactor(42);
+
     leftNEOPID.setP(0.101);
     leftNEOPID.setI(0);
     leftNEOPID.setD(50.3);
     leftNEOPID.setFF(0);
-    leftNEOPID.setOutputRange(-0.3, 0.3); //consider changing this during drive testing
+    leftNEOPID.setOutputRange(-0.3, 0.3); // consider changing this during drive testing
 
     rightNEOPID.setP(0.101);
     rightNEOPID.setI(0);
@@ -108,6 +104,7 @@ public class Drive extends SubsystemBase {
 
     anglePID.disableContinuousInput();
     anglePID.setIntegratorRange(-1, 1);
+
     SmartDashboard.putNumber("Angle P", 0.02);
     SmartDashboard.putNumber("Angle I", 0.01);
     SmartDashboard.putNumber("Angle D", 0.001);
@@ -117,6 +114,7 @@ public class Drive extends SubsystemBase {
   public void setLeft(double leftInput) {
     left0.set(leftInput);
   }
+
   public void setRight(double rightInput) {
     right0.set(rightInput);
   }
@@ -124,6 +122,7 @@ public class Drive extends SubsystemBase {
   public void setLeftPIDReference(double ref) {
     leftNEOPID.setReference(ref, ControlType.kPosition);
   }
+
   public void setRightPIDReference(double ref) {
     rightNEOPID.setReference(ref, ControlType.kPosition);
   }
@@ -131,10 +130,10 @@ public class Drive extends SubsystemBase {
   public void resetLeftEnc() {
     leftEnc.setPosition(0);
   }
+
   public void resetRightEnc() {
     rightEnc.setPosition(0);
   }
-
 
   @Override
   public void periodic() {

@@ -3,7 +3,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Shooter;
 import frc.robot.OI;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetFeederPower extends CommandBase {
@@ -22,28 +22,23 @@ public class SetFeederPower extends CommandBase {
   @Override
   public void initialize() {
     m_Feeder.resetFeedEncoder();
+
+    SmartDashboard.putNumber("Tower Power", 0.4);
   }
 
   @Override
-  public void execute() { 
-    /*if ((m_Feeder.getTopSensor.get() == false) && (m_Shooter.targetReached))  { //means there is a ball in top sensors
-      m_Feeder.setFeederSpeed(0);
-    } else if ((m_Feeder.getBottomSensor.get() == false) || (m_Shooter.targetReached)) { //means there is no ball in the top sensor, ball in the bottom sensor
-      m_Feeder.setFeederSpeed(0.5);
-    } else {
-      m_Feeder.setFeederSpeed(0); // no ball in the top or bottom sensor
-    }*/
-
-    if ((m_Feeder.getBottomSensor.get() == false) && (m_Feeder.getTopSensor.get())) { //move up a stage
-      m_Feeder.setFeederSpeed(0.5);
-    } else if (m_Shooter.targetReached){ //feed to shoot
-      m_Feeder.setFeederSpeed(0.5);
+  public void execute() {
+    double towerPower = SmartDashboard.getNumber("Tower Power", 0.4);
+    if (m_Shooter.targetReached) { //move up a stage
+      m_Feeder.setFeederSpeed(-towerPower);
+    } else if ((m_Feeder.getBottomSensor.get() == false) && (m_Feeder.getTopSensor.get())) { //feed to shoot
+      m_Feeder.setFeederSpeed(-towerPower);
     } else {
       m_Feeder.setFeederSpeed(0); //none of the above
     }
 
-    if ((m_oi.getIntake.get()) && (m_Feeder.getBottomSensor.get())) { //if button is pressed and bottom sensor is open, feeder spins
-      m_Feeder.setFeeder2Speed(0.9);
+    if ((m_oi.getFeeder.get()) && (m_Feeder.getBottomSensor.get())) { //if button is pressed and bottom sensor is open, feeder spins
+      m_Feeder.setFeeder2Speed(0.4);
     } else {
       m_Feeder.setFeeder2Speed(0);
     }

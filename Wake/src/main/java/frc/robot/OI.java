@@ -1,5 +1,6 @@
 package frc.robot;
-import java.util.function.Supplier; 
+
+import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class OI {
@@ -11,12 +12,14 @@ public class OI {
     public Supplier<Double> getLeftY = () -> leftStick.getY();
     public Supplier<Double> getRightY = () -> rightStick.getY();
 
-    public Supplier<Boolean> getIntake = () -> leftStick.getRawButton(1); // 90% output for intake
+    public Supplier<Boolean> getWristUp = () -> leftStick.getRawButton(2);
+    public Supplier<Boolean> getWristDown = () -> rightStick.getRawButton(2);
 
-    public Supplier<Boolean> getWristUp = () -> leftStick.getRawButton(2); // PID command up for wrist
-    public Supplier<Boolean> getWristDown = () -> rightStick.getRawButton(2); // PID command down for wrist
-    
-    private OI() {}
+    public Supplier<Boolean> getIntake = () -> leftStick.getRawButton(3); // 40% output for intake
+    public Supplier<Boolean> getFeeder = () -> rightStick.getRawButton(3); // 40% output for feeder
+
+    private OI() {
+    }
 
     public static OI getInstance() {
         if (oi == null) {

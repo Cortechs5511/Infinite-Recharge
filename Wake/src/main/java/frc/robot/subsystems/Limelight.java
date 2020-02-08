@@ -9,40 +9,41 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight extends SubsystemBase {
   public double x, y, area;
-  private double distanceMultiplierRPM = 0.0;
+  private double distanceMultiplierRPM = 0.0; // this is the main test item in this section TEST THIS TEST THIS
   private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   private NetworkTableEntry tx = table.getEntry("tx");
   private NetworkTableEntry ty = table.getEntry("ty");
   private NetworkTableEntry ta = table.getEntry("ta");
 
-public Limelight() {}
+  public Limelight() {
+  }
 
   @Override
   public void periodic() {
-    //read values periodically
-    x = tx.getDouble(0.001); //continue working on getting x and tx
+    x = tx.getDouble(0.001);
     y = ty.getDouble(0.0);
     area = ta.getDouble(0.0);
 
-    //post to smart dashboard periodically
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
-    SmartDashboard.putNumber("LimelightArea", area); 
+    SmartDashboard.putNumber("LimelightArea", area);
   }
 
   public double calculateRPM() {
-    double distance = ((63.65) / Math.tan(Math.toRadians(y+16.94))) * (((-Math.abs(y)) / 300) + 1);
+    double distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
     SmartDashboard.putNumber("Distance", distance);
-    double rpm = distance * distanceMultiplierRPM;
+    double rpm = distance * distanceMultiplierRPM; // need to figure out distance multiplier
     return rpm;
   }
 
   public double getX() {
     return x;
   }
+
   public double getY() {
     return y;
   }
+
   public double getArea() {
     return area;
   }
