@@ -17,17 +17,15 @@ public class RobotContainer {
   private final Feeder m_feeder = new Feeder();
   private final Limelight m_limelight = new Limelight();
   private final Shooter m_shooter = new Shooter();
+  private final Climber m_climber = new Climber();
 
   private final SetFeederPower m_setFeederPower = new SetFeederPower(m_feeder, m_shooter);
 
   private final SetDistance m_setDistance = new SetDistance(m_drive);
   private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
-  private final LimelightAlign m_limelightAlign = new LimelightAlign(m_drive, m_limelight);
   
   private final Shoot m_shoot = new Shoot(m_shooter, m_feeder, m_limelight);
   private final ShootAlign m_shootAlign = new ShootAlign(m_drive, m_shooter, m_feeder, m_limelight);
-  //private final Accel m_Accel = new Accel(m_shooter, m_limelight); // not sure whether commands inherited in sequentialcommandgroup must be imported
-  //private final Cruise m_Cruise = new Cruise(m_shooter, m_feeder);
 
   Joystick leftStick = new Joystick(0);
   Joystick rightStick = new Joystick(1);

@@ -18,6 +18,8 @@ public class OI {
     public Supplier<Boolean> getIntake = () -> leftStick.getRawButton(3); // 40% output for intake
     public Supplier<Boolean> getFeeder = () -> rightStick.getRawButton(3); // 40% output for feeder
 
+    public Supplier<Boolean> getClimberUp = () -> leftStick.getRawButton(4);
+    public Supplier<Boolean> getClimberDown = () -> rightStick.getRawButton(4);
     private OI() {
     }
 
