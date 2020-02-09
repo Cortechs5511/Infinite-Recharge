@@ -27,7 +27,7 @@ public class Accel extends CommandBase {
 
   @Override
   public void execute() {
-    m_Shooter.setPIDReference(4100);
+    m_Shooter.setPIDReference(4000);
     SmartDashboard.putNumber("RPM compare count", count);
     currentSpeed = m_Shooter.getSpeed.get(); 
   }
@@ -41,7 +41,7 @@ public class Accel extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    if (Math.abs(4100 - currentSpeed) < 200) { // about a 1/2 second
+    if (Math.abs(4000 - currentSpeed) < 200) { // about a 1/2 second
       count++;
     } else {
       count = 0;
