@@ -33,7 +33,7 @@ public class Limelight extends SubsystemBase {
     double distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
     SmartDashboard.putNumber("Distance", distance);
     double rpm = distance * distanceMultiplierRPM; // need to figure out distance multiplier
-    return rpm;
+    return 4000;
   }
 
   public double getX() {

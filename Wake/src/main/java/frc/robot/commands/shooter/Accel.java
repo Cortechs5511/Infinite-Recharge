@@ -23,12 +23,12 @@ public class Accel extends CommandBase {
   public void initialize() {
     m_Shooter.setRampRate(1.5);
     calculatedRPM = m_Limelight.calculateRPM();
+    m_Shooter.setPIDReference(calculatedRPM);
     SmartDashboard.putNumber("Limelight Calculated RPM", calculatedRPM);
   }
 
   @Override
   public void execute() {
-    m_Shooter.setPIDReference(calculatedRPM);
     currentSpeed = m_Shooter.getSpeed.get(); 
     SmartDashboard.putNumber("RPM compare count", count);
   }
