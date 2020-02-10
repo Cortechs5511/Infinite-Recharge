@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.OI;
 
 public class Drive extends SubsystemBase {
   private CANSparkMax left0 = new CANSparkMax(10, MotorType.kBrushless);
@@ -29,6 +30,7 @@ public class Drive extends SubsystemBase {
   private CANEncoder rightEnc = right0.getEncoder();
 
   private AHRS navx = new AHRS();
+  public Boolean invert = false;
 
   public Supplier<Double> getLeftOutput = () -> left0.get();
   public Supplier<Double> getRightOutput = () -> right0.get();
@@ -42,6 +44,7 @@ public class Drive extends SubsystemBase {
   public Supplier<Double> getGyroAngle = () -> navx.getAngle();
 
   private double angle_kP, angle_kI, angle_kD;
+  private OI m_oi = OI.getInstance();
 
   public Drive() {
     left0.clearFaults();
@@ -150,5 +153,9 @@ public class Drive extends SubsystemBase {
     angle_kI = SmartDashboard.getNumber("Angle I", 0.01);
     angle_kD = SmartDashboard.getNumber("Angle D", 0.001);
     anglePID.setPID(angle_kP, angle_kI, angle_kD);
+
+    if (m_oi.getInvert.get()) {
+      invert = !invert;
+    }
   }
 }

@@ -21,7 +21,7 @@ public class Cruise extends CommandBase {
 
   @Override
   public void initialize() {
-    m_feeder.setFeederSpeed(-0.4);
+    m_feeder.setFeederSpeed(0.4);
     m_feeder.setFeeder2Speed(0.4);
   }
 
@@ -48,8 +48,8 @@ public class Cruise extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    if (count > 80) { // if timer is greater than 1.6 second, shooter stops
-      return true; // if the last ball is falling short, increase to 2 seconds (suggestion)
+    if (count > 100) {
+      return true;
     } else {
       return false;
     }

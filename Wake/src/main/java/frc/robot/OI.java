@@ -15,11 +15,14 @@ public class OI {
     public Supplier<Boolean> getWristUp = () -> leftStick.getRawButton(2);
     public Supplier<Boolean> getWristDown = () -> rightStick.getRawButton(2);
 
-    public Supplier<Boolean> getIntake = () -> leftStick.getRawButton(3); // 40% output for intake
-    public Supplier<Boolean> getFeeder = () -> rightStick.getRawButton(3); // 40% output for feeder
+    public Supplier<Boolean> getIntake = () -> leftStick.getRawButton(3); // 40% output for intake and black wheel
+    public Supplier<Boolean> getBackFeed = () -> rightStick.getRawButton(3);
 
     public Supplier<Boolean> getClimberUp = () -> leftStick.getRawButton(4);
     public Supplier<Boolean> getClimberDown = () -> rightStick.getRawButton(4);
+
+    public Supplier<Boolean> getInvert = () -> rightStick.getRawButtonPressed(5);
+
     private OI() {
     }
 

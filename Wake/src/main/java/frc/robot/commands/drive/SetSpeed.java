@@ -5,10 +5,10 @@ import frc.robot.OI;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetSpeed extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private OI m_oi = OI.getInstance();
-  private double leftInput;
-  private double rightInput;
+  private double leftInput, rightInput, leftOutput, rightOutput;
+  private double multiplier;
   private Drive m_drive;
 
   public SetSpeed(Drive drive) {
@@ -26,17 +26,24 @@ public class SetSpeed extends CommandBase {
     rightInput = m_oi.getRightY.get();
 
     if (Math.abs(leftInput) > 0.1) {
-      m_drive.setLeft(leftInput * 0.9);
-    }
-    else {
-      m_drive.setLeft(0);
+      leftOutput = (leftInput * 0.9) * multiplier;
+    } else {
+      leftOutput = 0;
     }
     if (Math.abs(rightInput) > 0.1) {
-      m_drive.setRight(rightInput * 0.9);
+      rightOutput = (rightInput * 0.9) * multiplier;
+    } else {
+      rightOutput = 0;
     }
-    else {
-      m_drive.setRight(0);
-    }  
+
+    if (m_drive.invert == false) {
+      m_drive.setLeft(leftOutput);
+      m_drive.setRight(rightOutput);
+    } else {
+      m_drive.setLeft(-rightOutput);
+      m_drive.setRight(-leftOutput);
+    }
+
   }
 
   @Override

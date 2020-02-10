@@ -1,50 +1,53 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.Shooter;
 import frc.robot.OI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetFeederPower extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private Feeder m_Feeder;
-  private Shooter m_Shooter;
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
+  private Feeder m_feeder;
   private OI m_oi = OI.getInstance();
 
-  public SetFeederPower(Feeder feeder, Shooter shooter) {
-    m_Feeder = feeder;
-    m_Shooter = shooter;
+  public SetFeederPower(Feeder feeder) {
+    m_feeder = feeder;
     addRequirements(feeder);
-    addRequirements(shooter);
   }
 
   @Override
   public void initialize() {
-    m_Feeder.resetFeedEncoder();
-    SmartDashboard.putNumber("Tower Power", 0.4);
+    m_feeder.resetFeedEncoder();
   }
 
   @Override
   public void execute() {
-    double towerPower = SmartDashboard.getNumber("Tower Power", 0.4);
-    if ((m_Feeder.getBottomSensor.get() == false) && (m_Feeder.getTopSensor.get())) { //feed to shoot
-      m_Feeder.setFeederSpeed(-towerPower);
-    } else {
-      m_Feeder.setFeederSpeed(0); //none of the above
-    }
-
-    if ((m_oi.getFeeder.get()) && (m_Feeder.getBottomSensor.get())) { //if button is pressed and bottom sensor is open, feeder spins
-      m_Feeder.setFeeder2Speed(0.4);
-    } else {
-      m_Feeder.setFeeder2Speed(0);
+    if (m_feeder.getBottomSensor.get() == false) { // if balls in bottom
+      if (m_feeder.getTopSensor.get()) { // if top is clear
+        m_feeder.setFeederSpeed(0.4); // move tower and feeder
+        m_feeder.setFeeder2Speed(0.4);
+      } else { // if top is not clear
+        if (m_oi.getIntake.get()) { // if intaking
+          m_feeder.setFeeder2Speed(0.6); // move black balls, not tower
+          m_feeder.setFeederSpeed(0);
+        } else {
+          m_feeder.setFeeder2Speed(0); // do nothing
+          m_feeder.setFeederSpeed(0);
+        }
+      }
+    } else { // if bottom is clear
+      if ((m_feeder.getTopSensor.get() == false) || (m_oi.getBackFeed.get())) { // if ball in top
+        m_feeder.setFeederSpeed(-0.4); // reverse the tower
+      } else {
+        m_feeder.setFeederSpeed(0); // do nothing
+        m_feeder.setFeeder2Speed(0);
+      }
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_Feeder.setFeederSpeed(0);
-    m_Feeder.setFeeder2Speed(0);
+    m_feeder.setFeederSpeed(0);
+    m_feeder.setFeeder2Speed(0);
   }
 
   @Override

@@ -9,7 +9,7 @@ public class Accel extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private Shooter m_Shooter;
   private Limelight m_Limelight;
-  private double currentSpeed;
+  private double currentSpeed, calculatedRPM;
   private int count = 0;
 
   public Accel(Shooter shooter, Limelight limelight) {
@@ -22,14 +22,15 @@ public class Accel extends CommandBase {
   @Override
   public void initialize() {
     m_Shooter.setRampRate(1.5);
-   //calculatedRPM = m_Limelight.calculateRPM();
+    calculatedRPM = m_Limelight.calculateRPM();
+    SmartDashboard.putNumber("Limelight Calculated RPM", calculatedRPM);
   }
 
   @Override
   public void execute() {
-    m_Shooter.setPIDReference(4000);
-    SmartDashboard.putNumber("RPM compare count", count);
+    m_Shooter.setPIDReference(calculatedRPM);
     currentSpeed = m_Shooter.getSpeed.get(); 
+    SmartDashboard.putNumber("RPM compare count", count);
   }
 
   @Override
@@ -41,7 +42,7 @@ public class Accel extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    if (Math.abs(4000 - currentSpeed) < 200) { // about a 1/2 second
+    if (Math.abs(calculatedRPM - currentSpeed) < 200) { // about a 1/2 second
       count++;
     } else {
       count = 0;
