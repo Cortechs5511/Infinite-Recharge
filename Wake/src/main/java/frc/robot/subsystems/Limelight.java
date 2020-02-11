@@ -27,13 +27,15 @@ public class Limelight extends SubsystemBase {
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
     SmartDashboard.putNumber("LimelightArea", area);
+    SmartDashboard.putNumber("RPM Setpoint", 0);
   }
 
   public double calculateRPM() {
     double distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
     SmartDashboard.putNumber("Distance", distance);
     double rpm = distance * distanceMultiplierRPM; // need to figure out distance multiplier
-    return 4000;
+    double rpmsetpoint = SmartDashboard.getNumber("RPM Setpoint", 0); 
+    return rpmsetpoint; 
   }
 
   public double getX() {
