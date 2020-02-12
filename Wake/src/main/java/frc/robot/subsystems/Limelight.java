@@ -16,6 +16,7 @@ public class Limelight extends SubsystemBase {
   private NetworkTableEntry ta = table.getEntry("ta");
 
   public Limelight() {
+    SmartDashboard.putNumber("RPM Setpoint", 500);
   }
 
   @Override
@@ -24,17 +25,19 @@ public class Limelight extends SubsystemBase {
     y = ty.getDouble(0.0);
     area = ta.getDouble(0.0);
 
-    SmartDashboard.putNumber("LimelightX", x);
-    SmartDashboard.putNumber("LimelightY", y);
-    SmartDashboard.putNumber("LimelightArea", area);
-    SmartDashboard.putNumber("RPM Setpoint", 0);
+    SmartDashboard.putNumber("Limelight: X", x);
+    SmartDashboard.putNumber("Limelight: Y", y);
+    SmartDashboard.putNumber("Limelight: Area", area);
+
+    double distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
+    SmartDashboard.putNumber("Limelight: Calculated Distance", distance);
   }
 
   public double calculateRPM() {
     double distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
     SmartDashboard.putNumber("Distance", distance);
     double rpm = distance * distanceMultiplierRPM; // need to figure out distance multiplier
-    double rpmsetpoint = SmartDashboard.getNumber("RPM Setpoint", 0); 
+    double rpmsetpoint = SmartDashboard.getNumber("RPM Setpoint", 500); 
     return rpmsetpoint; 
   }
 

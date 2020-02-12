@@ -5,9 +5,11 @@ import frc.robot.commands.drive.*;
 import frc.robot.commands.auto.*;
 import frc.robot.commands.auto.paths.*;
 import frc.robot.commands.shooter.*;
+import frc.robot.commands.climber.*;
 import frc.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,6 +25,9 @@ public class RobotContainer {
   //private final Climber m_climber = new Climber();
 
   private final SetFeederPower m_setFeederPower = new SetFeederPower(m_feeder);
+  
+  //private final AutoClimb m_autoClimb = new AutoClimb(m_climber);
+  //private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
 
   private final SetDistance m_setDistance = new SetDistance(420, m_drive);
   private final TowerSimplePath m_simpleTower = new TowerSimplePath(m_drive);
@@ -33,6 +38,8 @@ public class RobotContainer {
 
   Joystick leftStick = new Joystick(0);
   Joystick rightStick = new Joystick(1);
+  XboxController controller = new XboxController(2);
+  
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -40,6 +47,7 @@ public class RobotContainer {
     configureButtonBindings();
     m_drive.setDefaultCommand(m_setSpeed);
     m_feeder.setDefaultCommand(m_setFeederPower);
+    //m_climber.setDefaultCommand(m_manualClimb);
 
     m_chooser.addOption("Drive Forwards Test", m_setDistance);
     m_chooser.addOption("Tower Simple", m_simpleTower);
@@ -48,8 +56,9 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(leftStick, 1).whenPressed(m_shoot, true); 
-    new JoystickButton(rightStick, 1).whenPressed(m_shootAlign, true);
+    new JoystickButton(controller, 5).whenPressed(m_shoot, true); 
+    new JoystickButton(controller, 6).whenPressed(m_shootAlign, true);
+    //new JoystickButton(controller, 8).whenPressed(m_autoClimb, true);
     SmartDashboard.putData("Record", new DataRecorder(m_drive));
   }
 

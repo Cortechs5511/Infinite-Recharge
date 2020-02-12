@@ -21,26 +21,28 @@ public class SetFeederPower extends CommandBase {
 
   @Override
   public void execute() {
-    if (m_feeder.getBottomSensor.get() == false) { // if balls in bottom
-      if (m_feeder.getTopSensor.get()) { // if top is clear
+    boolean bottomOpen = m_feeder.getBottomSensor.get();
+    boolean topOpen = m_feeder.getTopSensor.get();
+    if (bottomOpen == false) { // if balls in bottom
+      if (topOpen) { // if top is clear
         m_feeder.setFeederSpeed(0.4); // move tower and feeder
-        m_feeder.setFeeder2Speed(0.4);
-      } else { // if top is not clear
-        if (m_oi.getIntake.get()) { // if intaking
-          m_feeder.setFeeder2Speed(0.6); // move black balls, not tower
-          m_feeder.setFeederSpeed(0);
-        } else {
-          m_feeder.setFeeder2Speed(0); // do nothing
-          m_feeder.setFeederSpeed(0);
+        if (m_oi.getIntake.get() == false) { // if not feeding
+          m_feeder.setFeeder2Speed(0.4);
         }
+      } else { // if top is not clear
+        m_feeder.setFeederSpeed(0); // do nothing
       }
     } else { // if bottom is clear
-      if ((m_feeder.getTopSensor.get() == false) || (m_oi.getBackFeed.get())) { // if ball in top
+      if ((topOpen == false) || (m_oi.getBackFeed.get())) { // if ball in top
         m_feeder.setFeederSpeed(-0.4); // reverse the tower
       } else {
         m_feeder.setFeederSpeed(0); // do nothing
-        m_feeder.setFeeder2Speed(0);
       }
+    }
+    if (m_oi.getIntake.get()) { // if intaking
+      m_feeder.setFeeder2Speed(0.6); // move black balls, not tower
+    } else if ((bottomOpen) || (topOpen == false)) {
+      m_feeder.setFeeder2Speed(0);
     }
   }
 

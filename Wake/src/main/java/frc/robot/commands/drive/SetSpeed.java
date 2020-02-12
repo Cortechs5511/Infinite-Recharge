@@ -8,7 +8,7 @@ public class SetSpeed extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private OI m_oi = OI.getInstance();
   private double leftInput, rightInput, leftOutput, rightOutput;
-  private double multiplier;
+  private double multiplier = 1;
   private Drive m_drive;
 
   public SetSpeed(Drive drive) {
