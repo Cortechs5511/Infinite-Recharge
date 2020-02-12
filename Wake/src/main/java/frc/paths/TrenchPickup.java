@@ -4,7 +4,7 @@ import com.team319.trajectory.Path;
 
 public class TrenchPickup extends Path {
    // dt,x,y,left.pos,left.vel,left.acc,left.jerk,center.pos,center.vel,center.acc,center.jerk,right.pos,right.vel,right.acc,right.jerk,heading
-	private static final double[][] points = {
+	public static final double[][] points = {
 				{0.0200,32.1779,-11.0612,0.0024,0.1200,6.0000,0.0000,0.0024,0.1200,6.0000,0.0000,0.0024,0.1200,6.0000,0.0000,-2.6380},
 				{0.0200,32.1737,-11.0635,0.0072,0.2402,6.0122,0.6111,0.0072,0.2400,6.0000,0.0000,0.0072,0.2398,5.9878,-0.6111,-2.6380},
 				{0.0200,32.1674,-11.0669,0.0144,0.3608,6.0289,0.8363,0.0144,0.3600,6.0000,0.0000,0.0144,0.3592,5.9711,-0.8363,-2.6380},

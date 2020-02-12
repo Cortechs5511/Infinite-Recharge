@@ -4,7 +4,7 @@ import com.team319.trajectory.Path;
 
 public class TrenchSimple extends Path {
    // dt,x,y,left.pos,left.vel,left.acc,left.jerk,center.pos,center.vel,center.acc,center.jerk,right.pos,right.vel,right.acc,right.jerk,heading
-	private static final double[][] points = {
+	public static final double[][] points = {
 				{0.0200,24.9324,-11.2100,0.0024,0.1200,6.0000,0.0000,0.0024,0.1200,6.0000,0.0000,0.0024,0.1200,6.0000,0.0000,-0.0000},
 				{0.0200,24.9372,-11.2100,0.0072,0.2402,6.0124,0.6179,0.0072,0.2400,6.0000,0.0000,0.0072,0.2398,5.9876,-0.6179,-0.0000},
 				{0.0200,24.9444,-11.2100,0.0144,0.3608,6.0292,0.8435,0.0144,0.3600,6.0000,0.0000,0.0144,0.3592,5.9708,-0.8435,-0.0000},

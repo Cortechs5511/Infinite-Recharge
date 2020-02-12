@@ -4,7 +4,7 @@ import com.team319.trajectory.Path;
 
 public class TowerTrenchComplex extends Path {
    // dt,x,y,left.pos,left.vel,left.acc,left.jerk,center.pos,center.vel,center.acc,center.jerk,right.pos,right.vel,right.acc,right.jerk,heading
-	private static final double[][] points = {
+	public static final double[][] points = {
 				{0.0200,32.1076,-5.5000,0.0024,0.1200,6.0000,0.0000,0.0024,0.1200,6.0000,0.0000,0.0024,0.1200,6.0000,0.0000,-3.1416},
 				{0.0200,32.1028,-5.5000,0.0072,0.2397,5.9873,-0.6351,0.0072,0.2400,6.0000,0.0000,0.0072,0.2403,6.0127,0.6351,-3.1416},
 				{0.0200,32.0956,-5.5000,0.0144,0.3591,5.9699,-0.8700,0.0144,0.3600,6.0000,0.0000,0.0144,0.3609,6.0301,0.8700,-3.1416},

@@ -1,21 +1,21 @@
 package frc.robot.commands.auto.paths;
 
-import frc.paths.TowerSimple;
+import frc.paths.TowerTrenchPickup;
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-//3, 11 for the index position in TowerSimple
-public class TowerSimplePath extends CommandBase {
+//3, 11 for the index position in TowerTrenchPickup
+public class TowerTrenchPickupPath extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private Drive m_drive;
-  private double[][] points = TowerSimple.points;
+  private double[][] points = TowerTrenchPickup.points;
   private double leftReference, rightReference;
   private double leftTarget, rightTarget;
   private static final double TICKS_PER_FOOT = 688.8 / Math.PI;
   private int row = 1;
 
-  public TowerSimplePath(Drive drive) {
+  public TowerTrenchPickupPath(Drive drive) {
   }
 
   @Override
@@ -59,6 +59,6 @@ public class TowerSimplePath extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return row > 112;
+    return row > 195;
   }
 }

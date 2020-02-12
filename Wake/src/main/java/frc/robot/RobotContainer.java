@@ -30,7 +30,18 @@ public class RobotContainer {
   //private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
 
   private final SetDistance m_setDistance = new SetDistance(420, m_drive);
-  private final TowerSimplePath m_simpleTower = new TowerSimplePath(m_drive);
+
+  private final TowerSimplePath m_towerSimple = new TowerSimplePath(m_drive);
+  private final TowerPickupPath m_towerPickup = new TowerPickupPath(m_drive);
+  private final TowerComplexPath m_towerComplex = new TowerComplexPath(m_drive);
+  
+  private final TrenchSimplePath m_trenchSimple = new TrenchSimplePath(m_drive);
+  private final TrenchPickupPath m_trenchPickup = new TrenchPickupPath(m_drive);
+  private final TrenchComplexPath m_trenchComplex = new TrenchComplexPath(m_drive);
+  
+  private final TowerTrenchPickupPath m_towerTrenchPickup = new TowerTrenchPickupPath(m_drive);
+  private final TowerTrenchComplexPath m_towerTrenchComplex = new TowerTrenchComplexPath(m_drive);
+
   private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
   
   private final Shoot m_shoot = new Shoot(m_shooter, m_feeder, m_limelight);
@@ -40,7 +51,6 @@ public class RobotContainer {
   Joystick rightStick = new Joystick(1);
   XboxController controller = new XboxController(2);
   
-
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   public RobotContainer() {
@@ -50,7 +60,17 @@ public class RobotContainer {
     //m_climber.setDefaultCommand(m_manualClimb);
 
     m_chooser.addOption("Drive Forwards Test", m_setDistance);
-    m_chooser.addOption("Tower Simple", m_simpleTower);
+
+    m_chooser.addOption("Tower Simple", m_towerSimple);
+    m_chooser.addOption("Tower Pickup", m_towerPickup);
+    m_chooser.addOption("Tower Complex", m_towerComplex);
+
+    m_chooser.addOption("Trench Simple", m_trenchSimple);
+    m_chooser.addOption("Trench Pickup", m_trenchPickup);
+    m_chooser.addOption("Trench Complex", m_trenchComplex);
+
+    m_chooser.addOption("Tower-Trench Pickup", m_towerTrenchPickup);
+    m_chooser.addOption("Tower-Trench Complex", m_towerTrenchComplex);
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
   }

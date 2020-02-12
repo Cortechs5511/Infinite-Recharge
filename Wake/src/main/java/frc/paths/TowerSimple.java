@@ -1,7 +1,7 @@
 package frc.paths;
 
 import com.team319.trajectory.Path;
-//112 by 16
+
 public class TowerSimple extends Path {
    // dt,x,y,left.pos,left.vel,left.acc,left.jerk,center.pos,center.vel,center.acc,center.jerk,right.pos,right.vel,right.acc,right.jerk,heading
 	public static final double[][] points = {

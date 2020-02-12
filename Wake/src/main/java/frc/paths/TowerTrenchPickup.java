@@ -4,7 +4,7 @@ import com.team319.trajectory.Path;
 
 public class TowerTrenchPickup extends Path {
    // dt,x,y,left.pos,left.vel,left.acc,left.jerk,center.pos,center.vel,center.acc,center.jerk,right.pos,right.vel,right.acc,right.jerk,heading
-	private static final double[][] points = {
+	public static final double[][] points = {
 				{0.0200,32.1376,-5.5400,0.0024,0.1200,6.0000,0.0000,0.0024,0.1200,6.0000,0.0000,0.0024,0.1200,6.0000,0.0000,-3.1378},
 				{0.0200,32.1328,-5.5400,0.0072,0.2397,5.9864,-0.6808,0.0072,0.2400,6.0000,0.0000,0.0072,0.2403,6.0136,0.6808,-3.1378},
 				{0.0200,32.1256,-5.5401,0.0144,0.3591,5.9677,-0.9325,0.0144,0.3600,6.0000,0.0000,0.0144,0.3609,6.0323,0.9325,-3.1378},
