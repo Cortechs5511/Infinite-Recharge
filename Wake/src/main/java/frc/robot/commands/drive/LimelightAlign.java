@@ -28,7 +28,7 @@ public class LimelightAlign extends CommandBase {
 
   @Override
   public void execute() {
-    input = m_limelight.x;
+    input = m_limelight.getX();
     threshold = SmartDashboard.getNumber("Threshold", 0.5);
     SmartDashboard.putNumber("Limelight Received X", input);
     double setpoint = 0.0;

@@ -8,7 +8,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight extends SubsystemBase {
-  public double x, y, area;
+  private double x, y, area, distance;
   private double distanceMultiplierRPM = 0.0; // this is the main test item in this section TEST THIS TEST THIS
   private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   private NetworkTableEntry tx = table.getEntry("tx");
@@ -25,20 +25,18 @@ public class Limelight extends SubsystemBase {
     y = ty.getDouble(0.0);
     area = ta.getDouble(0.0);
 
-    SmartDashboard.putNumber("Limelight: X", x);
-    SmartDashboard.putNumber("Limelight: Y", y);
-    SmartDashboard.putNumber("Limelight: Area", area);
+    SmartDashboard.putNumber("X", x);
+    SmartDashboard.putNumber("Y", y);
+    SmartDashboard.putNumber("Area", area);
 
-    double distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
-    SmartDashboard.putNumber("Limelight: Calculated Distance", distance);
+    distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
+    SmartDashboard.putNumber("Calculated Distance", distance);
   }
 
   public double calculateRPM() {
-    double distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
-    SmartDashboard.putNumber("Distance", distance);
-    double rpm = distance * distanceMultiplierRPM; // need to figure out distance multiplier
-    double rpmsetpoint = SmartDashboard.getNumber("RPM Setpoint", 500); 
-    return rpmsetpoint; 
+    //double rpm = distance * distanceMultiplierRPM; // need to figure out distance multiplier
+    double rpm = SmartDashboard.getNumber("RPM Setpoint", 500); 
+    return rpm; 
   }
 
   public double getX() {

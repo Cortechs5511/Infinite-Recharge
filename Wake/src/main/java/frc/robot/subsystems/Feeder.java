@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Feeder extends SubsystemBase {
   private WPI_VictorSPX feeder0 = new WPI_VictorSPX(40); // feeder 0 and 1 are tower
   private WPI_VictorSPX feeder1 = new WPI_VictorSPX(41);
-  private WPI_VictorSPX feeder2 = new WPI_VictorSPX(42); // feeder 2 is black wheels
+  private WPI_VictorSPX feeder2 = new WPI_VictorSPX(42); // feeder 2, 3 are feeder wheels
+  private WPI_VictorSPX feeder3 = new WPI_VictorSPX(43);
 
   private Encoder intakeEncoder = new Encoder(0, 1); // black wheels
   private Encoder feedEncoder = new Encoder(2, 3); // tower
@@ -33,13 +34,16 @@ public class Feeder extends SubsystemBase {
     feeder0.configFactoryDefault();
     feeder1.configFactoryDefault();
     feeder2.configFactoryDefault();
+    feeder2.configFactoryDefault();
 
     feeder0.setNeutralMode(NeutralMode.Brake);
     feeder1.setNeutralMode(NeutralMode.Brake);
     feeder2.setNeutralMode(NeutralMode.Brake);
+    feeder2.setNeutralMode(NeutralMode.Brake);
 
     feeder0.setInverted(false);
     feeder1.setInverted(true);
+    feeder2.setInverted(true);
     feeder2.setInverted(true);
   }
 
@@ -49,8 +53,7 @@ public class Feeder extends SubsystemBase {
     SmartDashboard.putBoolean("Bottom Sensor", bottomSensor.get());
     SmartDashboard.putBoolean("Intake Sensor", intakeSensor.get());
 
-    SmartDashboard.putNumber("Black Wheels Encoder", intakeEncoder.get()); // intakeEncoder in feeder subsystem = black
-                                                                           // wheels
+    SmartDashboard.putNumber("Feeder Wheels Encoder", intakeEncoder.get()); // intakeEncoder in feeder subsystem = black wheels
     SmartDashboard.putNumber("Tower Encoder", feedEncoder.get());
   }
 
@@ -61,6 +64,7 @@ public class Feeder extends SubsystemBase {
 
   public void setFeeder2Speed(double input) {
     feeder2.set(input);
+    feeder3.set(input);
   }
 
   public void resetFeedEncoder() {

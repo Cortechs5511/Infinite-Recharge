@@ -41,7 +41,7 @@ public class SetFeederPower extends CommandBase {
     }
     if (m_oi.getIntake.get()) { // if intaking
       m_feeder.setFeeder2Speed(0.6); // move black balls, not tower
-    } else if ((bottomOpen) || (topOpen == false)) {
+    } else if ((bottomOpen) || (topOpen == false)) { // if none of the above, then stop feeder wheels
       m_feeder.setFeeder2Speed(0);
     }
   }
