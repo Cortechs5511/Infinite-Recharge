@@ -8,7 +8,7 @@ import frc.robot.subsystems.Climber;
 public class AutoClimb extends SequentialCommandGroup {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   public AutoClimb(Climber climber) {
-    // during the wait command, driver should move forward until climber hooks over bar
+    // during the wait command, driver should move backward until climber hooks over bar
     addCommands(new ClimberUp(climber), new WaitCommand(3), new ClimberDown(climber));
   }
 }
