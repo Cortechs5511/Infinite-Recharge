@@ -32,11 +32,18 @@ public class Cruise extends CommandBase {
     } else { // else (there is no ball, or the sensor is dead), timer starts counting
       count++;
     }
+
+    if (m_shooter.getSpeed.get() < 2000) {
+      m_feeder.setFeederSpeed(0);
+      m_feeder.setFeeder2Speed(0);
+    } else {
+    }
   }
 
   @Override
   public void end(boolean interrupted) {
     count = 0;
+
     m_shooter.setRampRate(1.5);
     m_shooter.setPIDReference(0);
     m_shooter.setSpeed(0);
@@ -48,10 +55,6 @@ public class Cruise extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    if (count > 100) {
-      return true;
-    } else {
-      return false;
-    }
+    return (count > 100); // about 2 seconds of pause
   }
 }

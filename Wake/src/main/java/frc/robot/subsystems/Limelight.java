@@ -21,7 +21,7 @@ public class Limelight extends SubsystemBase {
 
   @Override
   public void periodic() {
-    x = tx.getDouble(0.001);
+    x = tx.getDouble(0.0);
     y = ty.getDouble(0.0);
     area = ta.getDouble(0.0);
 
@@ -29,7 +29,7 @@ public class Limelight extends SubsystemBase {
     SmartDashboard.putNumber("Y", y);
     SmartDashboard.putNumber("Area", area);
 
-    distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
+    distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1); //in periodic for testing purposes only
     SmartDashboard.putNumber("Calculated Distance", distance);
   }
 

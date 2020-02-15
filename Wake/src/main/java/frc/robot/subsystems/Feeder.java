@@ -16,12 +16,12 @@ public class Feeder extends SubsystemBase {
   private WPI_VictorSPX feeder2 = new WPI_VictorSPX(42); // feeder 2, 3 are feeder wheels
   private WPI_VictorSPX feeder3 = new WPI_VictorSPX(43);
 
-  private Encoder intakeEncoder = new Encoder(0, 1); // black wheels
-  private Encoder feedEncoder = new Encoder(2, 3); // tower
+  private DigitalInput bottomSensor = new DigitalInput(0);
+  private DigitalInput topSensor = new DigitalInput(1);
+  private DigitalInput intakeSensor = new DigitalInput(2);
 
-  private DigitalInput bottomSensor = new DigitalInput(4);
-  private DigitalInput topSensor = new DigitalInput(5);
-  private DigitalInput intakeSensor = new DigitalInput(6);
+  private Encoder intakeEncoder = new Encoder(3, 4); // wrist -- inop
+  private Encoder feedEncoder = new Encoder(5, 6); // tower -- inop
 
   public Supplier<Boolean> getBottomSensor = () -> bottomSensor.get();
   public Supplier<Boolean> getTopSensor = () -> topSensor.get();
@@ -44,7 +44,7 @@ public class Feeder extends SubsystemBase {
     feeder0.setInverted(false);
     feeder1.setInverted(true);
     feeder2.setInverted(true);
-    feeder2.setInverted(true);
+    feeder3.setInverted(true);
   }
 
   @Override

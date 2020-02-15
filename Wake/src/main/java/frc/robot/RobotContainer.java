@@ -22,14 +22,13 @@ public class RobotContainer {
   private final Feeder m_feeder = new Feeder();
   private final Limelight m_limelight = new Limelight();
   private final Shooter m_shooter = new Shooter();
-  //private final Climber m_climber = new Climber();
+  private final Climber m_climber = new Climber();
 
   private final SetFeederPower m_setFeederPower = new SetFeederPower(m_feeder);
   
-  //private final AutoClimb m_autoClimb = new AutoClimb(m_climber);
-  //private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
+  private final AutoClimb m_autoClimb = new AutoClimb(m_climber);
+  private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
 
-  private final SetDistance m_setDistance = new SetDistance(420, m_drive);
 
   private final TowerSimplePath m_towerSimple = new TowerSimplePath(m_drive);
   private final TowerPickupPath m_towerPickup = new TowerPickupPath(m_drive);
@@ -55,9 +54,10 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureButtonBindings();
+    
     m_drive.setDefaultCommand(m_setSpeed);
     m_feeder.setDefaultCommand(m_setFeederPower);
-    //m_climber.setDefaultCommand(m_manualClimb);
+    m_climber.setDefaultCommand(m_manualClimb);
 
     m_chooser.addOption("Drive Forwards Test", m_setDistance);
 
@@ -78,7 +78,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(controller, 5).whenPressed(m_shoot, true); 
     new JoystickButton(controller, 6).whenPressed(m_shootAlign, true);
-    //new JoystickButton(controller, 8).whenPressed(m_autoClimb, true);
+    new JoystickButton(controller, 8).whenPressed(m_autoClimb, true);
     SmartDashboard.putData("Record", new DataRecorder(m_drive));
   }
 

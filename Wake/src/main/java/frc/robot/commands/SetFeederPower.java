@@ -23,6 +23,7 @@ public class SetFeederPower extends CommandBase {
   public void execute() {
     boolean bottomOpen = m_feeder.getBottomSensor.get();
     boolean topOpen = m_feeder.getTopSensor.get();
+    boolean intakeOpen = m_feeder.getIntakeSensor.get();
     if (bottomOpen == false) { // if balls in bottom
       if (topOpen) { // if top is clear
         m_feeder.setFeederSpeed(0.4); // move tower and feeder
@@ -39,9 +40,9 @@ public class SetFeederPower extends CommandBase {
         m_feeder.setFeederSpeed(0); // do nothing
       }
     }
-    if (m_oi.getIntake.get()) { // if intaking
+    if ((intakeOpen) && (m_oi.getIntake.get())) { // if intaking and intake is open, move feeder wheels
       m_feeder.setFeeder2Speed(0.6); // move black balls, not tower
-    } else if ((bottomOpen) || (topOpen == false)) { // if none of the above, then stop feeder wheels
+    } else if ((bottomOpen == false) && (topOpen == false)) { // if everything is full, stop wheels
       m_feeder.setFeeder2Speed(0);
     }
   }

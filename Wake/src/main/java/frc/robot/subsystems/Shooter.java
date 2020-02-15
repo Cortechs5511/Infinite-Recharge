@@ -36,8 +36,8 @@ public class Shooter extends SubsystemBase {
     shoot0.setSmartCurrentLimit(200, 200, 200000);
     shoot1.setSmartCurrentLimit(200, 200, 200000);
 
-    shoot0.setInverted(false); // may need to be changed
-    shoot1.setInverted(true);
+    shoot0.setInverted(true); 
+    shoot1.setInverted(false);
 
     shootPID.setOutputRange(0, 0.95);
 

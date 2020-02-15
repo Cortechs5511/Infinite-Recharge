@@ -106,12 +106,12 @@ public class Drive extends SubsystemBase {
     leftNEOPID.setOutputRange(-0.3, 0.3);
 
     anglePID.disableContinuousInput();
-    anglePID.setIntegratorRange(-1, 1);
+    anglePID.setIntegratorRange(-1.5, 1.5);
 
-    SmartDashboard.putNumber("Angle P", 0.02);
+    SmartDashboard.putNumber("Angle P", 0.025);
     SmartDashboard.putNumber("Angle I", 0.01);
     SmartDashboard.putNumber("Angle D", 0.001);
-    SmartDashboard.putNumber("Threshold", 1);
+    SmartDashboard.putNumber("Threshold", 0.5);
   }
 
   public void setLeft(double leftInput) {
@@ -149,7 +149,7 @@ public class Drive extends SubsystemBase {
     SmartDashboard.putNumber("Left Power", left0.get());
     SmartDashboard.putNumber("Right Power", right0.get());
 
-    angle_kP = SmartDashboard.getNumber("Angle P", 0.02);
+    angle_kP = SmartDashboard.getNumber("Angle P", 0.025);
     angle_kI = SmartDashboard.getNumber("Angle I", 0.01);
     angle_kD = SmartDashboard.getNumber("Angle D", 0.001);
     anglePID.setPID(angle_kP, angle_kI, angle_kD);
