@@ -26,7 +26,6 @@ public class RobotContainer {
 
   private final SetFeederPower m_setFeederPower = new SetFeederPower(m_feeder);
   
-  private final AutoClimb m_autoClimb = new AutoClimb(m_climber);
   private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
 
   private final SetDistance m_setDistance = new SetDistance(420, m_drive);
@@ -79,7 +78,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(controller, 5).whenPressed(m_shoot, true); 
     new JoystickButton(controller, 6).whenPressed(m_shootAlign, true);
-    new JoystickButton(controller, 8).whenPressed(m_autoClimb, true);
+    new JoystickButton(controller, 8).whenPressed(new StopShooter(m_shooter, m_limelight, m_feeder, m_drive), false);
+    new JoystickButton(leftStick, 2).whenPressed(new Flip(m_drive));
+
+    SmartDashboard.putData("Stop Shooting", new StopShooter(m_shooter, m_limelight, m_feeder, m_drive));
     SmartDashboard.putData("Record", new DataRecorder(m_drive));
   }
 

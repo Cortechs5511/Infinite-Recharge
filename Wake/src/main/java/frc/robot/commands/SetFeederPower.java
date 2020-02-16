@@ -8,6 +8,7 @@ public class SetFeederPower extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private Feeder m_feeder;
   private OI m_oi = OI.getInstance();
+  private double feederPower, feeder2Power, feeder3Power;
 
   public SetFeederPower(Feeder feeder) {
     m_feeder = feeder;
@@ -24,27 +25,46 @@ public class SetFeederPower extends CommandBase {
     boolean bottomOpen = m_feeder.getBottomSensor.get();
     boolean topOpen = m_feeder.getTopSensor.get();
     boolean intakeOpen = m_feeder.getIntakeSensor.get();
+    boolean intaking = m_oi.getIntake.get();
+
     if (bottomOpen == false) { // if balls in bottom
       if (topOpen) { // if top is clear
-        m_feeder.setFeederSpeed(0.4); // move tower and feeder
-        if (m_oi.getIntake.get() == false) { // if not feeding
-          m_feeder.setFeeder2Speed(0.4);
+        feederPower = 0.4; // move tower and feeder
+        if (intaking == false) { // if not feeding
+          feeder2Power = 0.6;
+          feeder3Power = 0.4;
         }
       } else { // if top is not clear
-        m_feeder.setFeederSpeed(0); // do nothing
+        feederPower = 0; // do nothing
       }
     } else { // if bottom is clear
       if ((topOpen == false) || (m_oi.getBackFeed.get())) { // if ball in top
-        m_feeder.setFeederSpeed(-0.4); // reverse the tower
+        feederPower = -0.4; // reverse the tower
       } else {
-        m_feeder.setFeederSpeed(0); // do nothing
+        feederPower = 0; // do nothing
       }
     }
-    if ((intakeOpen) && (m_oi.getIntake.get()) && (topOpen)) { // if intaking and intake is open, and there is space in the feeder
-      m_feeder.setFeeder2Speed(0.6); // move feeder wheels
-    } else if ((bottomOpen == false)) { // if everything is full, stop wheels
-      m_feeder.setFeeder2Speed(0);
+
+    if (intaking) { // if intaking 
+      feeder2Power = 0.6; // spin wheels
+      feeder3Power = 0.6;
+    } else if ((bottomOpen) || (topOpen == false)){
+      feeder2Power = 0;
+      feeder3Power = 0;
     }
+
+    if (topOpen == false) { // if none of top code block, stop inner wheels
+      feeder2Power = 0; // stop only inner wheels
+    }
+
+    if ((intakeOpen == false) && (bottomOpen == false) && (topOpen == false)) { //if everything is full
+      feeder2Power = 0; // stop all wheels
+      feeder3Power = 0;
+    }
+
+    m_feeder.setFeederSpeed(feederPower);
+    m_feeder.setFeeder2Speed(feeder2Power);
+    m_feeder.setFeeder3Speed(feeder3Power);
   }
 
   @Override

@@ -30,6 +30,9 @@ public class Shooter extends SubsystemBase {
     shoot0.setIdleMode(IdleMode.kCoast);
     shoot1.setIdleMode(IdleMode.kCoast);
 
+    shoot0.enableVoltageCompensation(10.5);
+    shoot1.enableVoltageCompensation(10.5);
+
     shoot0.setSecondaryCurrentLimit(250);
     shoot1.setSecondaryCurrentLimit(250);
 
@@ -39,17 +42,17 @@ public class Shooter extends SubsystemBase {
     shoot0.setInverted(true); 
     shoot1.setInverted(false);
 
-    shootPID.setOutputRange(0, 0.95);
+    shootPID.setOutputRange(0, 1);
 
     shootPID.setP(0.00033); // will need to be re-tested on the new shooter
     shootPID.setI(0);
     shootPID.setD(0.003);
-    shootPID.setFF(0.0002);
+    shootPID.setFF(0.000215);
 
     SmartDashboard.putNumber("Shooter P", 0.00033);
     SmartDashboard.putNumber("Shooter I", 0);
     SmartDashboard.putNumber("Shooter D", 0.003);
-    SmartDashboard.putNumber("Shooter FF", 0.0002);
+    SmartDashboard.putNumber("Shooter FF", 0.000215);
   }
 
   public void setSpeed(double input) {
@@ -68,10 +71,10 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    shootPID.setP(SmartDashboard.getNumber("P", 0.00033)); 
-    shootPID.setI(SmartDashboard.getNumber("I", 0)); 
-    shootPID.setD(SmartDashboard.getNumber("D", 0.003)); 
-    shootPID.setFF(SmartDashboard.getNumber("FF", 0.0002)); 
+    shootPID.setP(SmartDashboard.getNumber("Shooter P", 0.00033)); 
+    shootPID.setI(SmartDashboard.getNumber("Shooter I", 0)); 
+    shootPID.setD(SmartDashboard.getNumber("Shooter D", 0.003)); 
+    shootPID.setFF(SmartDashboard.getNumber("Shooter FF", 0.000215)); 
 
     SmartDashboard.putBoolean("Target Reached", targetReached);
     shoot1.set(shoot0.get());

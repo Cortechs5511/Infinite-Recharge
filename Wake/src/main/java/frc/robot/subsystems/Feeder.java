@@ -64,6 +64,9 @@ public class Feeder extends SubsystemBase {
 
   public void setFeeder2Speed(double input) {
     feeder2.set(input);
+  }
+
+  public void setFeeder3Speed(double input) {
     feeder3.set(input);
   }
 

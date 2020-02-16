@@ -3,6 +3,7 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.Shooter;
+import frc.robot.OI;
 import frc.robot.subsystems.Feeder;
 
 public class Cruise extends CommandBase {
@@ -10,6 +11,7 @@ public class Cruise extends CommandBase {
 
   private Shooter m_shooter;
   private Feeder m_feeder;
+  private OI m_oi = OI.getInstance();
   private double count = 0f;
 
   public Cruise(Shooter shooter, Feeder feeder) {
@@ -23,6 +25,7 @@ public class Cruise extends CommandBase {
   public void initialize() {
     m_feeder.setFeederSpeed(0.4);
     m_feeder.setFeeder2Speed(0.4);
+    m_feeder.setFeeder3Speed(0.4);
   }
 
   @Override
@@ -33,10 +36,22 @@ public class Cruise extends CommandBase {
       count++;
     }
 
-    if (m_shooter.getSpeed.get() < 2000) {
+    if ((count > 25) && (count < 75)) {
+      m_oi.setLeftRumble(1);
+      m_oi.setRightRumble(1);
+    } else {
+      m_oi.setLeftRumble(0);
+      m_oi.setRightRumble(0);
+    }
+
+    if (m_shooter.getSpeed.get() < 1000) {
       m_feeder.setFeederSpeed(0);
       m_feeder.setFeeder2Speed(0);
+      m_feeder.setFeeder3Speed(0);
     } else {
+      m_feeder.setFeederSpeed(0.4);
+      m_feeder.setFeeder2Speed(0.4);
+      m_feeder.setFeeder3Speed(0.4);
     }
   }
 

@@ -1,13 +1,16 @@
 package frc.robot.commands.shooter;
 
+import frc.robot.OI;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Limelight;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Accel extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private Shooter m_Shooter;
+  private OI m_oi = OI.getInstance();
   private Limelight m_Limelight;
   private double currentSpeed, calculatedRPM;
   private int count = 0;
@@ -46,6 +49,11 @@ public class Accel extends CommandBase {
       count++;
     } else {
       count = 0;
+    }
+
+    if (count != 0) {
+      m_oi.setLeftRumble(0.3);
+      m_oi.setRightRumble(0.3);
     }
 
     if (count > 25) {

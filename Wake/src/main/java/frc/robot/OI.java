@@ -3,6 +3,7 @@ package frc.robot;
 import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 public class OI {
     private static OI oi;
@@ -23,9 +24,15 @@ public class OI {
     public Supplier<Boolean> getClimberUp = () -> (controller.getPOV()) == 0;
     public Supplier<Boolean> getClimberDown = () -> (controller.getPOV()) == 180;
 
-    public Supplier<Boolean> getInvert = () -> leftStick.getRawButton(2);
-
     private OI() {
+    }
+
+    public void setLeftRumble(double input) {
+        controller.setRumble(RumbleType.kLeftRumble, input);
+    }
+
+    public void setRightRumble(double input) {
+        controller.setRumble(RumbleType.kRightRumble, input);
     }
 
     public static OI getInstance() {
