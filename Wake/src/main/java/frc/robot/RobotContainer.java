@@ -29,7 +29,8 @@ public class RobotContainer {
   private final AutoClimb m_autoClimb = new AutoClimb(m_climber);
   private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
 
-
+  private final SetDistance m_setDistance = new SetDistance(420, m_drive);
+  
   private final TowerSimplePath m_towerSimple = new TowerSimplePath(m_drive);
   private final TowerPickupPath m_towerPickup = new TowerPickupPath(m_drive);
   private final TowerComplexPath m_towerComplex = new TowerComplexPath(m_drive);

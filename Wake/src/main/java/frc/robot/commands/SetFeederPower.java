@@ -40,9 +40,9 @@ public class SetFeederPower extends CommandBase {
         m_feeder.setFeederSpeed(0); // do nothing
       }
     }
-    if ((intakeOpen) && (m_oi.getIntake.get())) { // if intaking and intake is open, move feeder wheels
-      m_feeder.setFeeder2Speed(0.6); // move black balls, not tower
-    } else if ((bottomOpen == false) && (topOpen == false)) { // if everything is full, stop wheels
+    if ((intakeOpen) && (m_oi.getIntake.get()) && (topOpen)) { // if intaking and intake is open, and there is space in the feeder
+      m_feeder.setFeeder2Speed(0.6); // move feeder wheels
+    } else if ((bottomOpen == false)) { // if everything is full, stop wheels
       m_feeder.setFeeder2Speed(0);
     }
   }
