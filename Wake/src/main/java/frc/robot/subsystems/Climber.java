@@ -29,7 +29,7 @@ public class Climber extends SubsystemBase {
     public void setClimbPower(double climberInput) {
         climb.set(climberInput);
     }
-
+    // TODO: should we have some function which will stop the climber once it reaches max or min height? we could read the encoder
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Climber Position", getClimbEncoder.get());
