@@ -13,7 +13,6 @@ public class ManualClimb extends CommandBase {
     private double climberInput;
 
     public ManualClimb(Climber climber) {
-        m_climber = climber;
         addRequirements(climber);
     }
 

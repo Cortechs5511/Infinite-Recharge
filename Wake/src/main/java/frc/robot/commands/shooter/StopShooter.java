@@ -11,6 +11,7 @@ public class StopShooter extends CommandBase {
   private Shooter m_shooter;
   private Feeder m_feeder;
   private Drive m_drive;
+  private Limelight m_limelight;
   private OI m_oi = OI.getInstance();
 
   private int count = 0;
@@ -35,6 +36,8 @@ public class StopShooter extends CommandBase {
 
     m_oi.setLeftRumble(1); // rumble to 1 to try to prevent stuck motor input
     m_oi.setRightRumble(1);
+
+    m_limelight.setLightStatus(1);
   }
 
   @Override

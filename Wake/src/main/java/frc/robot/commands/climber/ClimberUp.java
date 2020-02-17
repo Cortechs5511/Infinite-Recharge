@@ -9,7 +9,6 @@ public class ClimberUp extends CommandBase {
     private Climber m_climber;
 
     public ClimberUp(Climber climber) {
-        m_climber = climber;
         addRequirements(m_climber);
     }
 

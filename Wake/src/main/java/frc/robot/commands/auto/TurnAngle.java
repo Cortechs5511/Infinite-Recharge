@@ -14,7 +14,6 @@ public class TurnAngle extends CommandBase {
     static final double kTargetAngleDegrees = 90.0f;
     
     public TurnAngle(Drive drive) {
-        m_drive = drive;
         addRequirements(drive);
     }
 

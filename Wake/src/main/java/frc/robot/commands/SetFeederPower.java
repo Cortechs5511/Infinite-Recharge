@@ -11,7 +11,6 @@ public class SetFeederPower extends CommandBase {
   private double feederPower, feeder2Power, feeder3Power;
 
   public SetFeederPower(Feeder feeder) {
-    m_feeder = feeder;
     addRequirements(feeder);
   }
 

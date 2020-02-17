@@ -14,8 +14,6 @@ public class LimelightAlign extends CommandBase {
   private double threshold = 0.5;
 
   public LimelightAlign(Drive drive, Limelight limelight) {
-    m_drive = drive;
-    m_limelight = limelight;
     addRequirements(drive);
     addRequirements(limelight);
   }
