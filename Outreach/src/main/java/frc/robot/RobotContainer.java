@@ -45,6 +45,7 @@ public class RobotContainer {
   
   private final Shoot m_shoot = new Shoot(m_shooter, m_feeder, m_limelight);
   private final ShootAlign m_shootAlign = new ShootAlign(m_drive, m_shooter, m_feeder, m_limelight);
+  private final ShootAlignNew m_shootAlignNew = new ShootAlignNew(m_drive, m_shooter, m_feeder, m_limelight);
 
   Joystick leftStick = new Joystick(0);
   Joystick rightStick = new Joystick(1);
@@ -77,7 +78,8 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     new JoystickButton(controller, 5).whenPressed(m_shoot, true); 
-    new JoystickButton(controller, 6).whenPressed(m_shootAlign, true);
+    //new JoystickButton(controller, 6).whenPressed(m_shootAlign, true);
+    new JoystickButton(controller, 6).whenPressed(m_shootAlignNew, true);
     new JoystickButton(controller, 8).whenPressed(new StopShooter(m_shooter, m_limelight, m_feeder, m_drive), false);
     new JoystickButton(leftStick, 2).whenPressed(new Flip(m_drive));
 
