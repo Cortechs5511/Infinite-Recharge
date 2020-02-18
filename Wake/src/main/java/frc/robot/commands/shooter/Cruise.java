@@ -5,20 +5,24 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 import frc.robot.OI;
 import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Limelight;
 
 public class Cruise extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-
   private Shooter m_shooter;
   private Feeder m_feeder;
+  private Limelight m_limelight;
+
   private OI m_oi = OI.getInstance();
   private double count = 0f;
 
-  public Cruise(Shooter shooter, Feeder feeder) {
+  public Cruise(Shooter shooter, Feeder feeder, Limelight limelight) {
     m_shooter = shooter;
     m_feeder = feeder;
-    addRequirements(m_shooter);
-    addRequirements(m_feeder);
+    m_limelight = limelight;
+    addRequirements(shooter);
+    addRequirements(feeder);
+    addRequirements(limelight);
   }
 
   @Override
@@ -58,6 +62,7 @@ public class Cruise extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     count = 0;
+    m_limelight.setLightStatus(1);
 
     m_shooter.setRampRate(1.5);
     m_shooter.setPIDReference(0);

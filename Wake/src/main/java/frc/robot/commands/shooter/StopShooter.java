@@ -17,6 +17,10 @@ public class StopShooter extends CommandBase {
   private int count = 0;
 
   public StopShooter(Shooter shooter, Limelight limelight, Feeder feeder, Drive drive) {
+    m_shooter = shooter;
+    m_limelight = limelight;
+    m_feeder = feeder;
+    m_drive = drive;
     addRequirements(shooter);
     addRequirements(limelight);
     addRequirements(feeder);

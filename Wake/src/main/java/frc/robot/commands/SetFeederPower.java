@@ -11,6 +11,7 @@ public class SetFeederPower extends CommandBase {
   private double feederPower, feeder2Power, feeder3Power;
 
   public SetFeederPower(Feeder feeder) {
+    m_feeder = feeder;
     addRequirements(feeder);
   }
 
@@ -28,7 +29,7 @@ public class SetFeederPower extends CommandBase {
 
     if (bottomOpen == false) { // if balls in bottom
       if (topOpen) { // if top is clear
-        feederPower = 0.4; // move tower and feeder
+        feederPower = 0.5; // move tower and feeder
         if (intaking == false) { // if not feeding
           feeder2Power = 0.6;
           feeder3Power = 0.4;
@@ -37,7 +38,7 @@ public class SetFeederPower extends CommandBase {
         feederPower = 0; // do nothing
       }
     } else { // if bottom is clear
-      if ((topOpen == false) || (m_oi.getBackFeed.get())) { // if ball in top
+      if (topOpen == false) { // if ball in top
         feederPower = -0.4; // reverse the tower
       } else {
         feederPower = 0; // do nothing
@@ -57,8 +58,13 @@ public class SetFeederPower extends CommandBase {
     }
 
     if ((intakeOpen == false) && (bottomOpen == false) && (topOpen == false)) { //if everything is full
-      feeder2Power = 0; // stop all wheels
-      feeder3Power = 0;
+      feeder3Power = 0; // stop outer wheels
+    }
+
+    if (m_oi.getBackFeed.get()) {
+      feederPower = -0.3;
+      feeder2Power = -0.6;
+      feeder3Power = -0.6;
     }
 
     m_feeder.setFeederSpeed(feederPower);

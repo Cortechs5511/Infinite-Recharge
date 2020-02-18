@@ -82,7 +82,7 @@ public class RobotContainer {
     new JoystickButton(controller, 5).whenPressed(m_shoot, true); 
     new JoystickButton(controller, 6).whenPressed(m_shootAlign, true);
     new JoystickButton(controller, 8).whenPressed(m_stopShooter, false);
-    new JoystickButton(controller, 1).whenPressed(m_lightToggle, true);
+    new JoystickButton(controller, 7).whenPressed(m_lightToggle, true);
 
     new JoystickButton(leftStick, 2).whenPressed(new Flip(m_drive));
 

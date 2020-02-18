@@ -7,6 +7,7 @@ public class LightOn extends InstantCommand {
   private Limelight m_limelight;
 
   public LightOn(Limelight limelight) {
+    m_limelight = limelight;
     addRequirements(limelight);
   }
 

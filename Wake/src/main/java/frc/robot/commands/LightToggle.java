@@ -7,6 +7,7 @@ public class LightToggle extends InstantCommand {
   private Limelight m_limelight;
 
   public LightToggle(Limelight limelight) {
+    m_limelight = limelight;
     addRequirements(limelight);
   }
 

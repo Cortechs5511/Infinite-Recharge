@@ -11,6 +11,7 @@ public class SetDistance extends CommandBase {
 
   public SetDistance(double distance, Drive drive) {
     targetDistance = distance;
+    m_drive = drive;
     addRequirements(drive);
   }
 

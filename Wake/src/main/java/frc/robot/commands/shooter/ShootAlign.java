@@ -15,6 +15,6 @@ public class ShootAlign extends SequentialCommandGroup {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   public ShootAlign(Drive drive, Shooter shooter, Feeder feeder, Limelight limelight) {
     addCommands(new LightOn(limelight), new WaitCommand(0.5), new LimelightAlign(drive, limelight),
-        new Accel(shooter, limelight), new Cruise(shooter, feeder));
+        new Accel(shooter, limelight), new Cruise(shooter, feeder, limelight));
   }
 }

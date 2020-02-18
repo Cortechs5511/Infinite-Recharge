@@ -12,6 +12,7 @@ public class SetSpeed extends CommandBase {
   private Drive m_drive;
 
   public SetSpeed(Drive drive) {
+    m_drive = drive;
     addRequirements(drive);
   }
 
