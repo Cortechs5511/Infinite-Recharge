@@ -27,25 +27,14 @@ public class Accel extends CommandBase {
     m_Shooter.setRampRate(1.5);
     calculatedRPM = m_Limelight.calculateRPM();
     m_Shooter.setPIDReference(calculatedRPM);
-    SmartDashboard.putNumber("Limelight Calculated RPM", calculatedRPM);
   }
 
   @Override
   public void execute() {
     currentSpeed = m_Shooter.getSpeed.get(); 
     SmartDashboard.putNumber("RPM compare count", count);
-  }
 
-  @Override
-  public void end(boolean interrupted) {
-    m_Shooter.targetReached = true;
-    m_Shooter.setRampRate(0.15);
-    count = 0;
-  }
-
-  @Override
-  public boolean isFinished() {
-    if (Math.abs(calculatedRPM - currentSpeed) < 200) { // about a 1/2 second
+    if (Math.abs(calculatedRPM - currentSpeed) < 200) { 
       count++;
     } else {
       count = 0;
@@ -55,11 +44,20 @@ public class Accel extends CommandBase {
       m_oi.setLeftRumble(0.3);
       m_oi.setRightRumble(0.3);
     }
+  }
 
-    if (count > 25) {
-      return true;
-    } else {
-      return false;
-    }
+  @Override
+  public void end(boolean interrupted) {
+    m_Shooter.targetReached = true;
+    m_Shooter.setRampRate(0.15);
+    count = 0;
+
+    m_oi.setLeftRumble(0);
+    m_oi.setRightRumble(0);
+  }
+
+  @Override
+  public boolean isFinished() {
+    return (count > 25);
   }
 }

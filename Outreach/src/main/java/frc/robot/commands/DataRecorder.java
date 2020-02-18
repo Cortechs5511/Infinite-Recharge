@@ -16,7 +16,6 @@ public class DataRecorder extends CommandBase {
     private double time = 0;
 
     public DataRecorder(Drive drive) {
-        m_drive = drive;
     }
 
     @Override

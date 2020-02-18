@@ -9,7 +9,7 @@
       "name": "CodeLens (Launch) - BobTrajectory",
       "request": "launch",
       "mainClass": "frc.robot.BobTrajectory",
-      "projectName": "Wake"
+      "projectName": "Outreach"
     },
     {
       "type": "wpilib",

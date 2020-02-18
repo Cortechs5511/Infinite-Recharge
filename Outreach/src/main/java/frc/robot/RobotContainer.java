@@ -25,37 +25,39 @@ public class RobotContainer {
   private final Climber m_climber = new Climber();
 
   private final SetFeederPower m_setFeederPower = new SetFeederPower(m_feeder);
-  
+
   private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
 
   private final SetDistance m_setDistance = new SetDistance(420, m_drive);
-  
+
   private final TowerSimplePath m_towerSimple = new TowerSimplePath(m_drive);
   private final TowerPickupPath m_towerPickup = new TowerPickupPath(m_drive);
   private final TowerComplexPath m_towerComplex = new TowerComplexPath(m_drive);
-  
+
   private final TrenchSimplePath m_trenchSimple = new TrenchSimplePath(m_drive);
   private final TrenchPickupPath m_trenchPickup = new TrenchPickupPath(m_drive);
   private final TrenchComplexPath m_trenchComplex = new TrenchComplexPath(m_drive);
-  
+
   private final TowerTrenchPickupPath m_towerTrenchPickup = new TowerTrenchPickupPath(m_drive);
   private final TowerTrenchComplexPath m_towerTrenchComplex = new TowerTrenchComplexPath(m_drive);
 
   private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
-  
-  private final Shoot m_shoot = new Shoot(m_shooter, m_feeder, m_limelight);
+
   private final ShootAlign m_shootAlign = new ShootAlign(m_drive, m_shooter, m_feeder, m_limelight);
-  private final ShootAlignNew m_shootAlignNew = new ShootAlignNew(m_drive, m_shooter, m_feeder, m_limelight);
+  private final Shoot m_shoot = new Shoot(m_shooter, m_feeder, m_limelight);
+  private final StopShooter m_stopShooter = new StopShooter(m_shooter, m_limelight, m_feeder, m_drive);
+
+  private final LightToggle m_lightToggle = new LightToggle(m_limelight);
 
   Joystick leftStick = new Joystick(0);
   Joystick rightStick = new Joystick(1);
   XboxController controller = new XboxController(2);
-  
+
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   public RobotContainer() {
     configureButtonBindings();
-    
+
     m_drive.setDefaultCommand(m_setSpeed);
     m_feeder.setDefaultCommand(m_setFeederPower);
     m_climber.setDefaultCommand(m_manualClimb);
@@ -77,13 +79,15 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(controller, 5).whenPressed(m_shoot, true); 
-    //new JoystickButton(controller, 6).whenPressed(m_shootAlign, true);
-    new JoystickButton(controller, 6).whenPressed(m_shootAlignNew, true);
-    new JoystickButton(controller, 8).whenPressed(new StopShooter(m_shooter, m_limelight, m_feeder, m_drive), false);
+    new JoystickButton(controller, 5).whenPressed(m_shoot, true);
+    new JoystickButton(controller, 6).whenPressed(m_shootAlign, true);
+
+    new JoystickButton(controller, 8).whenPressed(m_stopShooter, false);
+    new JoystickButton(controller, 7).whenPressed(m_lightToggle, true);
+
     new JoystickButton(leftStick, 2).whenPressed(new Flip(m_drive));
 
-    SmartDashboard.putData("Stop Shooting", new StopShooter(m_shooter, m_limelight, m_feeder, m_drive));
+    SmartDashboard.putData("Stop Shooting", m_stopShooter);
     SmartDashboard.putData("Record", new DataRecorder(m_drive));
   }
 

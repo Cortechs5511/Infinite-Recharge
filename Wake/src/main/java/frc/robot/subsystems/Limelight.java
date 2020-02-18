@@ -17,7 +17,7 @@ public class Limelight extends SubsystemBase {
   private NetworkTableEntry ledMode = table.getEntry("ledMode");
 
   public Limelight() {
-    ledMode.setNumber(3); // sets lights off
+    ledMode.setNumber(1); // sets lights off
   }
 
   @Override
@@ -64,6 +64,6 @@ public class Limelight extends SubsystemBase {
   }
 
   public void setLightStatus(double input) {
-    ledMode.setNumber(input); // 1 = on, 3 = off
+    ledMode.setNumber(input); // 3 = on, 1 = off
   }
 }
