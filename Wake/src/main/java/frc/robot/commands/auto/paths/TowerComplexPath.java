@@ -16,10 +16,15 @@ public class TowerComplexPath extends CommandBase {
   private int row = 1;
 
   public TowerComplexPath(Drive drive) {
+    m_drive = drive;
+    addRequirements(drive);
   }
 
   @Override
   public void initialize() {
+    m_drive.resetLeftEnc();
+    m_drive.resetRightEnc();
+
     leftReference = points[0][3] * TICKS_PER_FOOT;
     rightReference = points[0][11] * TICKS_PER_FOOT;
 

@@ -91,24 +91,24 @@ public class Drive extends SubsystemBase {
     leftEnc.setPositionConversionFactor(42);
     rightEnc.setPositionConversionFactor(42);
 
-    leftNEOPID.setP(0.101);
+    leftNEOPID.setP(0.0164);
     leftNEOPID.setI(0);
-    leftNEOPID.setD(50.3);
+    leftNEOPID.setD(16.3);
     leftNEOPID.setFF(0);
-    leftNEOPID.setOutputRange(-0.3, 0.3); // consider changing this during drive testing
+    leftNEOPID.setOutputRange(-0.4, 0.4); // consider changing this during drive testing
 
-    rightNEOPID.setP(0.101);
+    rightNEOPID.setP(0.0158);
     rightNEOPID.setI(0);
-    rightNEOPID.setD(50.3);
+    rightNEOPID.setD(15.7);
     rightNEOPID.setFF(0);
-    leftNEOPID.setOutputRange(-0.3, 0.3);
+    leftNEOPID.setOutputRange(-0.4, 0.4);
 
     anglePID.disableContinuousInput();
     anglePID.setIntegratorRange(-1.5, 1.5);
 
     SmartDashboard.putNumber("Angle P", 0.025);
     SmartDashboard.putNumber("Angle I", 0.015);
-    SmartDashboard.putNumber("Angle D", 0.001);
+    SmartDashboard.putNumber("Angle D", 0.002);
     SmartDashboard.putNumber("Threshold", 0.5);
   }
 
@@ -149,7 +149,7 @@ public class Drive extends SubsystemBase {
 
     angle_kP = SmartDashboard.getNumber("Angle P", 0.025);
     angle_kI = SmartDashboard.getNumber("Angle I", 0.015);
-    angle_kD = SmartDashboard.getNumber("Angle D", 0.001);
+    angle_kD = SmartDashboard.getNumber("Angle D", 0.002);
     anglePID.setPID(angle_kP, angle_kI, angle_kD);
   }
 

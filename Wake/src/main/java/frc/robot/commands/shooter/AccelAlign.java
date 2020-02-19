@@ -72,6 +72,10 @@ public class AccelAlign extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
+    calculatedSpeed = m_limelight.calculateRPM();
+    m_shooter.setPIDReference(calculatedSpeed);
+
+
     m_drive.setLeft(0);
     m_drive.setRight(0);
     SmartDashboard.putBoolean("Limelight Align Active", false);

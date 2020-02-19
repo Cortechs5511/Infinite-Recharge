@@ -28,8 +28,8 @@ public class Cruise extends CommandBase {
   @Override
   public void initialize() {
     m_feeder.setFeederSpeed(0.4);
-    m_feeder.setFeeder2Speed(0.4);
-    m_feeder.setFeeder3Speed(0.4);
+    m_feeder.setFeeder2Speed(0.6);
+    m_feeder.setFeeder3Speed(0.3);
   }
 
   @Override

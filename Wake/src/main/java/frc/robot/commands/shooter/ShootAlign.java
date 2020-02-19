@@ -1,7 +1,6 @@
 package frc.robot.commands.shooter;
 
 import frc.robot.commands.LightOn;
-import frc.robot.commands.drive.LimelightAlign;
 
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Shooter;
@@ -15,13 +14,11 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 public class ShootAlign extends SequentialCommandGroup {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   public ShootAlign(Drive drive, Shooter shooter, Feeder feeder, Limelight limelight) {
-    addCommands(new LightOn(limelight), new WaitCommand(0.5), new LimelightAlign(drive, limelight),
-        new Accel(shooter, limelight), new Cruise(shooter, feeder, limelight));
-    /*
-     * addCommands( new LightOn(limelight), // does not work: use accelalign (not
-     * tested) new WaitCommand(0.5), new ParallelCommandGroup( new
-     * LimelightAlign(drive, limelight), new Accel(shooter, limelight)), new
-     * Cruise(shooter, feeder, limelight));
-     */
+    addCommands(
+      new LightOn(limelight),
+      new WaitCommand(0.5), 
+      new AccelAlign(drive, limelight, shooter),
+      new WaitCommand(0.5), 
+      new Cruise(shooter, feeder, limelight));
   }
 }

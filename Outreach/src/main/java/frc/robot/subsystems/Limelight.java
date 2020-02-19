@@ -18,6 +18,7 @@ public class Limelight extends SubsystemBase {
 
   public Limelight() {
     ledMode.setNumber(1); // sets lights off
+    SmartDashboard.putNumber("Target RPM", 3300);
   }
 
   @Override
@@ -33,7 +34,6 @@ public class Limelight extends SubsystemBase {
     distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
     SmartDashboard.putNumber("Calculated Distance", distance);
 
-    SmartDashboard.putNumber("Target RPM", 3300);
   }
 
   public double calculateRPM() {

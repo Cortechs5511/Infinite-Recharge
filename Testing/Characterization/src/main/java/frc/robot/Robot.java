@@ -54,6 +54,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    left0.setInverted(false);
+    left1.setInverted(false);
+    right0.setInverted(false);
+    right1.setInverted(false);
+
     if (!isReal()) SmartDashboard.putData(new SimEnabler());
 
     gyroAngleRadians = () -> -1 * Math.toRadians(navx.getAngle());

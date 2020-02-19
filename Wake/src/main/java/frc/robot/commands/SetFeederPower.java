@@ -38,24 +38,25 @@ public class SetFeederPower extends CommandBase {
         feederPower = 0; // do nothing
       }
     } else { // if bottom is clear
-      if (topOpen == false) { // if ball in top
+      feederPower = 0; // backfeed incompatible with new sensor location
+      /*if (topOpen == false) { // if ball in top
         feederPower = -0.4; // reverse the tower
       } else {
         feederPower = 0; // do nothing
-      }
+      }*/
     }
 
     if (intaking) { // if intaking 
-      feeder2Power = 0.6; // spin wheels
-      feeder3Power = 0.6;
+      feeder2Power = 0.65; // spin wheels
+      feeder3Power = 0.4;
     } else if ((bottomOpen) || (topOpen == false)){
       feeder2Power = 0;
       feeder3Power = 0;
     }
 
-    if (topOpen == false) { // if none of top code block, stop inner wheels
-      feeder2Power = 0; // stop only inner wheels
-    }
+    /*if (topOpen == false) { // if none of top code block, stop inner wheels
+      feeder2Power = 0.6; // stop only inner wheels
+    }*/
 
     if ((intakeOpen == false) && (bottomOpen == false) && (topOpen == false)) { //if everything is full
       feeder3Power = 0; // stop outer wheels
