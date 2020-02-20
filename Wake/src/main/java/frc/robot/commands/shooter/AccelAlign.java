@@ -74,7 +74,7 @@ public class AccelAlign extends CommandBase {
   public void end(boolean interrupted) {
     calculatedSpeed = m_limelight.calculateRPM();
     m_shooter.setPIDReference(calculatedSpeed);
-
+    m_limelight.setLightStatus(3);
 
     m_drive.setLeft(0);
     m_drive.setRight(0);

@@ -8,7 +8,7 @@ public class SetFeederPower extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private Feeder m_feeder;
   private OI m_oi = OI.getInstance();
-  private double feederPower, feeder2Power, feeder3Power;
+  private double polySpeed, blackSpeed, greenSpeed;
 
   public SetFeederPower(Feeder feeder) {
     m_feeder = feeder;
@@ -22,57 +22,58 @@ public class SetFeederPower extends CommandBase {
 
   @Override
   public void execute() {
-    boolean bottomOpen = m_feeder.getBottomSensor.get();
-    boolean topOpen = m_feeder.getTopSensor.get();
-    boolean greenOpen = m_feeder.getGreenSensor.get();
-    boolean blackOpen = m_feeder.getBlackSensor.get();
+    boolean bottom = !m_feeder.getBottomSensor.get();
+    boolean top = !m_feeder.getTopSensor.get();
+    boolean green = !m_feeder.getGreenSensor.get();
+    boolean black = !m_feeder.getBlackSensor.get();
+
     boolean intaking = m_oi.getIntake.get();
-    
 
-    // if (bottomOpen == false) { // if balls in bottom
-    //   if (topOpen) { // if top is clear
-    //     feederPower = 0.5; // move tower and feeder
-    //     if (intaking == false) { // if not feeding
-    //       feeder2Power = 0.6;
-    //       feeder3Power = 0.4;
-    //     }
-    //   } else { // if top is not clear
-    //     feederPower = 0; // do nothing
-    //   }
-    // } else { // if bottom is clear
-    //   feederPower = 0; // backfeed incompatible with new sensor location
-    //   if (topOpen == false) { // if ball in top
-    //     feederPower = -0.4; // reverse the tower
-    //   } else {
-    //     feederPower = 0; // do nothing
-    //   }
-    // }
+    if (intaking) {
+      blackSpeed = 0.6;
+      greenSpeed = 0.35;
+    } else {
+      blackSpeed = 0;
+      greenSpeed = 0;
+    }
 
-    // if (intaking) { // if intaking 
-    //   feeder2Power = 0.65; // spin wheels
-    //   feeder3Power = 0.4;
-    // } else if ((bottomOpen) || (topOpen == false)){
-    //   feeder2Power = 0;
-    //   feeder3Power = 0;
-    // }
+    if (top && bottom && black && green) { // 1111
+      polySpeed = 0; // poly off
+      blackSpeed = 0; // black off
+      greenSpeed = 0; // green off
+    } else if (top && bottom && black && green == false) { // 1110
+      polySpeed = 0; // poly off
+      blackSpeed = 0; // black off, green on intake
+    } else if (top && bottom && black == false && green) { // 110*
+      polySpeed = 0; // poly off, black and green on intake
+    } else if (top && bottom && black == false && green == false) { // 1100
+      polySpeed = 0; // poly off, black and green on intake
+    } else if (top && bottom == false && black && green) { // 1011
+      polySpeed = -0.4; // poly back
+      blackSpeed = 0; // black off
+      greenSpeed = 0; // green off
+    } else if (top && bottom == false && black == false && green) { // 1001
+      polySpeed = -0.4; // poly back, black and green on intake
+    } else if (top && bottom == false && black && green == false) { // 1010
+      polySpeed = -0.4; // poly back
+      blackSpeed = 0; // black off, green on intake
+    } else if (top && bottom == false && black == false && green == false) { // 1000
+      polySpeed = -0.4; // poly back, black and green on intake
+    } else if (top == false && bottom) { // 01**
+      polySpeed = 0.4; // poly on, black and green on intake
+    } else if (top == false && bottom == false) { // 00**
+      polySpeed = 0; // poly off, black and green on intake
+    }
 
-    // /*if (topOpen == false) { // if none of top code block, stop inner wheels
-    //   feeder2Power = 0.6; // stop only inner wheels
-    // }*/
+    if (m_oi.getBackFeed.get()) {
+      polySpeed = -0.3;
+      blackSpeed = -0.6;
+      greenSpeed = -0.6;
+    }
 
-    // if ((intakeOpen == false) && (bottomOpen == false) && (topOpen == false)) { //if everything is full
-    //   feeder3Power = 0; // stop outer wheels
-    // }
-
-    // if (m_oi.getBackFeed.get()) {
-    //   feederPower = -0.3;
-    //   feeder2Power = -0.6;
-    //   feeder3Power = -0.6;
-    // }
-
-    m_feeder.setFeederSpeed(feederPower);
-    m_feeder.setFeeder2Speed(feeder2Power);
-    m_feeder.setFeeder3Speed(feeder3Power);
+    m_feeder.setFeederSpeed(polySpeed); // poly
+    m_feeder.setFeeder2Speed(blackSpeed); // black
+    m_feeder.setFeeder3Speed(greenSpeed); // green
   }
 
   @Override

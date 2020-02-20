@@ -91,17 +91,17 @@ public class Drive extends SubsystemBase {
     leftEnc.setPositionConversionFactor(42);
     rightEnc.setPositionConversionFactor(42);
 
-    leftNEOPID.setP(0.0164);
+    leftNEOPID.setP(0.0158);
     leftNEOPID.setI(0);
-    leftNEOPID.setD(16.3);
+    leftNEOPID.setD(15.7);
     leftNEOPID.setFF(0);
-    leftNEOPID.setOutputRange(-0.4, 0.4); // consider changing this during drive testing
-
-    rightNEOPID.setP(0.0158);
-    rightNEOPID.setI(0);
-    rightNEOPID.setD(15.7);
-    rightNEOPID.setFF(0);
     leftNEOPID.setOutputRange(-0.4, 0.4);
+    
+    rightNEOPID.setP(0.0164);
+    rightNEOPID.setI(0);
+    rightNEOPID.setD(16.3);
+    rightNEOPID.setFF(0);
+    rightNEOPID.setOutputRange(-0.4, 0.4); // consider changing this during drive testing
 
     anglePID.disableContinuousInput();
     anglePID.setIntegratorRange(-1.5, 1.5);
