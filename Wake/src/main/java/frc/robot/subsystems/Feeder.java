@@ -19,16 +19,22 @@ public class Feeder extends SubsystemBase {
 
   private DigitalInput bottomSensor = new DigitalInput(0);
   private DigitalInput topSensor = new DigitalInput(1);
-  private DigitalInput intakeSensor = new DigitalInput(2);
+  private DigitalInput greenSensor = new DigitalInput(2);
+  private DigitalInput blackSensor = new DigitalInput(3);
 
+  private Counter bottomCounter = new Counter(bottomSensor);
   private Counter topCounter = new Counter(topSensor);
+  private int sumCounter = bottomCounter.get();
 
-  private Encoder intakeEncoder = new Encoder(3, 4); // wrist -- inop
-  private Encoder feedEncoder = new Encoder(5, 6); // tower -- inop
+  private Encoder intakeEncoder = new Encoder(4, 5); // wrist -- inop
+  private Encoder feedEncoder = new Encoder(6, 7); // tower -- inop
 
   public Supplier<Boolean> getBottomSensor = () -> bottomSensor.get();
   public Supplier<Boolean> getTopSensor = () -> topSensor.get();
-  public Supplier<Boolean> getIntakeSensor = () -> intakeSensor.get();
+  public Supplier<Boolean> getGreenSensor = () -> greenSensor.get();
+  public Supplier<Boolean> getBlackSensor = () -> blackSensor.get();
+  
+  public Supplier<Integer> getSumCounter = () -> sumCounter;
 
   public Supplier<Integer> getIntakeEncoder = () -> intakeEncoder.get();
   public Supplier<Integer> getFeedEncoder = () -> feedEncoder.get();
@@ -54,7 +60,9 @@ public class Feeder extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putBoolean("Top Sensor", topSensor.get());
     SmartDashboard.putBoolean("Bottom Sensor", bottomSensor.get());
-    SmartDashboard.putBoolean("Intake Sensor", intakeSensor.get());
+    SmartDashboard.putBoolean("Green Sensor", greenSensor.get());
+    SmartDashboard.putBoolean("Black Sensor", blackSensor.get());
+    sumCounter = bottomCounter.get();
 
     SmartDashboard.putNumber("Feeder Wheels Encoder", intakeEncoder.get()); // intakeEncoder in feeder subsystem = black wheels
     SmartDashboard.putNumber("Tower Encoder", feedEncoder.get());
