@@ -93,15 +93,15 @@ public class Drive extends SubsystemBase {
     leftEnc.setPositionConversionFactor(42);
     rightEnc.setPositionConversionFactor(42);
 
-    leftNEOPID.setP(1.13);
+    leftNEOPID.setP(0.0305);
     leftNEOPID.setI(0);
-    leftNEOPID.setD(38.5);
+    leftNEOPID.setD(15.2);
     leftNEOPID.setFF(0);
     leftNEOPID.setOutputRange(-0.4, 0.4);
     
-    rightNEOPID.setP(1.24);
+    rightNEOPID.setP(0.0335);
     rightNEOPID.setI(0);
-    rightNEOPID.setD(42.4);
+    rightNEOPID.setD(16.7);
     rightNEOPID.setFF(0);
     rightNEOPID.setOutputRange(-0.4, 0.4); // consider changing this during drive testing
 
@@ -138,6 +138,10 @@ public class Drive extends SubsystemBase {
     rightEnc.setPosition(0);
   }
 
+  /*public void resetGyroAngle() {
+    
+  }*/
+
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Left Speed", leftEnc.getVelocity());
@@ -148,6 +152,8 @@ public class Drive extends SubsystemBase {
 
     SmartDashboard.putNumber("Left Power", left0.get());
     SmartDashboard.putNumber("Right Power", right0.get());
+
+    SmartDashboard.putNumber("NavX Angle", navx.getAngle());
 
     angle_kP = SmartDashboard.getNumber("Angle P", 0.03);
     angle_kI = SmartDashboard.getNumber("Angle I", 0.02);
@@ -165,5 +171,5 @@ public class Drive extends SubsystemBase {
 
   public void setMaxOutput(double limit) {
     multiplier = limit;
-  }
+  } 
 }

@@ -46,14 +46,14 @@ public class Shooter extends SubsystemBase {
 
     shootPID.setOutputRange(0, 1);
 
-    shootPID.setP(0.0003); // will need to be re-tested on the new shooter
+    shootPID.setP(0.000275); // will need to be re-tested on the new shooter
     shootPID.setI(0);
-    shootPID.setD(0.01);
+    shootPID.setD(0.008);
     shootPID.setFF(0.000202);
 
-    SmartDashboard.putNumber("Shooter P", 0.0003);
+    SmartDashboard.putNumber("Shooter P", 0.00028);
     SmartDashboard.putNumber("Shooter I", 0);
-    SmartDashboard.putNumber("Shooter D", 0.01);
+    SmartDashboard.putNumber("Shooter D", 0.008);
     SmartDashboard.putNumber("Shooter FF", 0.000202);
   }
 
@@ -74,9 +74,9 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    shootPID.setP(SmartDashboard.getNumber("Shooter P", 0.0003)); 
+    shootPID.setP(SmartDashboard.getNumber("Shooter P", 0.000275)); // 0.0003
     shootPID.setI(SmartDashboard.getNumber("Shooter I", 0)); 
-    shootPID.setD(SmartDashboard.getNumber("Shooter D", 0.01)); 
+    shootPID.setD(SmartDashboard.getNumber("Shooter D", 0.008));  // 0.01
     shootPID.setFF(SmartDashboard.getNumber("Shooter FF", 0.000202)); 
 
     shoot1.set(shoot0.get());

@@ -16,10 +16,11 @@ public class AccelAlign extends CommandBase {
   private OI m_oi = OI.getInstance();
 
   private double val, input, currentSpeed, calculatedSpeed;
-  private double threshold = 0.25;
+  private double threshold;
   private int count = 0;
 
-  public AccelAlign(Drive drive, Limelight limelight, Shooter shooter) {
+  public AccelAlign(double limeThreshold, Drive drive, Limelight limelight, Shooter shooter) {
+    threshold = limeThreshold;
     m_drive = drive;
     m_limelight = limelight;
     m_shooter = shooter;

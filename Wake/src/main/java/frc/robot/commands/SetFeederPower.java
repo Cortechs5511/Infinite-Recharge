@@ -31,7 +31,7 @@ public class SetFeederPower extends CommandBase {
 
     if (intaking) {
       blackSpeed = 0.7;
-      greenSpeed = 0.45;
+      greenSpeed = 0.6;
     } else {
       blackSpeed = 0;
       greenSpeed = 0;
@@ -65,12 +65,13 @@ public class SetFeederPower extends CommandBase {
       polySpeed = 0; // poly off, black and green on intake
     }
 
-    if (m_oi.getBackFeed.get()) {
-      polySpeed = -0.3;
+    if (m_oi.getIntakeBackFeed.get()) {
       blackSpeed = -0.6;
       greenSpeed = -0.6;
     }
-
+    if (m_oi.getBeltBackFeed.get()) {
+      polySpeed = -0.4;
+    }
     m_feeder.setFeederSpeed(polySpeed); // poly
     m_feeder.setFeeder2Speed(blackSpeed); // black
     m_feeder.setFeeder3Speed(greenSpeed); // green

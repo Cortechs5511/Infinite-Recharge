@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class Shoot extends SequentialCommandGroup {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  public Shoot(Shooter shooter, Feeder feeder, Limelight limelight) {
+  public Shoot(int feedThreshold, Shooter shooter, Feeder feeder, Limelight limelight) {
     addCommands(
         new LightOn(limelight),
         new WaitCommand(0.5), 
         new Accel(shooter, limelight), 
-        new Cruise(shooter, feeder));
+        new Cruise(feedThreshold, shooter, feeder));
   }
 }

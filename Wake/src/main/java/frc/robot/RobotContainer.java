@@ -43,8 +43,11 @@ public class RobotContainer {
 
   private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
 
-  private final ShootAlign m_shootAlign = new ShootAlign(m_drive, m_shooter, m_feeder, m_limelight);
-  private final Shoot m_shoot = new Shoot(m_shooter, m_feeder, m_limelight);
+  private final ShootAlign m_fastShootAlign = new ShootAlign(0.5, -1, m_drive, m_shooter, m_feeder, m_limelight);
+  private final ShootAlign m_slowShootAlign = new ShootAlign(0.5, 5, m_drive, m_shooter, m_feeder, m_limelight);
+  private final Shoot m_fastShoot = new Shoot(-1, m_shooter, m_feeder, m_limelight);
+  private final Shoot m_slowShoot = new Shoot(5, m_shooter, m_feeder, m_limelight);
+
   private final StopShooter m_stopShooter = new StopShooter(m_shooter, m_limelight, m_feeder, m_drive);
 
   private final LightToggle m_lightToggle = new LightToggle(m_limelight);
@@ -79,8 +82,10 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(controller, 5).whenPressed(m_shoot, true);
-    new JoystickButton(controller, 6).whenPressed(m_shootAlign, true);
+    new JoystickButton(controller, 1).whenPressed(m_slowShoot, true);
+    new JoystickButton(controller, 3).whenPressed(m_fastShoot, true);
+    new JoystickButton(controller, 4).whenPressed(m_slowShootAlign, true);
+    new JoystickButton(controller, 2).whenPressed(m_fastShootAlign, true);
 
     new JoystickButton(controller, 8).whenPressed(m_stopShooter, false);
     new JoystickButton(controller, 7).whenPressed(m_lightToggle, true);
@@ -89,6 +94,15 @@ public class RobotContainer {
     new JoystickButton(rightStick, 2)
         .whenPressed(() -> m_drive.setMaxOutput(0.5))
         .whenReleased(() -> m_drive.setMaxOutput(0.9));
+
+    new JoystickButton(rightStick, 3)
+        .whenPressed(() -> m_drive.setMaxOutput(0.25))
+        .whenReleased(() -> m_drive.setMaxOutput(0.9));
+
+    new JoystickButton(rightStick, 4)
+        .whenPressed(() -> m_drive.setMaxOutput(0.175))
+        .whenReleased(() -> m_drive.setMaxOutput(0.9));
+      
 
     SmartDashboard.putData("Stop Shooting", m_stopShooter);
     SmartDashboard.putData("Record", new DataRecorder(m_drive));

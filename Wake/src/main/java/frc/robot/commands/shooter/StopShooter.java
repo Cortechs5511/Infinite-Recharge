@@ -33,7 +33,7 @@ public class StopShooter extends CommandBase {
     m_feeder.setFeeder2Speed(0);
     m_feeder.setFeeder3Speed(0);
 
-    m_shooter.setRampRate(1);
+    m_shooter.setRampRate(1.5);
     
     m_drive.setLeft(0);
     m_drive.setRight(0);
@@ -59,6 +59,6 @@ public class StopShooter extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return (count > 25); // 0.5 second pause to avoid balls getting stuck in shooter
+    return (count > 50); // 1 second pause to avoid balls getting stuck in shooter
   }
 }

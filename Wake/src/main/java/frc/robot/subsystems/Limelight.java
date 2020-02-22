@@ -33,8 +33,7 @@ public class Limelight extends SubsystemBase {
     SmartDashboard.putNumber("Y", y);
     SmartDashboard.putNumber("Area", area);
     
-    //temporary
-    distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
+    distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1); // in periodic for testing
     SmartDashboard.putNumber("Calculated Distance", distance);
   }
 
@@ -42,10 +41,10 @@ public class Limelight extends SubsystemBase {
     distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
     SmartDashboard.putNumber("Calculated Distance", distance);
     
-    // 0.000119x^3-0.0784x^2+18.4x+2060
-    double rpm = (0.000119 * Math.pow(distance, 3)) - (0.0784 * Math.pow(distance, 2)) + (18.4 * distance) + 2060;
+    // 0.00913x^2 -2.69x + 3647
+    double rpm = (0.00913 * Math.pow(distance, 2)) - (2.69 * distance) + 3647;
     SmartDashboard.putNumber("RPM Setpoint", rpm);
-
+    
     if (v != 0) { // if image not captured, return default of 0
       return rpm;
     } else {

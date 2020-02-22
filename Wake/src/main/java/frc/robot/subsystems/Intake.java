@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.OI;
@@ -29,9 +28,6 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Forward Limit Switch", wrist.isFwdLimitSwitchClosed() == 1);
-    SmartDashboard.putBoolean("Reverse Limit Switch", wrist.isRevLimitSwitchClosed() == 1);
-
     if (m_oi.getWristDown.get()) {
       wristInput = 0.3;
     } else if (m_oi.getWristUp.get()) {
@@ -42,6 +38,8 @@ public class Intake extends SubsystemBase {
 
     if (m_oi.getIntake.get()) {
       intake.set(0.8);
+    } else if (m_oi.getIntakeBackFeed.get()) {
+      intake.set(-0.6);
     } else {
       intake.set(0);
     }

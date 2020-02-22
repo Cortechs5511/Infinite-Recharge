@@ -17,8 +17,10 @@ public class Cruise extends CommandBase {
 
   private int count = 0;
   private int feedCount = 0;
+  private int threshold;
 
-  public Cruise(Shooter shooter, Feeder feeder) {
+  public Cruise(int feedThreshold, Shooter shooter, Feeder feeder) {
+    threshold = feedThreshold;
     m_shooter = shooter;
     m_feeder = feeder;
     addRequirements(shooter);
@@ -32,8 +34,8 @@ public class Cruise extends CommandBase {
 
   @Override
   public void execute() {
-    if (m_feeder.getTopSensor.get() == false) { // if there is a ball in the top, timer resets
-      count = 0;
+    if ((m_feeder.getTopSensor.get() == false) || (feedCount != 0)) { // if there is a ball in the top, and stabilized
+      count = 0; // count is 0
     } else { // else (there is no ball, or the sensor is dead), timer starts counting
       count++;
     }
@@ -44,10 +46,10 @@ public class Cruise extends CommandBase {
       feedCount = 0;
     }
 
-    if (feedCount > 25) {
+    if (feedCount > threshold) {
       m_feeder.setFeederSpeed(0.4);
       m_feeder.setFeeder2Speed(0.8);
-      m_feeder.setFeeder3Speed(0.4);
+      m_feeder.setFeeder3Speed(0.35);
     } else {
       m_feeder.setFeederSpeed(0);
       m_feeder.setFeeder2Speed(0);
@@ -77,6 +79,6 @@ public class Cruise extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return ((count > 254) || (m_shooter.getSpeed.get() < 1000)); // about 2 seconds of pause or if underspeed
+    return ((count > 75) || (m_shooter.getSpeed.get() < 1000)); // about 2 seconds of pause or if underspeed
   }
 }

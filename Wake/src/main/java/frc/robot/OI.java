@@ -1,6 +1,7 @@
 package frc.robot;
 
 import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -15,11 +16,13 @@ public class OI {
     public Supplier<Double> getLeftY = () -> leftStick.getY();
     public Supplier<Double> getRightY = () -> rightStick.getY();
 
-    public Supplier<Boolean> getWristUp = () -> controller.getRawButton(3);
-    public Supplier<Boolean> getWristDown = () -> controller.getRawButton(2);
+    public Supplier<Boolean> getWristUp = () -> Math.abs(controller.getRawAxis(2)) > 0.5;
+    public Supplier<Boolean> getWristDown = () -> Math.abs(controller.getRawAxis(3)) > 0.5;
 
-    public Supplier<Boolean> getIntake = () -> controller.getRawButton(4); // 40% output for intake and black wheel
-    public Supplier<Boolean> getBackFeed = () -> controller.getRawButton(1);
+    public Supplier<Boolean> getIntake = () -> (controller.getRawButton(5)) || (controller.getRawButton(6));
+    
+    public Supplier<Boolean> getIntakeBackFeed = () -> (Math.abs(controller.getRawAxis(0)) > 0.7) || (Math.abs(controller.getRawAxis(1)) > 0.7);
+    public Supplier<Boolean> getBeltBackFeed = () -> (Math.abs(controller.getRawAxis(4)) > 0.7) || (Math.abs(controller.getRawAxis(5)) > 0.7);
 
     public Supplier<Boolean> getClimberUp = () -> (controller.getPOV()) == 0;
     public Supplier<Boolean> getClimberDown = () -> (controller.getPOV()) == 180;
