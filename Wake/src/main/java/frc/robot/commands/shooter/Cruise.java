@@ -5,31 +5,29 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 import frc.robot.OI;
 import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.Limelight;
 
 public class Cruise extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private Shooter m_shooter;
   private Feeder m_feeder;
-  private Limelight m_limelight;
+
+  private double target;
 
   private OI m_oi = OI.getInstance();
-  private double count = 0f;
 
-  public Cruise(Shooter shooter, Feeder feeder, Limelight limelight) {
+  private int count = 0;
+  private int feedCount = 0;
+
+  public Cruise(Shooter shooter, Feeder feeder) {
     m_shooter = shooter;
     m_feeder = feeder;
-    m_limelight = limelight;
     addRequirements(shooter);
     addRequirements(feeder);
-    addRequirements(limelight);
   }
 
   @Override
   public void initialize() {
-    m_feeder.setFeederSpeed(0.4);
-    m_feeder.setFeeder2Speed(0.6);
-    m_feeder.setFeeder3Speed(0.3);
+    target = m_shooter.getTarget.get();
   }
 
   @Override
@@ -40,6 +38,22 @@ public class Cruise extends CommandBase {
       count++;
     }
 
+    if ((Math.abs(m_shooter.getSpeed.get() - target)) < 50) {
+      feedCount++;
+    } else {
+      feedCount = 0;
+    }
+
+    if (feedCount > 25) {
+      m_feeder.setFeederSpeed(0.4);
+      m_feeder.setFeeder2Speed(0.8);
+      m_feeder.setFeeder3Speed(0.4);
+    } else {
+      m_feeder.setFeederSpeed(0);
+      m_feeder.setFeeder2Speed(0);
+      m_feeder.setFeeder3Speed(0);
+    }
+
     if ((count > 25) && (count < 75)) {
       m_oi.setLeftRumble(1);
       m_oi.setRightRumble(1);
@@ -47,27 +61,15 @@ public class Cruise extends CommandBase {
       m_oi.setLeftRumble(0);
       m_oi.setRightRumble(0);
     }
-
-    if (m_shooter.getSpeed.get() < 1000) {
-      m_feeder.setFeederSpeed(0);
-      m_feeder.setFeeder2Speed(0);
-      m_feeder.setFeeder3Speed(0);
-    } else {
-      m_feeder.setFeederSpeed(0.4);
-      m_feeder.setFeeder2Speed(0.4);
-      m_feeder.setFeeder3Speed(0.4);
-    }
   }
 
   @Override
   public void end(boolean interrupted) {
     count = 0;
-    m_limelight.setLightStatus(1);
 
     m_shooter.setRampRate(1.5);
     m_shooter.setPIDReference(0);
     m_shooter.setSpeed(0);
-    m_shooter.targetReached = false;
 
     m_feeder.setFeederSpeed(0);
     m_feeder.setFeeder2Speed(0);
@@ -75,6 +77,6 @@ public class Cruise extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return (count > 100); // about 2 seconds of pause
+    return ((count > 254) || (m_shooter.getSpeed.get() < 1000)); // about 2 seconds of pause or if underspeed
   }
 }

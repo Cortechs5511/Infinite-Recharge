@@ -8,42 +8,48 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight extends SubsystemBase {
-  private double x, y, area, distance;
+  private double x, y, v, area, distance;
   
   private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   private NetworkTableEntry tx = table.getEntry("tx");
   private NetworkTableEntry ty = table.getEntry("ty");
   private NetworkTableEntry ta = table.getEntry("ta");
+  private NetworkTableEntry tv = table.getEntry("tv");
   private NetworkTableEntry ledMode = table.getEntry("ledMode");
 
   public Limelight() {
     ledMode.setNumber(1); // sets lights off
+    SmartDashboard.putNumber("RPM Setpoint", 0);
   }
 
   @Override
   public void periodic() {
     x = tx.getDouble(0.0);
     y = ty.getDouble(0.0);
+    v = tv.getDouble(0.0);
     area = ta.getDouble(0.0);
 
     SmartDashboard.putNumber("X", x);
     SmartDashboard.putNumber("Y", y);
     SmartDashboard.putNumber("Area", area);
-
-    // distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
+    
+    //temporary
+    distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
+    SmartDashboard.putNumber("Calculated Distance", distance);
   }
 
   public double calculateRPM() {
     distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
     SmartDashboard.putNumber("Calculated Distance", distance);
-
-    double rpm = -(0.000215 * Math.pow(distance, 2)) + 4.76 * distance + 2735;
+    
+    // 0.000119x^3-0.0784x^2+18.4x+2060
+    double rpm = (0.000119 * Math.pow(distance, 3)) - (0.0784 * Math.pow(distance, 2)) + (18.4 * distance) + 2060;
     SmartDashboard.putNumber("RPM Setpoint", rpm);
 
-    if (y != 0) { // if image not captured, return default of 4200
+    if (v != 0) { // if image not captured, return default of 0
       return rpm;
     } else {
-      return 4200;
+      return 0;
     }
   }
 

@@ -16,7 +16,7 @@ public class AccelAlign extends CommandBase {
   private OI m_oi = OI.getInstance();
 
   private double val, input, currentSpeed, calculatedSpeed;
-  private double threshold = 0.5;
+  private double threshold = 0.25;
   private int count = 0;
 
   public AccelAlign(Drive drive, Limelight limelight, Shooter shooter) {
@@ -40,7 +40,6 @@ public class AccelAlign extends CommandBase {
   @Override
   public void execute() {
     input = m_limelight.getX();
-    threshold = SmartDashboard.getNumber("Threshold", 0.5);
     //SmartDashboard.putNumber("Limelight Received X", input);
     double setpoint = 0.0;
 
@@ -74,13 +73,12 @@ public class AccelAlign extends CommandBase {
   public void end(boolean interrupted) {
     calculatedSpeed = m_limelight.calculateRPM();
     m_shooter.setPIDReference(calculatedSpeed);
-    m_limelight.setLightStatus(3);
+    m_limelight.setLightStatus(1);
 
     m_drive.setLeft(0);
     m_drive.setRight(0);
     SmartDashboard.putBoolean("Limelight Align Active", false);
 
-    m_shooter.targetReached = true;
     m_shooter.setRampRate(0.15);
     count = 0;
 

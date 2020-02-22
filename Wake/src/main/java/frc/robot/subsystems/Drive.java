@@ -30,6 +30,7 @@ public class Drive extends SubsystemBase {
 
   private AHRS navx = new AHRS();
   public Boolean invert = false;
+  private double multiplier = 0.9;
 
   public Supplier<Double> getLeftOutput = () -> left0.get();
   public Supplier<Double> getRightOutput = () -> right0.get();
@@ -41,6 +42,7 @@ public class Drive extends SubsystemBase {
   public Supplier<Double> getRightVelocity = () -> rightEnc.getVelocity();
 
   public Supplier<Double> getGyroAngle = () -> navx.getAngle();
+  public Supplier<Double> getMaxOutput = () -> multiplier;
 
   private double angle_kP, angle_kI, angle_kD;
 
@@ -91,23 +93,23 @@ public class Drive extends SubsystemBase {
     leftEnc.setPositionConversionFactor(42);
     rightEnc.setPositionConversionFactor(42);
 
-    leftNEOPID.setP(0.0158);
+    leftNEOPID.setP(1.13);
     leftNEOPID.setI(0);
-    leftNEOPID.setD(15.7);
+    leftNEOPID.setD(38.5);
     leftNEOPID.setFF(0);
     leftNEOPID.setOutputRange(-0.4, 0.4);
     
-    rightNEOPID.setP(0.0164);
+    rightNEOPID.setP(1.24);
     rightNEOPID.setI(0);
-    rightNEOPID.setD(16.3);
+    rightNEOPID.setD(42.4);
     rightNEOPID.setFF(0);
     rightNEOPID.setOutputRange(-0.4, 0.4); // consider changing this during drive testing
 
     anglePID.disableContinuousInput();
     anglePID.setIntegratorRange(-1.5, 1.5);
 
-    SmartDashboard.putNumber("Angle P", 0.025);
-    SmartDashboard.putNumber("Angle I", 0.015);
+    SmartDashboard.putNumber("Angle P", 0.03);
+    SmartDashboard.putNumber("Angle I", 0.02);
     SmartDashboard.putNumber("Angle D", 0.002);
     SmartDashboard.putNumber("Threshold", 0.5);
   }
@@ -147,8 +149,8 @@ public class Drive extends SubsystemBase {
     SmartDashboard.putNumber("Left Power", left0.get());
     SmartDashboard.putNumber("Right Power", right0.get());
 
-    angle_kP = SmartDashboard.getNumber("Angle P", 0.025);
-    angle_kI = SmartDashboard.getNumber("Angle I", 0.015);
+    angle_kP = SmartDashboard.getNumber("Angle P", 0.03);
+    angle_kI = SmartDashboard.getNumber("Angle I", 0.02);
     angle_kD = SmartDashboard.getNumber("Angle D", 0.002);
     anglePID.setPID(angle_kP, angle_kI, angle_kD);
   }
@@ -159,5 +161,9 @@ public class Drive extends SubsystemBase {
 
   public void setDirection(boolean b) {
     invert = b;
+  }
+
+  public void setMaxOutput(double limit) {
+    multiplier = limit;
   }
 }

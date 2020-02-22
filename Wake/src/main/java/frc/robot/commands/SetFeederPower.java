@@ -30,8 +30,8 @@ public class SetFeederPower extends CommandBase {
     boolean intaking = m_oi.getIntake.get();
 
     if (intaking) {
-      blackSpeed = 0.6;
-      greenSpeed = 0.35;
+      blackSpeed = 0.7;
+      greenSpeed = 0.45;
     } else {
       blackSpeed = 0;
       greenSpeed = 0;
@@ -80,6 +80,7 @@ public class SetFeederPower extends CommandBase {
   public void end(boolean interrupted) {
     m_feeder.setFeederSpeed(0);
     m_feeder.setFeeder2Speed(0);
+    m_feeder.setFeeder3Speed(0);
   }
 
   @Override

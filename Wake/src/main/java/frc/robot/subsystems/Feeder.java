@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.Counter;
+//import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,9 +22,9 @@ public class Feeder extends SubsystemBase {
   private DigitalInput greenSensor = new DigitalInput(2);
   private DigitalInput blackSensor = new DigitalInput(3);
 
-  private Counter bottomCounter = new Counter(bottomSensor);
+  /*private Counter bottomCounter = new Counter(bottomSensor);
   private Counter topCounter = new Counter(topSensor);
-  private int sumCounter = bottomCounter.get();
+  private int sumCounter = bottomCounter.get();*/
 
   private Encoder intakeEncoder = new Encoder(4, 5); // wrist -- inop
   private Encoder feedEncoder = new Encoder(6, 7); // tower -- inop
@@ -34,7 +34,7 @@ public class Feeder extends SubsystemBase {
   public Supplier<Boolean> getGreenSensor = () -> greenSensor.get();
   public Supplier<Boolean> getBlackSensor = () -> blackSensor.get();
   
-  public Supplier<Integer> getSumCounter = () -> sumCounter;
+  //public Supplier<Integer> getSumCounter = () -> sumCounter;
 
   public Supplier<Integer> getIntakeEncoder = () -> intakeEncoder.get();
   public Supplier<Integer> getFeedEncoder = () -> feedEncoder.get();
@@ -62,13 +62,13 @@ public class Feeder extends SubsystemBase {
     SmartDashboard.putBoolean("Bottom Sensor", bottomSensor.get());
     SmartDashboard.putBoolean("Green Sensor", greenSensor.get());
     SmartDashboard.putBoolean("Black Sensor", blackSensor.get());
-    sumCounter = bottomCounter.get();
+    //sumCounter = bottomCounter.get();
 
     SmartDashboard.putNumber("Feeder Wheels Encoder", intakeEncoder.get()); // intakeEncoder in feeder subsystem = black wheels
     SmartDashboard.putNumber("Tower Encoder", feedEncoder.get());
 
-    SmartDashboard.putNumber("Balls Shot", topCounter.get());
-    SmartDashboard.putNumber("Ball Counter Period", topCounter.getPeriod());
+    //SmartDashboard.putNumber("Balls Shot", topCounter.get());
+    //SmartDashboard.putNumber("Ball Counter Period", topCounter.getPeriod());
   }
 
   public void setFeederSpeed(double input) {

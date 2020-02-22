@@ -33,9 +33,9 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putBoolean("Reverse Limit Switch", wrist.isRevLimitSwitchClosed() == 1);
 
     if (m_oi.getWristDown.get()) {
-      wristInput = 0.2;
+      wristInput = 0.3;
     } else if (m_oi.getWristUp.get()) {
-      wristInput = -0.35;
+      wristInput = -0.48;
     } else {
       wristInput = 0;
     }

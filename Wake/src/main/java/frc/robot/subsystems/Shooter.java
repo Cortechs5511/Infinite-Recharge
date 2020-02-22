@@ -18,10 +18,12 @@ public class Shooter extends SubsystemBase {
 
   private CANPIDController shootPID = shoot0.getPIDController();
 
+  private double reference = 0f;
+
   private CANEncoder shootEnc = shoot0.getEncoder();
 
   public Supplier<Double> getSpeed = () -> shootEnc.getVelocity();
-  public Boolean targetReached = false;
+  public Supplier<Double> getTarget = () -> reference;
 
   public Shooter() {
     shoot0.restoreFactoryDefaults();
@@ -30,8 +32,8 @@ public class Shooter extends SubsystemBase {
     shoot0.setIdleMode(IdleMode.kCoast);
     shoot1.setIdleMode(IdleMode.kCoast);
 
-    shoot0.enableVoltageCompensation(10.5);
-    shoot1.enableVoltageCompensation(10.5);
+    shoot0.enableVoltageCompensation(11);
+    shoot1.enableVoltageCompensation(11);
 
     shoot0.setSecondaryCurrentLimit(250);
     shoot1.setSecondaryCurrentLimit(250);
@@ -44,15 +46,15 @@ public class Shooter extends SubsystemBase {
 
     shootPID.setOutputRange(0, 1);
 
-    shootPID.setP(0.00033); // will need to be re-tested on the new shooter
+    shootPID.setP(0.0003); // will need to be re-tested on the new shooter
     shootPID.setI(0);
-    shootPID.setD(0.003);
-    shootPID.setFF(0.000215);
+    shootPID.setD(0.01);
+    shootPID.setFF(0.000202);
 
-    SmartDashboard.putNumber("Shooter P", 0.00033);
+    SmartDashboard.putNumber("Shooter P", 0.0003);
     SmartDashboard.putNumber("Shooter I", 0);
-    SmartDashboard.putNumber("Shooter D", 0.003);
-    SmartDashboard.putNumber("Shooter FF", 0.000215);
+    SmartDashboard.putNumber("Shooter D", 0.01);
+    SmartDashboard.putNumber("Shooter FF", 0.000202);
   }
 
   public void setSpeed(double input) {
@@ -66,17 +68,17 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setPIDReference(double ref) {
+    reference = ref;
     shootPID.setReference(ref, ControlType.kVelocity);
   }
 
   @Override
   public void periodic() {
-    shootPID.setP(SmartDashboard.getNumber("Shooter P", 0.00033)); 
+    shootPID.setP(SmartDashboard.getNumber("Shooter P", 0.0003)); 
     shootPID.setI(SmartDashboard.getNumber("Shooter I", 0)); 
-    shootPID.setD(SmartDashboard.getNumber("Shooter D", 0.003)); 
-    shootPID.setFF(SmartDashboard.getNumber("Shooter FF", 0.000215)); 
+    shootPID.setD(SmartDashboard.getNumber("Shooter D", 0.01)); 
+    shootPID.setFF(SmartDashboard.getNumber("Shooter FF", 0.000202)); 
 
-    SmartDashboard.putBoolean("Target Reached", targetReached);
     shoot1.set(shoot0.get());
 
     SmartDashboard.putNumber("Shooter rpm", shootEnc.getVelocity());

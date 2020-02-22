@@ -7,7 +7,6 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Limelight;
 
-//import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
@@ -19,6 +18,6 @@ public class ShootAlign extends SequentialCommandGroup {
       new WaitCommand(0.5), 
       new AccelAlign(drive, limelight, shooter),
       new WaitCommand(0.5), 
-      new Cruise(shooter, feeder, limelight));
+      new Cruise(shooter, feeder));
   }
 }

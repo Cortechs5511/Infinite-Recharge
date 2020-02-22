@@ -8,7 +8,6 @@ public class SetSpeed extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private OI m_oi = OI.getInstance();
   private double leftInput, rightInput, leftOutput, rightOutput;
-  private double multiplier = 1;
   private Drive m_drive;
 
   public SetSpeed(Drive drive) {
@@ -26,12 +25,12 @@ public class SetSpeed extends CommandBase {
     rightInput = m_oi.getRightY.get();
 
     if (Math.abs(leftInput) > 0.1) {
-      leftOutput = (leftInput * 0.9) * multiplier;
+      leftOutput = leftInput * m_drive.getMaxOutput.get();
     } else {
       leftOutput = 0;
     }
     if (Math.abs(rightInput) > 0.1) {
-      rightOutput = (rightInput * 0.9) * multiplier;
+      rightOutput = rightInput * m_drive.getMaxOutput.get();
     } else {
       rightOutput = 0;
     }
@@ -43,7 +42,6 @@ public class SetSpeed extends CommandBase {
       m_drive.setLeft(-rightOutput);
       m_drive.setRight(-leftOutput);
     }
-
   }
 
   @Override

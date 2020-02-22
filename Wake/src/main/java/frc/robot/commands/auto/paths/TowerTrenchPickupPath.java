@@ -39,8 +39,8 @@ public class TowerTrenchPickupPath extends CommandBase {
   public void execute() {
     if ((m_drive.getLeftPosition.get() > leftTarget) && (m_drive.getRightPosition.get() > rightTarget)) {
       row++;
-      leftReference = points[row][3];
-      rightReference = points[row][11];
+      leftReference = points[row][3] * TICKS_PER_FOOT;
+      rightReference = points[row][11] * TICKS_PER_FOOT;
 
       leftTarget = ((points[row + 1][3]* TICKS_PER_FOOT - leftReference) * 0.5) + leftReference;
       rightTarget = ((points[row + 1][11]* TICKS_PER_FOOT - rightReference) * 0.5) + rightReference;
@@ -60,6 +60,7 @@ public class TowerTrenchPickupPath extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
+    row = 1;
   }
 
   @Override

@@ -28,7 +28,7 @@ public class RobotContainer {
 
   private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
 
-  private final SetDistance m_setDistance = new SetDistance(420*4, m_drive);
+  private final SetDistance m_setDistance = new SetDistance(420 * 4, m_drive); // DO NOT RUN WITH CURRENT PID CONFIG
 
   private final TowerSimplePath m_towerSimple = new TowerSimplePath(m_drive);
   private final TowerPickupPath m_towerPickup = new TowerPickupPath(m_drive);
@@ -62,7 +62,7 @@ public class RobotContainer {
     m_feeder.setDefaultCommand(m_setFeederPower);
     m_climber.setDefaultCommand(m_manualClimb);
 
-    m_chooser.addOption("Drive Forwards Test", m_setDistance);
+    m_chooser.addOption("DO NOT RUN", m_setDistance);
 
     m_chooser.addOption("Tower Simple", m_towerSimple);
     m_chooser.addOption("Tower Pickup", m_towerPickup);
@@ -86,6 +86,9 @@ public class RobotContainer {
     new JoystickButton(controller, 7).whenPressed(m_lightToggle, true);
 
     new JoystickButton(leftStick, 2).whenPressed(new Flip(m_drive));
+    new JoystickButton(rightStick, 2)
+        .whenPressed(() -> m_drive.setMaxOutput(0.5))
+        .whenReleased(() -> m_drive.setMaxOutput(0.9));
 
     SmartDashboard.putData("Stop Shooting", m_stopShooter);
     SmartDashboard.putData("Record", new DataRecorder(m_drive));

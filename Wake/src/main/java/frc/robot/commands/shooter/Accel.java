@@ -9,29 +9,29 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Accel extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private Shooter m_Shooter;
+  private Shooter m_shooter;
   private OI m_oi = OI.getInstance();
-  private Limelight m_Limelight;
+  private Limelight m_limelight;
   private double currentSpeed, calculatedRPM;
   private int count = 0;
 
   public Accel(Shooter shooter, Limelight limelight) {
-    m_Shooter = shooter;
-    m_Limelight = limelight;
+    m_shooter = shooter;
+    m_limelight = limelight;
     addRequirements(shooter);
     addRequirements(limelight);
   }
 
   @Override
   public void initialize() {
-    m_Shooter.setRampRate(1.5);
-    calculatedRPM = m_Limelight.calculateRPM();
-    m_Shooter.setPIDReference(calculatedRPM);
+    m_shooter.setRampRate(1.5);
+    calculatedRPM = m_limelight.calculateRPM();
+    m_shooter.setPIDReference(calculatedRPM);
   }
 
   @Override
   public void execute() {
-    currentSpeed = m_Shooter.getSpeed.get(); 
+    currentSpeed = m_shooter.getSpeed.get(); 
     SmartDashboard.putNumber("RPM compare count", count);
 
     if (Math.abs(calculatedRPM - currentSpeed) < 200) { 
@@ -48,8 +48,8 @@ public class Accel extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    m_Shooter.targetReached = true;
-    m_Shooter.setRampRate(0.15);
+    m_limelight.setLightStatus(1);
+    m_shooter.setRampRate(0.15);
     count = 0;
 
     m_oi.setLeftRumble(0);
