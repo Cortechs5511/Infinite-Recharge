@@ -14,12 +14,18 @@ public class DataRecorder extends CommandBase {
     private int row = 0;
     private int col = 0;
     private double time = 0;
-
+    private boolean start = false;
     public DataRecorder(Drive drive) {
     }
-
+    @Override
+    public void initialize(){
+        start = false;
+    }
     @Override
     public void execute() {
+        if (m_drive.getLeftOutput.get() != 0 || m_drive.getRightOutput.get() != 0) {
+            start = true;
+        }
         col = 0;
         data[row][col++] = m_drive.getLeftVelocity.get();
         data[row][col++] = m_drive.getRightVelocity.get();

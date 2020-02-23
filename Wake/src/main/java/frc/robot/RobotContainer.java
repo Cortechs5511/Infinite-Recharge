@@ -101,7 +101,7 @@ public class RobotContainer {
 
     SmartDashboard.putData("Stop Shooting", m_stopShooter);
     SmartDashboard.putData("Record", new DataRecorder(m_drive));
-    SmartDashboard.putData("Timed Auton",new TimedAuton(m_drive,m_shooter,m_feeder,m_limelight,3))
+    SmartDashboard.putData("Timed Auton",new TimedAuton(m_drive,m_shooter,m_feeder,m_limelight,3));
   }
 
   public Command getAutonomousCommand() {
