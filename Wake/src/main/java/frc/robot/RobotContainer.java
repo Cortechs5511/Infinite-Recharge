@@ -56,6 +56,7 @@ public class RobotContainer {
 
   private final LightToggle m_lightToggle = new LightToggle(m_limelight);
 
+    
   Joystick leftStick = new Joystick(0);
   Joystick rightStick = new Joystick(1);
   XboxController controller = new XboxController(2);
@@ -69,8 +70,9 @@ public class RobotContainer {
     m_feeder.setDefaultCommand(m_setFeederPower);
     m_climber.setDefaultCommand(m_manualClimb);
 
+    m_chooser.addOption("TimedAuton" ,new TimedAuton(m_drive,m_shooter,m_feeder,m_limelight,3) );
     m_chooser.addOption("DO NOT RUN", m_setDistance);
-
+    
     Shuffleboard.getTab("Autonomous").add(m_chooser);
   }
 
@@ -99,9 +101,13 @@ public class RobotContainer {
 
     SmartDashboard.putData("Stop Shooting", m_stopShooter);
     SmartDashboard.putData("Record", new DataRecorder(m_drive));
+    SmartDashboard.putData("Timed Auton",new TimedAuton(m_drive,m_shooter,m_feeder,m_limelight,3))
   }
 
   public Command getAutonomousCommand() {
+    // Return user selected auton
+    // TODO 
+    //return m_chooser.getSelected();
     var autoVoltageConstraint =
         new DifferentialDriveVoltageConstraint(
             new SimpleMotorFeedforward(DriveConstants.ksVolts,
