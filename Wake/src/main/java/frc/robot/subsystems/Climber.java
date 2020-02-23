@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import java.util.function.Supplier;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -11,25 +12,25 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climber extends SubsystemBase {
-
-    private CANSparkMax climb = new CANSparkMax(60, MotorType.kBrushless);
-    private CANEncoder climbEncoder = climb.getEncoder();
+    private CANSparkMax climb0 = new CANSparkMax(60, MotorType.kBrushless);
+    private WPI_VictorSPX climb1 = new WPI_VictorSPX(61);
+    private CANEncoder climbEncoder = climb0.getEncoder();
 
     public Supplier<Double> getClimbEncoder = () -> climbEncoder.getPosition();
 
     public Climber() {
-        climb.restoreFactoryDefaults();
-        climb.setIdleMode(IdleMode.kCoast);
-        climb.setSecondaryCurrentLimit(250);
-        climb.setSmartCurrentLimit(60, 60, 200000);
+        climb0.restoreFactoryDefaults();
+        climb0.setIdleMode(IdleMode.kCoast);
+        climb0.setSecondaryCurrentLimit(250);
+        climb0.setSmartCurrentLimit(60, 60, 200000);
 
         climbEncoder.setPositionConversionFactor(42);
     }
 
     public void setClimbPower(double climberInput) {
-        climb.set(climberInput);
+        climb0.set(climberInput);
     }
-    // TODO: should we have some function which will stop the climber once it reaches max or min height? we could read the encoder
+
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Climber Position", getClimbEncoder.get());
