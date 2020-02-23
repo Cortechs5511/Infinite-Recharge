@@ -3,7 +3,8 @@ package frc.robot;
 import frc.robot.commands.*;
 import frc.robot.commands.drive.*;
 import frc.robot.commands.auto.*;
-import frc.robot.commands.auto.paths.*;
+//import frc.robot.commands.auto.paths.*;
+import frc.paths.*;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.climber.*;
 import frc.robot.subsystems.*;
@@ -30,16 +31,9 @@ public class RobotContainer {
 
   private final SetDistance m_setDistance = new SetDistance(420 * 4, m_drive); // DO NOT RUN WITH CURRENT PID CONFIG
 
-  private final TowerSimplePath m_towerSimple = new TowerSimplePath(m_drive);
-  private final TowerPickupPath m_towerPickup = new TowerPickupPath(m_drive);
-  private final TowerComplexPath m_towerComplex = new TowerComplexPath(m_drive);
+  private final TowerPickup m_towerPickup = new TowerPickup();
 
-  private final TrenchSimplePath m_trenchSimple = new TrenchSimplePath(m_drive);
-  private final TrenchPickupPath m_trenchPickup = new TrenchPickupPath(m_drive);
-  private final TrenchComplexPath m_trenchComplex = new TrenchComplexPath(m_drive);
-
-  private final TowerTrenchPickupPath m_towerTrenchPickup = new TowerTrenchPickupPath(m_drive);
-  private final TowerTrenchComplexPath m_towerTrenchComplex = new TowerTrenchComplexPath(m_drive);
+  private final PathFollower m_towerPickupFollower = new PathFollower(m_towerPickup,  m_drive);
 
   private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
 
@@ -67,7 +61,7 @@ public class RobotContainer {
 
     m_chooser.addOption("DO NOT RUN", m_setDistance);
 
-    m_chooser.addOption("Tower Simple", m_towerSimple);
+    /*m_chooser.addOption("Tower Simple", m_towerSimple);
     m_chooser.addOption("Tower Pickup", m_towerPickup);
     m_chooser.addOption("Tower Complex", m_towerComplex);
 
@@ -76,7 +70,7 @@ public class RobotContainer {
     m_chooser.addOption("Trench Complex", m_trenchComplex);
 
     m_chooser.addOption("Tower-Trench Pickup", m_towerTrenchPickup);
-    m_chooser.addOption("Tower-Trench Complex", m_towerTrenchComplex);
+    m_chooser.addOption("Tower-Trench Complex", m_towerTrenchComplex);*/
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
   }
@@ -100,7 +94,7 @@ public class RobotContainer {
         .whenReleased(() -> m_drive.setMaxOutput(0.9));
 
     new JoystickButton(rightStick, 4)
-        .whenPressed(() -> m_drive.setMaxOutput(0.175))
+        .whenPressed(() -> m_drive.setMaxOutput(0.25))
         .whenReleased(() -> m_drive.setMaxOutput(0.9));
       
 
@@ -109,7 +103,8 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return m_chooser.getSelected();
+    return m_towerPickupFollower;
+    //return m_chooser.getSelected();
   }
 
   public void teleopInit(Robot robot) {
