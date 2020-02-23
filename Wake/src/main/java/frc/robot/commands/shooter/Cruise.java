@@ -34,9 +34,9 @@ public class Cruise extends CommandBase {
 
   @Override
   public void execute() {
-    if ((m_feeder.getTopSensor.get() == false) || (feedCount != 0)) { // if there is a ball in the top, and stabilized
+    if (m_feeder.getTopSensor.get() == false) { // if there is a ball in the top, and stabilized
       count = 0; // count is 0
-    } else { // else (there is no ball, or the sensor is dead), timer starts counting
+    } else if (feedCount > threshold) { // else (there is no ball, or the sensor is dead), timer starts counting
       count++;
     }
 
@@ -79,6 +79,6 @@ public class Cruise extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return ((count > 75) || (m_shooter.getSpeed.get() < 1000)); // about 2 seconds of pause or if underspeed
+    return ((count > 50) || (m_shooter.getSpeed.get() < 1000)); // about 2 seconds of pause or if underspeed
   }
 }
