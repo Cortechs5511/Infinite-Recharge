@@ -17,13 +17,14 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveConstants;
 
 public class Drive extends SubsystemBase {
-  private CANSparkMax left0 = new CANSparkMax(10, MotorType.kBrushless);
-  private CANSparkMax left1 = new CANSparkMax(11, MotorType.kBrushless);
+  private CANSparkMax left0 = new CANSparkMax(DriveConstants.kLeftMotor0Port, MotorType.kBrushless);
+  private CANSparkMax left1 = new CANSparkMax(DriveConstants.kLeftMotor1Port, MotorType.kBrushless);
 
-  private CANSparkMax right0 = new CANSparkMax(20, MotorType.kBrushless);
-  private CANSparkMax right1 = new CANSparkMax(21, MotorType.kBrushless);
+  private CANSparkMax right0 = new CANSparkMax(DriveConstants.kRightMotor0Port, MotorType.kBrushless);
+  private CANSparkMax right1 = new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless);
 
   private CANPIDController leftNEOPID = left0.getPIDController();
   private CANPIDController rightNEOPID = right0.getPIDController();
@@ -95,19 +96,19 @@ public class Drive extends SubsystemBase {
     right0.setSmartCurrentLimit(60, 60, 9000);
     right1.setSmartCurrentLimit(60, 60, 9000);
 
-    leftEnc.setPositionConversionFactor(719.330215234);
-    rightEnc.setPositionConversionFactor(719.330215234);
+    leftEnc.setPositionConversionFactor(DriveConstants.kEncoderPulsesPerMeter);
+    rightEnc.setPositionConversionFactor(DriveConstants.kEncoderPulsesPerMeter);
 
-    leftNEOPID.setP(0.0305);
-    leftNEOPID.setI(0);
-    leftNEOPID.setD(15.2);
-    leftNEOPID.setFF(0);
+    leftNEOPID.setP(DriveConstants.kLeftP);
+    leftNEOPID.setI(DriveConstants.kLeftI);
+    leftNEOPID.setD(DriveConstants.kLeftD);
+    leftNEOPID.setFF(DriveConstants.kLeftFF);
     leftNEOPID.setOutputRange(-0.4, 0.4);
 
-    rightNEOPID.setP(0.0335);
-    rightNEOPID.setI(0);
-    rightNEOPID.setD(16.7);
-    rightNEOPID.setFF(0);
+    rightNEOPID.setP(DriveConstants.kRightP);
+    rightNEOPID.setI(DriveConstants.kRightI);
+    rightNEOPID.setD(DriveConstants.kRightD);
+    rightNEOPID.setFF(DriveConstants.kRightFF);
     rightNEOPID.setOutputRange(-0.4, 0.4); // consider changing this during drive testing
 
     anglePID.disableContinuousInput();
@@ -129,7 +130,6 @@ public class Drive extends SubsystemBase {
     right0.set(rightInput);
   }
 
-  // odometry for auto
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(leftEnc.getVelocity(), rightEnc.getVelocity());
   }

@@ -47,7 +47,7 @@ public class Cruise extends CommandBase {
     }
 
     if (feedCount > threshold) {
-      m_feeder.setFeederSpeed(0.4);
+      m_feeder.setFeederSpeed(0.45);
       m_feeder.setFeeder2Speed(0.8);
       m_feeder.setFeeder3Speed(0.35);
     } else {

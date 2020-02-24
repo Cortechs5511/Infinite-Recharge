@@ -8,10 +8,11 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.OI;
+import frc.robot.Constants.FeederConstants;
 
 public class Intake extends SubsystemBase {
-  private TalonSRX wrist = new TalonSRX(30);
-  private WPI_VictorSPX intake = new WPI_VictorSPX(31);
+  private TalonSRX wrist = new TalonSRX(FeederConstants.kWristPort);
+  private WPI_VictorSPX intake = new WPI_VictorSPX(FeederConstants.kIntakePort);
 
   private OI m_oi = OI.getInstance();
   private double wristInput = 0f;

@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveFixed extends CommandBase {
-
     private Drive m_drive;
     private double m_timeout;
     private double m_left;
@@ -29,7 +28,6 @@ public class DriveFixed extends CommandBase {
     public void execute() {
         m_drive.setLeft(m_left);
         m_drive.setRight(m_right);
-       
     }
 
     @Override

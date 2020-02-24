@@ -19,7 +19,7 @@ public class OI {
     public Supplier<Boolean> getWristUp = () -> Math.abs(controller.getRawAxis(2)) > 0.5;
     public Supplier<Boolean> getWristDown = () -> Math.abs(controller.getRawAxis(3)) > 0.5;
 
-    public Supplier<Boolean> getIntake = () -> (controller.getRawButton(5)) || (controller.getRawButton(6)) || rightStick.getRawButton(1);
+    public Supplier<Boolean> getIntake = () -> controller.getRawButton(5) || controller.getRawButton(6);
     
     public Supplier<Boolean> getIntakeBackFeed = () -> (Math.abs(controller.getRawAxis(0)) > 0.7) || (Math.abs(controller.getRawAxis(1)) > 0.7);
     public Supplier<Boolean> getBeltBackFeed = () -> (Math.abs(controller.getRawAxis(4)) > 0.7) || (Math.abs(controller.getRawAxis(5)) > 0.7);

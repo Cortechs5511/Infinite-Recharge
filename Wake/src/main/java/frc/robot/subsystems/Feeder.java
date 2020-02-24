@@ -10,21 +10,18 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.FeederConstants;
 
 public class Feeder extends SubsystemBase {
-  private WPI_VictorSPX feeder0 = new WPI_VictorSPX(40); // feeder 0 and 1 are tower
-  private WPI_VictorSPX feeder1 = new WPI_VictorSPX(41);
-  private WPI_VictorSPX feeder2 = new WPI_VictorSPX(42); // feeder 2, 3 are feeder wheels
-  private WPI_VictorSPX feeder3 = new WPI_VictorSPX(43);
+  private WPI_VictorSPX feeder0 = new WPI_VictorSPX(FeederConstants.kFeeder0Port); // feeder 0 and 1 are tower
+  private WPI_VictorSPX feeder1 = new WPI_VictorSPX(FeederConstants.kFeeder1Port);
+  private WPI_VictorSPX feeder2 = new WPI_VictorSPX(FeederConstants.kFeeder2Port); // feeder 2, 3 are feeder wheels
+  private WPI_VictorSPX feeder3 = new WPI_VictorSPX(FeederConstants.kFeeder3Port);
 
-  private DigitalInput bottomSensor = new DigitalInput(0);
-  private DigitalInput topSensor = new DigitalInput(1);
-  private DigitalInput greenSensor = new DigitalInput(2);
-  private DigitalInput blackSensor = new DigitalInput(3);
-
-  /*private Counter bottomCounter = new Counter(bottomSensor);
-  private Counter topCounter = new Counter(topSensor);
-  private int sumCounter = bottomCounter.get();*/
+  private DigitalInput bottomSensor = new DigitalInput(FeederConstants.kBottomSensorPort);
+  private DigitalInput topSensor = new DigitalInput(FeederConstants.kTopSensorPort);
+  private DigitalInput greenSensor = new DigitalInput(FeederConstants.kGreenSensorPort);
+  private DigitalInput blackSensor = new DigitalInput(FeederConstants.kBlackSensorPort);
 
   private Encoder intakeEncoder = new Encoder(4, 5); // wrist -- inop
   private Encoder feedEncoder = new Encoder(6, 7); // tower -- inop

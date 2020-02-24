@@ -70,7 +70,7 @@ public class RobotContainer {
     m_feeder.setDefaultCommand(m_setFeederPower);
     m_climber.setDefaultCommand(m_manualClimb);
 
-    m_chooser.addOption("TimedAuton" ,new TimedAuton(m_drive,m_shooter,m_feeder,m_limelight,3) );
+    m_chooser.addOption("TimedAuton", new TimedAuton(m_drive, m_shooter, m_feeder, m_limelight, 3) );
     m_chooser.addOption("DO NOT RUN", m_setDistance);
     
     Shuffleboard.getTab("Autonomous").add(m_chooser);
@@ -80,7 +80,7 @@ public class RobotContainer {
     new JoystickButton(controller, 1).whenPressed(m_slowShoot, true);
     new JoystickButton(controller, 3).whenPressed(m_fastShoot, true);
     new JoystickButton(controller, 4).whenPressed(m_slowShootAlign, true);
-    new JoystickButton(leftStick, 1).whenPressed(m_fastShootAlign, true);
+    new JoystickButton(controller, 2).whenPressed(m_fastShootAlign, true);
 
     new JoystickButton(controller, 8).whenPressed(m_stopShooter, false);
     new JoystickButton(controller, 7).whenPressed(m_lightToggle, true);
@@ -105,8 +105,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    // Return user selected auton
-    // TODO 
+    // TODO: Return user selected auton
     //return m_chooser.getSelected();
     var autoVoltageConstraint =
         new DifferentialDriveVoltageConstraint(

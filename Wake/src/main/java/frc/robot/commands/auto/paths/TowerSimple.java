@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
-
-public class TowerSimple extends CommandBase {
+//TODO: somehow return the path into robotcontainer
+public class TowerSimple {
     public final DifferentialDriveVoltageConstraint autoVoltageConstraint =
         new DifferentialDriveVoltageConstraint(
             new SimpleMotorFeedforward(DriveConstants.ksVolts,
