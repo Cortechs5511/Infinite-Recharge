@@ -9,9 +9,10 @@ import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
 public class TimedAuton extends SequentialCommandGroup {
-    public TimedAuton(Drive drive, Shooter shooter, Feeder feeder, Limelight limelight,double delay)
+    public TimedAuton(Drive drive, Shooter shooter, Feeder feeder, Limelight limelight,double delay, double ShootDelay)
     { 
         addCommands(
+            new WaitCommand(ShootDelay),
             new ShootAlign(0.5, -1,drive, shooter, feeder, limelight),
             new WaitCommand(delay),
             new DriveFixed(drive, 0.5,0.5,3)

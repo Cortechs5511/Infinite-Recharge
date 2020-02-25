@@ -30,12 +30,12 @@ public class ManualClimb extends CommandBase {
         } else {
             climberInput = 0;
         }
-        m_climber.setClimbPower(climberInput);
+        m_climber.setClimb0Power(climberInput);
     }
 
     @Override
     public void end(boolean interrupted) {
-        m_climber.setClimbPower(0);
+        m_climber.setClimb0Power(0);
     }
 
     @Override

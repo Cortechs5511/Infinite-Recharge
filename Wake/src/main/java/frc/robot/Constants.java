@@ -9,20 +9,20 @@ public final class Constants {
     public static final int kRightMotor0Port = 20;
     public static final int kRightMotor1Port = 21;
 
-    public static final double kTrackwidthMeters = 0.69; // must be changed
-    public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
-        kTrackwidthMeters);
-
     public static final int kEncoderCPR = 42;
     public static final double kWheelDiameterMeters = 0.1524;
     public static final double kEncoderDistancePerPulse = (0.1524 * Math.PI) / (double) 42 * 8.2;
     public static final double kEncoderPulsesPerMeter = (1 / 0.1524 * Math.PI) * 8.2 * 42;
 
-    public static final double ksVolts = 0.613;
-    public static final double kvVoltSecondsPerMeter = 0.0031;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.00048;
+    public static final double kTrackwidthMeters = 79325.0617 / kEncoderPulsesPerMeter;
+    public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
+        kTrackwidthMeters);
 
-    public static final double kPDriveVel = 8.5;
+    public static final double ksVolts = 0.604;
+    public static final double kvVoltSecondsPerMeter = 0.00302;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.000448;
+
+    public static final double kPDriveVel = 0.0372;
 
     public static final double kLeftP = 0.0305;
     public static final double kLeftI = 0;
@@ -47,9 +47,9 @@ public final class Constants {
     public static final int kFeeder1Port = 41;
     public static final int kFeeder2Port = 42;
     public static final int kFeeder3Port = 43;
-
-    public static final int kBottomSensorPort = 0;
-    public static final int kTopSensorPort = 1;
+    
+    public static final int kTopSensorPort = 0;
+    public static final int kBottomSensorPort = 1;
     public static final int kGreenSensorPort = 2;
     public static final int kBlackSensorPort = 3;
   }

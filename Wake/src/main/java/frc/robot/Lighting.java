@@ -16,7 +16,7 @@ public class Lighting extends SubsystemBase {
   private int length = LEDBuffer.getLength();
   private int pulseIndex = 0;
 
-  public Lighting(Drive drive) {
+  public Lighting() {
     LED.setLength(length);
 
     rainbow();
@@ -26,7 +26,8 @@ public class Lighting extends SubsystemBase {
   }
 
   public void teleopPeriodic() {
-    int cap = (int) (m_drive.getLeftOutput.get() * length);
+    rainbow();
+    /*int cap = (int) (m_drive.getLeftOutput.get() * length);
     if (cap > 0) {
       for (var i = 0; i < cap; i++) { // red with left output %
         LEDBuffer.setRGB(i, 0, 255, 0);
@@ -41,7 +42,7 @@ public class Lighting extends SubsystemBase {
       for (var i = Math.abs(cap); i < length; i++) {
         LEDBuffer.setRGB(i, 255, 255, 0);
       }
-    }
+    }*/
     LED.setData(LEDBuffer);
   }
 
@@ -50,7 +51,7 @@ public class Lighting extends SubsystemBase {
     LED.setData(LEDBuffer);
   }
 
-  public void disabledPeriodic() {
+  public void pulseBlue() {
     for (int i = 0; i < length; i++) {
       LEDBuffer.setRGB(i, (int) (Math.sin(i + pulseIndex) * 14 + 14), (int) (Math.sin(i + pulseIndex) * 35 + 35),
           (int) (Math.sin(i + pulseIndex) * 71 + 71));

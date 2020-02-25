@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import java.util.function.Supplier;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+//import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
@@ -15,7 +15,7 @@ import frc.robot.Constants.ClimberConstants;
 
 public class Climber extends SubsystemBase {
     private CANSparkMax climb0 = new CANSparkMax(ClimberConstants.kClimb0Port, MotorType.kBrushless);
-    private WPI_VictorSPX climb1 = new WPI_VictorSPX(ClimberConstants.kClimb1Port);
+    //private WPI_VictorSPX climb1 = new WPI_VictorSPX(ClimberConstants.kClimb1Port);
     private CANEncoder climbEncoder = climb0.getEncoder();
 
     public Supplier<Double> getClimbEncoder = () -> climbEncoder.getPosition();
@@ -31,15 +31,12 @@ public class Climber extends SubsystemBase {
         climbEncoder.setPositionConversionFactor(42);
     }
 
-    public void setClimbPower(double climberInput) {
-        if (climberInput > 0) {
-            climb0.set(0);
-            climb1.set(climberInput);
-        } else {
-            climb0.set(climberInput);
-            climb1.set(0);
-        }
+    public void setClimb0Power(double climberInput) {
+        climb0.set(climberInput);
     }
+    /*public void setClimb1Power(double climberInput) {
+        climb1.set(climberInput);
+    }*/
 
     @Override
     public void periodic() {
