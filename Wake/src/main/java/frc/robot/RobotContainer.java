@@ -1,6 +1,8 @@
 package frc.robot;
 
 import frc.robot.commands.*;
+import frc.robot.commands.auto.groups.BackTowerSimple;
+import frc.robot.commands.auto.groups.TowerSimple;
 import frc.robot.commands.drive.*;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.climber.*;
@@ -41,7 +43,7 @@ public class RobotContainer {
 	XboxController controller = new XboxController(2);
 
 	enum autonMode {
-		TowerSimple, TrenchSimple, ShootDelay, TrenchComplex, TrenchPickup
+		TowerSimple, BackTowerSimple
 	}
 
 	SendableChooser<autonMode> m_chooser = new SendableChooser<>();
@@ -64,11 +66,14 @@ public class RobotContainer {
 		getNumber("DriveDelay", 3.0);
 		getNumber("ShootDelay", 3.0);
 
-		m_chooser.addOption("Shoot Delay", autonMode.ShootDelay);
+		/*m_chooser.addOption("Shoot Delay", autonMode.ShootDelay);
 		m_chooser.addOption("Trench Simple", autonMode.TrenchSimple);
 		m_chooser.addOption("Trench Complex", autonMode.TrenchComplex);
 		m_chooser.addOption("Trench Pickup", autonMode.TrenchPickup);
+		m_chooser.addOption("Tower Simple", autonMode.TowerSimple);*/
+
 		m_chooser.addOption("Tower Simple", autonMode.TowerSimple);
+		m_chooser.addOption("Back Tower Simple", autonMode.BackTowerSimple);
 
 		Shuffleboard.getTab("Autonomous").add(m_chooser);
 	}
@@ -99,12 +104,10 @@ public class RobotContainer {
 	public Command getAutonomousCommand() {
 		switch (m_chooser.getSelected()) {
 
-		case ShootDelay:
-			return new WaitCommand(1.0);
 		case TowerSimple:
-			return new WaitCommand(1.0);
-		case TrenchSimple:
-			return new WaitCommand(1.0);
+			return new TowerSimple(0, m_shooter, m_feeder, m_limelight, m_drive);
+		case BackTowerSimple:
+			return new BackTowerSimple(0, m_shooter, m_feeder, m_limelight, m_drive);
 		default:
 			return new WaitCommand(1.0);
 		}

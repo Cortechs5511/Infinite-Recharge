@@ -97,8 +97,8 @@ public class Drive extends SubsystemBase {
     right0.setSmartCurrentLimit(60, 60, 9000);
     right1.setSmartCurrentLimit(60, 60, 9000);
 
-    leftEnc.setPositionConversionFactor(DriveConstants.kEncoderPulsesPerMeter);
-    rightEnc.setPositionConversionFactor(DriveConstants.kEncoderPulsesPerMeter);
+    leftEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+    rightEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
 
     leftNEOPID.setP(DriveConstants.kLeftP);
     leftNEOPID.setI(DriveConstants.kLeftI);
