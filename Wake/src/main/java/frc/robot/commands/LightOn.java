@@ -4,15 +4,15 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Limelight;
 
 public class LightOn extends InstantCommand {
-  private Limelight m_limelight;
+	private Limelight m_limelight;
 
-  public LightOn(Limelight limelight) {
-    m_limelight = limelight;
-    addRequirements(limelight);
-  }
+	public LightOn(Limelight limelight) {
+		m_limelight = limelight;
+		addRequirements(limelight);
+	}
 
-  @Override
-  public void initialize() {
-    m_limelight.setLightStatus(3);
-  }
+	@Override
+	public void initialize() {
+		m_limelight.setLightStatus(3);
+	}
 }

@@ -75,6 +75,7 @@ public class Cruise extends CommandBase {
 
     m_feeder.setFeederSpeed(0);
     m_feeder.setFeeder2Speed(0);
+    m_feeder.setFeeder3Speed(0);
   }
 
   @Override

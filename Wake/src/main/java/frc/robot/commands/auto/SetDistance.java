@@ -35,6 +35,6 @@ public class SetDistance extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return ((Math.abs(targetDistance - m_drive.getLeftPosition.get()) < 0.1) && (Math.abs(targetDistance - m_drive.getLeftPosition.get()) < 0.1)) || ((Math.abs(m_drive.getLeftVelocity.get()) < 30) && ((Math.abs(m_drive.getRightVelocity.get()) < 30)));
   }
 }

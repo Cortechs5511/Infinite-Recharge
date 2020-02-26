@@ -11,40 +11,40 @@ import frc.robot.OI;
 import frc.robot.Constants.FeederConstants;
 
 public class Intake extends SubsystemBase {
-  private TalonSRX wrist = new TalonSRX(FeederConstants.kWristPort);
-  private WPI_VictorSPX intake = new WPI_VictorSPX(FeederConstants.kIntakePort);
+	private TalonSRX wrist = new TalonSRX(FeederConstants.kWristPort);
+	private WPI_VictorSPX intake = new WPI_VictorSPX(FeederConstants.kIntakePort);
 
-  private OI m_oi = OI.getInstance();
-  private double wristInput = 0f;
+	private OI m_oi = OI.getInstance();
+	private double wristInput = 0f;
 
-  public Intake() {
-    wrist.configFactoryDefault();
-    intake.configFactoryDefault();
+	public Intake() {
+		wrist.configFactoryDefault();
+		intake.configFactoryDefault();
 
-    wrist.setNeutralMode(NeutralMode.Coast);
-    intake.setNeutralMode(NeutralMode.Brake);
+		wrist.setNeutralMode(NeutralMode.Coast);
+		intake.setNeutralMode(NeutralMode.Brake);
 
-    intake.configOpenloopRamp(0.5);
-  }
+		intake.configOpenloopRamp(0.5);
+	}
 
-  @Override
-  public void periodic() {
-    if (m_oi.getWristDown.get()) {
-      wristInput = 0.3;
-    } else if (m_oi.getWristUp.get()) {
-      wristInput = -0.48;
-    } else {
-      wristInput = 0;
-    }
+	@Override
+	public void periodic() {
+		if (m_oi.getWristDown.get()) {
+			wristInput = 0.3;
+		} else if (m_oi.getWristUp.get()) {
+			wristInput = -0.48;
+		} else {
+			wristInput = 0;
+		}
 
-    if (m_oi.getIntake.get()) {
-      intake.set(0.8);
-    } else if (m_oi.getIntakeBackFeed.get()) {
-      intake.set(-0.6);
-    } else {
-      intake.set(0);
-    }
+		if (m_oi.getIntake.get()) {
+			intake.set(0.8);
+		} else if (m_oi.getIntakeBackFeed.get()) {
+			intake.set(-0.6);
+		} else {
+			intake.set(0);
+		}
 
-    wrist.set(ControlMode.PercentOutput, wristInput);
-  }
+		wrist.set(ControlMode.PercentOutput, wristInput);
+	}
 }

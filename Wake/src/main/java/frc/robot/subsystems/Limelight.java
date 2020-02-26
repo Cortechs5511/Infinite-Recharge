@@ -30,8 +30,8 @@ public class Limelight extends SubsystemBase {
     area = ta.getDouble(0.0);
 
     SmartDashboard.putNumber("X", x);
-    SmartDashboard.putNumber("Y", y);
-    SmartDashboard.putNumber("Area", area);
+    //SmartDashboard.putNumber("Y", y);
+    //SmartDashboard.putNumber("Area", area);
     
     //distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1); // in periodic for testing
     //SmartDashboard.putNumber("Calculated Distance", distance);
@@ -70,5 +70,10 @@ public class Limelight extends SubsystemBase {
 
   public void setLightStatus(double input) {
     ledMode.setNumber(input); // 3 = on, 1 = off
+    if (input == 1) {
+      SmartDashboard.putBoolean("Limelight Lights", false);
+    } else {
+      SmartDashboard.putBoolean("Limelight Lights", true);
+    }
   }
 }

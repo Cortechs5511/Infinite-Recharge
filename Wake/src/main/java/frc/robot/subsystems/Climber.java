@@ -14,32 +14,32 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 
 public class Climber extends SubsystemBase {
-    private CANSparkMax climb0 = new CANSparkMax(ClimberConstants.kClimb0Port, MotorType.kBrushless);
-    //private WPI_VictorSPX climb1 = new WPI_VictorSPX(ClimberConstants.kClimb1Port);
-    private CANEncoder climbEncoder = climb0.getEncoder();
+	private CANSparkMax climb0 = new CANSparkMax(ClimberConstants.kClimb0Port, MotorType.kBrushless);
+	// private WPI_VictorSPX climb1 = new WPI_VictorSPX(ClimberConstants.kClimb1Port);
+	private CANEncoder climbEncoder = climb0.getEncoder();
 
-    public Supplier<Double> getClimbEncoder = () -> climbEncoder.getPosition();
+	public Supplier<Double> getClimbEncoder = () -> climbEncoder.getPosition();
 
-    public Climber() {
-        climb0.restoreFactoryDefaults();
+	public Climber() {
+		climb0.restoreFactoryDefaults();
 
-        climb0.setIdleMode(IdleMode.kBrake);
-        climb0.setSecondaryCurrentLimit(250);
-        climb0.setSmartCurrentLimit(60, 60, 200000);
-        climb0.setOpenLoopRampRate(0.5);
+		climb0.setIdleMode(IdleMode.kBrake);
+		climb0.setSecondaryCurrentLimit(250);
+		climb0.setSmartCurrentLimit(60, 60, 200000);
+		climb0.setOpenLoopRampRate(0.5);
 
-        climbEncoder.setPositionConversionFactor(42);
-    }
+		climbEncoder.setPositionConversionFactor(42);
+	}
 
-    public void setClimb0Power(double climberInput) {
-        climb0.set(climberInput);
-    }
-    /*public void setClimb1Power(double climberInput) {
-        climb1.set(climberInput);
-    }*/
+	public void setClimb0Power(double climberInput) {
+		climb0.set(climberInput);
+	}
+	/*
+	 * public void setClimb1Power(double climberInput) { climb1.set(climberInput); }
+	 */
 
-    @Override
-    public void periodic() {
-        SmartDashboard.putNumber("Climber Position", getClimbEncoder.get());
-    }
+	@Override
+	public void periodic() {
+		SmartDashboard.putNumber("Climber Position", getClimbEncoder.get());
+	}
 }
