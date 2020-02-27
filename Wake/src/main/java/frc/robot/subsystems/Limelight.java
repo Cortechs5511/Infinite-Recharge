@@ -9,6 +9,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight extends SubsystemBase {
   private double x, y, v, area, distance;
+  private double RPMAdjustment, flatRPM;
   
   private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   private NetworkTableEntry tx = table.getEntry("tx");
@@ -20,6 +21,8 @@ public class Limelight extends SubsystemBase {
   public Limelight() {
 	ledMode.setNumber(1); // sets lights off
 	SmartDashboard.putNumber("RPM Setpoint", 0);
+	SmartDashboard.putNumber("RPM Adjustment", 0);
+	SmartDashboard.putNumber("Flat RPM", 0);
   }
 
   @Override
@@ -29,7 +32,9 @@ public class Limelight extends SubsystemBase {
 	v = tv.getDouble(0.0);
 	area = ta.getDouble(0.0);
 
-	SmartDashboard.putNumber("X", x);
+	//SmartDashboard.putNumber("X", x);
+	RPMAdjustment = SmartDashboard.getNumber("RPM Adjustment", 0);
+	flatRPM = SmartDashboard.getNumber("Flat RPM", 0);
 	//SmartDashboard.putNumber("Y", y);
 	//SmartDashboard.putNumber("Area", area);
 	
@@ -39,17 +44,25 @@ public class Limelight extends SubsystemBase {
 
   public double calculateRPM() {
 	distance = ((63.65) / Math.tan(Math.toRadians(y + 16.94))) * (((-Math.abs(y)) / 300) + 1);
-	SmartDashboard.putNumber("Calculated Distance", distance);
+	//SmartDashboard.putNumber("Calculated Distance", distance);
 	
 	// 0.00913x^2 -2.69x + 3647
-	double rpm = (0.00913 * Math.pow(distance, 2)) - (2.69 * distance) + 3730;
+	double rpm = (0.00913 * Math.pow(distance, 2)) - (2.69 * distance) + 3730 + RPMAdjustment;
 	SmartDashboard.putNumber("RPM Setpoint", rpm);
-	
-	if (v != 0) { // if image not captured, return default of 0
-	  return rpm;
+
+	if (flatRPM >= 2000) {
+		return flatRPM;
+	} else if (v != 0) {
+		return rpm;
 	} else {
-	  return 0;
+		return 0;
 	}
+	
+	/*if (v != 0) { // if image not captured, return default of 0
+		return rpm;
+	} else {
+		return 0;
+	}*/
   }
 
   public double getX() {

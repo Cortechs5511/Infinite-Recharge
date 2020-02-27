@@ -61,9 +61,9 @@ public class Feeder extends SubsystemBase {
 		SmartDashboard.putBoolean("Black Sensor", blackSensor.get());
 		// sumCounter = bottomCounter.get();
 
-		SmartDashboard.putNumber("Feeder Wheels Encoder", intakeEncoder.get()); // intakeEncoder in feeder subsystem =
+		//SmartDashboard.putNumber("Feeder Wheels Encoder", intakeEncoder.get()); // intakeEncoder in feeder subsystem =
 																				// black wheels
-		SmartDashboard.putNumber("Tower Encoder", feedEncoder.get());
+		//SmartDashboard.putNumber("Tower Encoder", feedEncoder.get());
 
 		// SmartDashboard.putNumber("Balls Shot", topCounter.get());
 		// SmartDashboard.putNumber("Ball Counter Period", topCounter.getPeriod());

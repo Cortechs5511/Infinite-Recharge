@@ -32,7 +32,7 @@ public class Accel extends CommandBase {
 	@Override
 	public void execute() {
 		currentSpeed = m_shooter.getSpeed.get();
-		SmartDashboard.putNumber("RPM compare count", count);
+		//SmartDashboard.putNumber("RPM compare count", count);
 
 		if (Math.abs(calculatedRPM - currentSpeed) < 200) {
 			count++;

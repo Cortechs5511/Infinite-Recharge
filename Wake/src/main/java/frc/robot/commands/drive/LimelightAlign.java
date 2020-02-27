@@ -22,7 +22,7 @@ public class LimelightAlign extends CommandBase {
 
 	@Override
 	public void initialize() {
-		SmartDashboard.putBoolean("Limelight Align Active", true);
+		//SmartDashboard.putBoolean("Limelight Align Active", true);
 		m_drive.anglePID.reset();
 	}
 
@@ -30,18 +30,18 @@ public class LimelightAlign extends CommandBase {
 	public void execute() {
 		input = m_limelight.getX();
 		threshold = SmartDashboard.getNumber("Threshold", 0.5);
-		SmartDashboard.putNumber("Limelight Received X", input);
+		//SmartDashboard.putNumber("Limelight Received X", input);
 		double setpoint = 0.0;
 
 		val = m_drive.anglePID.calculate(input, setpoint);
-		SmartDashboard.putNumber("Raw Val", val);
+		//SmartDashboard.putNumber("Raw Val", val);
 
 		if (Math.abs(val) > 0.35) {
 			val = (0.35 * val / Math.abs(val));
 		} else if (Math.abs(val) < 0.05) {
 			val = 0;
 		}
-		SmartDashboard.putNumber("Post Deadband Val", val);
+		//SmartDashboard.putNumber("Post Deadband Val", val);
 		m_drive.setLeft(val);
 		m_drive.setRight(-val);
 	}
@@ -50,7 +50,7 @@ public class LimelightAlign extends CommandBase {
 	public void end(boolean interrupted) {
 		m_drive.setLeft(0);
 		m_drive.setRight(0);
-		SmartDashboard.putBoolean("Limelight Align Active", false);
+		//SmartDashboard.putBoolean("Limelight Align Active", false);
 	}
 
 	@Override

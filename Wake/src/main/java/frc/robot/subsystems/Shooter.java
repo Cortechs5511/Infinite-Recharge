@@ -56,6 +56,7 @@ public class Shooter extends SubsystemBase {
 		SmartDashboard.putNumber("Shooter I", 0);
 		SmartDashboard.putNumber("Shooter D", 0.008);
 		SmartDashboard.putNumber("Shooter FF", 0.000202);
+		SmartDashboard.putNumber("RPM Adjustment", 0);
 	}
 
 	public void setSpeed(double input) {
@@ -79,6 +80,7 @@ public class Shooter extends SubsystemBase {
 		shootPID.setI(SmartDashboard.getNumber("Shooter I", 0));
 		shootPID.setD(SmartDashboard.getNumber("Shooter D", 0.008));
 		shootPID.setFF(SmartDashboard.getNumber("Shooter FF", 0.000202));
+
 
 		shoot1.set(shoot0.get());
 
