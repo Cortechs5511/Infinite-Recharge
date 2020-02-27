@@ -18,14 +18,11 @@ public class TowerSimple extends SequentialCommandGroup {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	public TowerSimple(double startDelay, Shooter shooter, Feeder feeder, Limelight limelight, Drive drive) {
 		addCommands(
-			new Brake(drive),
-			new WaitCommand(startDelay), 
-			new LightOn(limelight), 
-			new WaitCommand(0.5),
-			new Shoot(-1, shooter, feeder, limelight),
-			new DriveTimed(drive, 1, 0.4),
-			new WaitCommand(1),
-			new Coast(drive));
-			//new SetDistance(1000, drive));
+			new Brake(drive), // sets all motors to brake mode
+			new WaitCommand(startDelay), // optional start delay
+			new Shoot(-1, shooter, feeder, limelight), // fast shoot
+			new DriveTimed(drive, 1, 0.4), // drive back for 1 second at 0.4 power
+			new WaitCommand(1), // wait 1 second to let robot stop (brake mode)
+			new Coast(drive)); // sets all motors to coast mode
 	}
 }

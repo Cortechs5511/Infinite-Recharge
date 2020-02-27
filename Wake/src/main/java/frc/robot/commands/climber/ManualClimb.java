@@ -10,8 +10,7 @@ public class ManualClimb extends CommandBase {
 
 	private Climber m_climber;
 	private OI m_oi = OI.getInstance();
-	private double climberInput;
-
+	
 	public ManualClimb(Climber climber) {
 		m_climber = climber;
 		addRequirements(climber);
