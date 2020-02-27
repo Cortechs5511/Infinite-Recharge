@@ -97,16 +97,16 @@ public class Drive extends SubsystemBase {
 		right0.setSmartCurrentLimit(60, 60, 9000);
 		right1.setSmartCurrentLimit(60, 60, 9000);
 
-		leftEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
-		rightEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+		leftEnc.setPositionConversionFactor(DriveConstants.kEncoderCPR);
+		rightEnc.setPositionConversionFactor(DriveConstants.kEncoderCPR);
 
-		leftNEOPID.setP(DriveConstants.kLeftP);
+		leftNEOPID.setP(1000);
 		leftNEOPID.setI(DriveConstants.kLeftI);
 		leftNEOPID.setD(DriveConstants.kLeftD);
 		leftNEOPID.setFF(DriveConstants.kLeftFF);
 		leftNEOPID.setOutputRange(-0.4, 0.4);
 
-		rightNEOPID.setP(DriveConstants.kRightP);
+		rightNEOPID.setP(1000);
 		rightNEOPID.setI(DriveConstants.kRightI);
 		rightNEOPID.setD(DriveConstants.kRightD);
 		rightNEOPID.setFF(DriveConstants.kRightFF);
@@ -201,5 +201,19 @@ public class Drive extends SubsystemBase {
 
 	public void setMaxOutput(double limit) {
 		multiplier = limit;
+	}
+
+	public void setBrake() {
+		left0.setIdleMode(IdleMode.kBrake);
+		left1.setIdleMode(IdleMode.kBrake);
+		right0.setIdleMode(IdleMode.kBrake);
+		right1.setIdleMode(IdleMode.kBrake);
+	}
+
+	public void setCoast() {
+		left0.setIdleMode(IdleMode.kCoast);
+		left1.setIdleMode(IdleMode.kCoast);
+		right0.setIdleMode(IdleMode.kCoast);
+		right1.setIdleMode(IdleMode.kCoast);
 	}
 }

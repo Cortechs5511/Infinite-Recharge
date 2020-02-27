@@ -1,8 +1,10 @@
 package frc.robot;
 
 import frc.robot.commands.*;
+import frc.robot.commands.auto.TurnAngle;
 import frc.robot.commands.auto.groups.BackTowerSimple;
 import frc.robot.commands.auto.groups.TowerSimple;
+import frc.robot.commands.auto.groups.TrenchSimple;
 import frc.robot.commands.drive.*;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.climber.*;
@@ -26,6 +28,8 @@ public class RobotContainer {
 	private final Shooter m_shooter = new Shooter();
 	private final Climber m_climber = new Climber();
 
+	//SmartDashboard.putData("Drive Subsystem", m_drive);
+
 	private final SetFeederPower m_setFeederPower = new SetFeederPower(m_feeder);
 	private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
 	private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
@@ -43,7 +47,7 @@ public class RobotContainer {
 	XboxController controller = new XboxController(2);
 
 	enum autonMode {
-		TowerSimple, BackTowerSimple
+		TowerSimple, BackTowerSimple, TrenchSimple
 	}
 
 	SendableChooser<autonMode> m_chooser = new SendableChooser<>();
@@ -66,14 +70,9 @@ public class RobotContainer {
 		getNumber("DriveDelay", 3.0);
 		getNumber("ShootDelay", 3.0);
 
-		/*m_chooser.addOption("Shoot Delay", autonMode.ShootDelay);
-		m_chooser.addOption("Trench Simple", autonMode.TrenchSimple);
-		m_chooser.addOption("Trench Complex", autonMode.TrenchComplex);
-		m_chooser.addOption("Trench Pickup", autonMode.TrenchPickup);
-		m_chooser.addOption("Tower Simple", autonMode.TowerSimple);*/
-
 		m_chooser.addOption("Tower Simple", autonMode.TowerSimple);
 		m_chooser.addOption("Back Tower Simple", autonMode.BackTowerSimple);
+		m_chooser.addOption("Trench Simple", autonMode.TrenchSimple);
 
 		Shuffleboard.getTab("Autonomous").add(m_chooser);
 	}
@@ -97,6 +96,8 @@ public class RobotContainer {
 		new JoystickButton(rightStick, 4).whenPressed(() -> m_drive.setMaxOutput(0.25))
 				.whenReleased(() -> m_drive.setMaxOutput(0.9));
 
+		new JoystickButton(leftStick, 3).whenPressed(new TurnAngle(90, 1, m_drive));
+
 		SmartDashboard.putData("Stop Shooting", m_stopShooter);
 		SmartDashboard.putData("Record", new DataRecorder(m_drive));
 	}
@@ -108,6 +109,8 @@ public class RobotContainer {
 			return new TowerSimple(0, m_shooter, m_feeder, m_limelight, m_drive);
 		case BackTowerSimple:
 			return new BackTowerSimple(0, m_shooter, m_feeder, m_limelight, m_drive);
+		case TrenchSimple:
+			return new TrenchSimple(0, m_shooter, m_feeder, m_limelight, m_drive);
 		default:
 			return new WaitCommand(1.0);
 		}

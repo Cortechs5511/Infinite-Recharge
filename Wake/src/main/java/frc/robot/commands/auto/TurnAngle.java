@@ -8,9 +8,10 @@ public class TurnAngle extends CommandBase {
 	private Drive m_drive;
 
 	private double startingAngle, val, input, setpoint;
-	private double threshold = 0.5;
+	private double threshold;
 
-	public TurnAngle(double set, Drive drive) {
+	public TurnAngle(double set, double error, Drive drive) {
+		threshold = error;
 		setpoint = set;
 		m_drive = drive;
 		addRequirements(drive);

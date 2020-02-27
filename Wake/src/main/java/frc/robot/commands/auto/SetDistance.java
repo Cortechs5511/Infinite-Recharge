@@ -17,20 +17,22 @@ public class SetDistance extends CommandBase {
 
   @Override
   public void initialize() {
+	System.out.println("set distance is now running");
     m_drive.resetLeftEnc();
-    m_drive.resetRightEnc();
+	m_drive.resetRightEnc();
+	
+	m_drive.setLeftPIDReference(targetDistance);
+    m_drive.setRightPIDReference(targetDistance);
   }
 
   @Override
   public void execute() {
-    m_drive.setLeftPIDReference(targetDistance);
-    m_drive.setRightPIDReference(targetDistance);
   }
 
   @Override
   public void end(boolean interrupted) {
     m_drive.setLeft(0);
-    m_drive.setLeft(0);
+    m_drive.setRight(0);
   }
 
   @Override

@@ -31,6 +31,9 @@ public class OI {
 
 	public Supplier<Boolean> getClimberUp = () -> (controller.getPOV()) == 0;
 	public Supplier<Boolean> getClimberDown = () -> (controller.getPOV()) == 180;
+	public Supplier<Boolean> getClimberUp1 = () -> (controller.getPOV()) == 90;
+	public Supplier<Boolean> getClimberDown1 = () -> (controller.getPOV()) == 270;
+
 
 	private OI() {
 	}

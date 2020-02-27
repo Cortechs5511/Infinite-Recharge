@@ -10,7 +10,7 @@ public final class Constants {
     public static final int kRightMotor1Port = 21;
 
     public static final int kEncoderCPR = 42;
-    public static final double kWheelDiameterMeters = 0.1524;
+	public static final double kWheelDiameterMeters = 0.1524;
     public static final double kEncoderDistancePerPulse = (0.1524 * Math.PI) / (double) 42 * 8.2;
     public static final double kEncoderPulsesPerMeter = (1 / 0.1524 * Math.PI) * 8.2 * 42;
 
@@ -24,14 +24,14 @@ public final class Constants {
 
     public static final double kPDriveVel = 0.0372;
 
-    public static final double kLeftP = 0.191;
+    public static final double kLeftP = 10000000657.0; //0.146;
     public static final double kLeftI = 0;
-    public static final double kLeftD = 38.1;
+    public static final double kLeftD = 14.6;
     public static final double kLeftFF = 0;
 
-    public static final double kRightP = 0.183;
+    public static final double kRightP = 1000006476.0; //0.152;
     public static final double kRightI = 0;
-    public static final double kRightD = 36.5;
+    public static final double kRightD = 15.3;
     public static final double kRightFF = 0;
 
     public static final double kAngleP = 0.03; // not implemented yet pending final testing
