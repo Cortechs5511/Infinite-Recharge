@@ -1,6 +1,5 @@
 package frc.robot.commands.shooter;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.Shooter;
@@ -13,7 +12,6 @@ public class Cruise extends CommandBase {
   private Feeder m_feeder;
 
   private double target;
-  private Timer timer = new Timer();
 
   private OI m_oi = OI.getInstance();
 
@@ -32,8 +30,6 @@ public class Cruise extends CommandBase {
   @Override
   public void initialize() {
 	target = m_shooter.getTarget.get();
-	timer.reset();
-	timer.start();
   }
 
   @Override
@@ -87,6 +83,6 @@ public class Cruise extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return ((count > 50) || (m_shooter.getSpeed.get() < 1000) || (timer.get() > 5)); // about 2 seconds of pause or if underspeed
+    return ((count > 50) || (m_shooter.getSpeed.get() < 1000)); // about 2 seconds of pause or if underspeed
   }
 }
