@@ -27,7 +27,6 @@ public class RobotContainer {
 	private final Limelight m_limelight = new Limelight();
 	private final Shooter m_shooter = new Shooter();
 	private final Climber m_climber = new Climber();
-	private final Lighting m_lighting = new Lighting();
 
 	//SmartDashboard.putData("Drive Subsystem", m_drive);
 

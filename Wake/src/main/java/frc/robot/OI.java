@@ -32,7 +32,7 @@ public class OI {
 	public Supplier<Boolean> getClimberUp = () -> (controller.getPOV()) == 0;
 	public Supplier<Boolean> getClimberDown = () -> (controller.getPOV()) == 180;
 	public Supplier<Boolean> getClimberUp1 = () -> (controller.getPOV()) == 90;
-	public Supplier<Boolean> getClimberDown1 = () -> (controller.getPOV()) == 270;
+	public Supplier<Boolean> getClimberDown1 = () -> leftStick.getRawButton(11);
 
 
 	private OI() {
