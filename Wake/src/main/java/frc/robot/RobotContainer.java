@@ -4,7 +4,6 @@ import frc.robot.commands.*;
 import frc.robot.commands.auto.TurnAngle;
 import frc.robot.commands.auto.groups.BackTowerSimple;
 import frc.robot.commands.auto.groups.TowerSimple;
-import frc.robot.commands.auto.groups.TowerSimpleNoL;
 import frc.robot.commands.auto.groups.TrenchSimple;
 import frc.robot.commands.drive.*;
 import frc.robot.commands.shooter.*;
@@ -28,8 +27,6 @@ public class RobotContainer {
 	private final Limelight m_limelight = new Limelight();
 	private final Shooter m_shooter = new Shooter();
 	private final Climber m_climber = new Climber();
-
-	//SmartDashboard.putData("Drive Subsystem", m_drive);
 
 	private final SetFeederPower m_setFeederPower = new SetFeederPower(m_feeder);
 	private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
@@ -113,8 +110,6 @@ public class RobotContainer {
 			return new BackTowerSimple(0, m_shooter, m_feeder, m_limelight, m_drive);
 		case TrenchSimple:
 			return new TrenchSimple(0, m_shooter, m_feeder, m_limelight, m_drive);
-		case TowerSimpleNoL:
-			return new TowerSimpleNoL(0, m_shooter, m_feeder, m_limelight, m_drive);
 		default:
 			return new WaitCommand(1.0);
 		}

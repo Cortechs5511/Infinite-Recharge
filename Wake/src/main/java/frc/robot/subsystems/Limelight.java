@@ -51,7 +51,7 @@ public class Limelight extends SubsystemBase {
 	//SmartDashboard.putNumber("Calculated Distance", distance);
 	
 	// 0.00913x^2 -2.69x + 3647
-	double rpm = (0.0096 * Math.pow(distance, 2)) - (2.91 * distance) + 3670 + RPMAdjustment;
+	double rpm = (0.00913 * Math.pow(distance, 2)) - (2.69 * distance) + 3647 + RPMAdjustment;
 	SmartDashboard.putNumber("RPM Setpoint", rpm);
 
 	if (RPMMode) {
