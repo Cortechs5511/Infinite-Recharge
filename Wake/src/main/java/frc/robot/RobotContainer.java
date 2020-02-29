@@ -4,6 +4,7 @@ import frc.robot.commands.*;
 import frc.robot.commands.auto.TurnAngle;
 import frc.robot.commands.auto.groups.BackTowerSimple;
 import frc.robot.commands.auto.groups.TowerSimple;
+import frc.robot.commands.auto.groups.TowerSimpleNoL;
 import frc.robot.commands.auto.groups.TrenchSimple;
 import frc.robot.commands.drive.*;
 import frc.robot.commands.shooter.*;
@@ -47,7 +48,7 @@ public class RobotContainer {
 	XboxController controller = new XboxController(2);
 
 	enum autonMode {
-		TowerSimple, BackTowerSimple, TrenchSimple
+		TowerSimple, BackTowerSimple, TrenchSimple, TowerSimpleNoL
 	}
 
 	SendableChooser<autonMode> m_chooser = new SendableChooser<>();
@@ -73,6 +74,7 @@ public class RobotContainer {
 		m_chooser.addOption("Tower Simple", autonMode.TowerSimple);
 		m_chooser.addOption("Back Tower Simple", autonMode.BackTowerSimple);
 		m_chooser.addOption("Trench Simple", autonMode.TrenchSimple);
+		m_chooser.addOption("Tower Simple No L", autonMode.TowerSimpleNoL);
 
 		Shuffleboard.getTab("Autonomous").add(m_chooser);
 	}
@@ -111,6 +113,8 @@ public class RobotContainer {
 			return new BackTowerSimple(0, m_shooter, m_feeder, m_limelight, m_drive);
 		case TrenchSimple:
 			return new TrenchSimple(0, m_shooter, m_feeder, m_limelight, m_drive);
+		case TowerSimpleNoL:
+			return new TowerSimpleNoL(0, m_shooter, m_feeder, m_limelight, m_drive);
 		default:
 			return new WaitCommand(1.0);
 		}
