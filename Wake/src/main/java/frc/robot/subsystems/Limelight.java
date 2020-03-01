@@ -23,7 +23,7 @@ public class Limelight extends SubsystemBase {
 	ledMode.setNumber(1); // sets lights off
 	SmartDashboard.putNumber("RPM Setpoint", 0);
 	SmartDashboard.putNumber("RPM Adjustment", 0);
-	SmartDashboard.putNumber("Flat RPM", 4150);
+	SmartDashboard.putNumber("Flat RPM", 4050);
 	SmartDashboard.putBoolean("RPM Flat Control", RPMMode);
 	SmartDashboard.putBoolean("Limelight Lights", false);
   }
@@ -37,7 +37,8 @@ public class Limelight extends SubsystemBase {
 
 	SmartDashboard.putNumber("Limelight X", x);
 	RPMAdjustment = SmartDashboard.getNumber("RPM Adjustment", 0);
-	flatRPM = SmartDashboard.getNumber("Flat RPM", 4150);
+	flatRPM = SmartDashboard.getNumber("Flat RPM", 4050);
+
 	//SmartDashboard.putNumber("Y", y);
 	//SmartDashboard.putNumber("Area", area);
 	

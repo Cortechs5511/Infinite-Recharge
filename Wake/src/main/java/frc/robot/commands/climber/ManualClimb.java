@@ -24,16 +24,12 @@ public class ManualClimb extends CommandBase {
 	public void execute() {
 		if (m_oi.getClimberUp.get()) {
 			m_climber.climbUp(0.8);
-		} else if (m_oi.getClimberUp1.get()) {
-			m_climber.climbUp(-0.8);
 		} else {
 			m_climber.climbUp(0);
 		}
 
 		if (m_oi.getClimberDown.get()) {
 			m_climber.climbDown(0.8);
-		} else if (m_oi.getClimberDown1.get()) {
-			m_climber.climbDown(-0.8);
 		} else {
 			m_climber.climbDown(0);
 		}
