@@ -17,7 +17,7 @@ public class SetDistance extends CommandBase {
 
   @Override
   public void initialize() {
-	System.out.println("set distance is now running");
+	// System.out.println("set distance is now running");
     m_drive.resetLeftEnc();
 	m_drive.resetRightEnc();
 	
