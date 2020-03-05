@@ -58,10 +58,10 @@ public class Drive extends SubsystemBase {
     left1.follow(left0);
     right1.follow(right0);
 
-    left0.setIdleMode(IdleMode.kCoast);
-    left1.setIdleMode(IdleMode.kCoast);
-    right0.setIdleMode(IdleMode.kCoast);
-    right1.setIdleMode(IdleMode.kCoast);
+    left0.setIdleMode(IdleMode.kBrake);
+    left1.setIdleMode(IdleMode.kBrake);
+    right0.setIdleMode(IdleMode.kBrake);
+    right1.setIdleMode(IdleMode.kBrake);
 
     left0.setInverted(false);
     left1.setInverted(false);

@@ -178,8 +178,8 @@ public class Drive extends SubsystemBase {
 		//SmartDashboard.putNumber("Left Position", leftEnc.getPosition());
 		//SmartDashboard.putNumber("Right Position", rightEnc.getPosition());
 
-		SmartDashboard.putNumber("Left Power", left0.get());
-		SmartDashboard.putNumber("Right Power", right0.get());
+		SmartDashboard.putNumber("Left Power", left0.getAppliedOutput());
+		SmartDashboard.putNumber("Right Power", right0.getAppliedOutput());
 
 		SmartDashboard.putNumber("NavX Angle", navx.getAngle());
 

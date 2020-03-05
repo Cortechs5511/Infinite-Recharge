@@ -19,7 +19,7 @@ public class Climber extends SubsystemBase {
 
     public Climber() {
         climb.restoreFactoryDefaults();
-        climb.setIdleMode(IdleMode.kCoast);
+        climb.setIdleMode(IdleMode.kBrake);
         climb.setSecondaryCurrentLimit(250);
         climb.setSmartCurrentLimit(60, 60, 200000);
 
@@ -29,8 +29,8 @@ public class Climber extends SubsystemBase {
     public void setClimbPower(double climberInput) {
         climb.set(climberInput);
     }
-    // TODO: should we have some function which will stop the climber once it reaches max or min height? we could read the encoder
-    @Override
+
+	@Override
     public void periodic() {
         SmartDashboard.putNumber("Climber Position", getClimbEncoder.get());
     }
