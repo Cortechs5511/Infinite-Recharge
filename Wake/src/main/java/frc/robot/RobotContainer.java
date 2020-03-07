@@ -33,6 +33,7 @@ public class RobotContainer {
 	private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
 	private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
 
+	//0.5 degree threshold fastShootAlign prev
 	private final ShootAlign m_fastShootAlign = new ShootAlign(0.5, -1, m_drive, m_shooter, m_feeder, m_limelight);
 	private final ShootAlign m_slowShootAlign = new ShootAlign(0.5, 5, m_drive, m_shooter, m_feeder, m_limelight);
 	private final Shoot m_fastShoot = new Shoot(-1, m_shooter, m_feeder, m_limelight);

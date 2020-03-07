@@ -113,11 +113,11 @@ public class Drive extends SubsystemBase {
 		rightNEOPID.setOutputRange(-0.4, 0.4); // consider changing this during drive testing
 
 		anglePID.disableContinuousInput();
-		anglePID.setIntegratorRange(-1.5, 1.5);
+		anglePID.setIntegratorRange(-1, 1);
 
 		SmartDashboard.putNumber("Angle P", 0.03);
-		SmartDashboard.putNumber("Angle I", 0.02);
-		SmartDashboard.putNumber("Angle D", 0.002);
+		SmartDashboard.putNumber("Angle I", 0.04);
+		SmartDashboard.putNumber("Angle D", 0.001);
 		SmartDashboard.putNumber("Threshold", 0.5);
 
 		m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
@@ -184,8 +184,8 @@ public class Drive extends SubsystemBase {
 		SmartDashboard.putNumber("NavX Angle", navx.getAngle());
 
 		angle_kP = SmartDashboard.getNumber("Angle P", 0.03);
-		angle_kI = SmartDashboard.getNumber("Angle I", 0.02);
-		angle_kD = SmartDashboard.getNumber("Angle D", 0.002);
+		angle_kI = SmartDashboard.getNumber("Angle I", 0.04);
+		angle_kD = SmartDashboard.getNumber("Angle D", 0.001);
 		anglePID.setPID(angle_kP, angle_kI, angle_kD);
 
 		m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftEnc.getPosition(), rightEnc.getPosition());
