@@ -47,12 +47,9 @@ public class Cruise extends CommandBase {
     }
 
     if (feedCount > threshold) {
-      //m_feeder.setFeederSpeed(0.45);
-      //m_feeder.setFeeder2Speed(0.8);
-      //m_feeder.setFeeder3Speed(0.35);
-      m_feeder.setFeederSpeed(0.225);
-      m_feeder.setFeeder2Speed(0.4);
-      m_feeder.setFeeder3Speed(0.175);
+      m_feeder.setFeederSpeed(0.5); //.45
+      m_feeder.setFeeder2Speed(0.8);
+      m_feeder.setFeeder3Speed(0.35);
     } else {
       m_feeder.setFeederSpeed(0);
       m_feeder.setFeeder2Speed(0);
@@ -76,8 +73,9 @@ public class Cruise extends CommandBase {
 	m_oi.setRightRumble(0);
 
     m_shooter.setRampRate(1.5);
-    //m_shooter.setPIDReference(0);
-    m_shooter.setSpeed(0.7);
+    m_shooter.setPIDReference(0);
+    m_shooter.setSpeed(0);
+    //m_shooter.setSpeed(0.7);
 
     m_feeder.setFeederSpeed(0);
     m_feeder.setFeeder2Speed(0);
@@ -86,7 +84,8 @@ public class Cruise extends CommandBase {
 
   @Override
   public boolean isFinished() {
+    return false;
     //return ((count > 50) || (m_shooter.getSpeed.get() < 1000)); // about 2 seconds of pause or if underspeed
-    return ((count > 100) || (m_shooter.getSpeed.get() < 1000));
+    //return ((count > 100) || (m_shooter.getSpeed.get() < 1000));
   }
 }
