@@ -18,7 +18,7 @@ public class Robot extends TimedRobot {
 	private Joystick leftStick = new Joystick(0);
 	private Joystick rightStick = new Joystick(1);
 
-	private double maxPower = 0.3;
+	private double maxPower = 0.2;
 	private double power, turn, left, right;
 
 	private boolean arcadeActive = true; 
@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Right Power", right0.get());
 
 		arcadeActive = SmartDashboard.getBoolean("Arcade Drive", true);
-		maxPower = Math.min(0.5, SmartDashboard.getNumber("Max Power", 0.3)); // cap at 0.5
+		maxPower = Math.min(0.5, SmartDashboard.getNumber("Max Power", 0.2)); // cap at 0.5
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		if (arcadeActive) {
 			power = leftStick.getY() * maxPower; // inputs
-			turn = -leftStick.getX() * (maxPower + 0.2);
+			turn = -leftStick.getX() * (maxPower * 1.5);
 
 			if (Math.abs(turn) < 0.1) { // 10% deadband
 				turn = 0;
