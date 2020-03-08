@@ -10,7 +10,7 @@ public final class Constants {
     public static final int kRightMotor1Port = 21;
 
     public static final int kEncoderCPR = 42;
-	public static final double kWheelDiameterMeters = 0.1524;
+    public static final double kWheelDiameterMeters = 0.1524;
     public static final double kEncoderDistancePerPulse = (0.1524 * Math.PI) / (double) 42 * 8.2;
     public static final double kEncoderPulsesPerMeter = (1 / 0.1524 * Math.PI) * 8.2 * 42;
 
@@ -18,18 +18,21 @@ public final class Constants {
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
         kTrackwidthMeters);
 
+    public static final double enc_ToIn = 137.25 / (((-5482.95 - -2949.08) + (-4903.02 - -2375.024658)) / 2);
+    public static final double encToM = enc_ToIn * .0254;
+
     public static final double ksVolts = 0.604;
     public static final double kvVoltSecondsPerMeter = 0.00302;
     public static final double kaVoltSecondsSquaredPerMeter = 0.000448;
 
     public static final double kPDriveVel = 0.0372;
 
-    public static final double kLeftP = 10000000657.0; //0.146;
+    public static final double kLeftP = 10000000657.0; // 0.146;
     public static final double kLeftI = 0;
     public static final double kLeftD = 14.6;
     public static final double kLeftFF = 0;
 
-    public static final double kRightP = 1000006476.0; //0.152;
+    public static final double kRightP = 1000006476.0; // 0.152;
     public static final double kRightI = 0;
     public static final double kRightD = 15.3;
     public static final double kRightFF = 0;
@@ -62,6 +65,7 @@ public final class Constants {
     public static final double kShootI = 0;
     public static final double kShootD = 0.008;
     public static final double kShootFF = 0.000202;
+
   }
 
   public static final class ClimberConstants {
