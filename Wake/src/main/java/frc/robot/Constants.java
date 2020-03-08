@@ -18,7 +18,7 @@ public final class Constants {
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
         kTrackwidthMeters);
 
-    public static final double enc_ToIn = 137.25 / (((-5482.95 - -2949.08) + (-4903.02 - -2375.024658)) / 2);
+    public static final double enc_ToIn = 137.25 / (((5482.95 - 2949.08) + (4903.02 - 2375.024658)) / 2);
     public static final double encToM = enc_ToIn * .0254;
 
     public static final double ksVolts = 0.604;

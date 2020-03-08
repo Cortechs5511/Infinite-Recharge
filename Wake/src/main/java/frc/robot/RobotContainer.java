@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.Constants.*;
 import frc.robot.commands.*;
 import frc.robot.commands.auto.TurnAngle;
 import frc.robot.commands.auto.groups.BackTowerSimple;
@@ -11,12 +12,18 @@ import frc.robot.commands.shooter.*;
 import frc.robot.commands.climber.*;
 import frc.robot.subsystems.*;
 
+import com.team254.lib.trajectory.Trajectory;
+
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -106,6 +113,17 @@ public class RobotContainer {
 	}
 
 	public Command getAutonomousCommand() {
+		DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+				new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
+						DriveConstants.kaVoltSecondsSquaredPerMeter),
+				DriveConstants.kDriveKinematics, 9);
+
+		TrajectoryConfig config = new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond,
+				AutoConstants.kMaxAccelerationMetersPerSecondSquared).setKinematics(DriveConstants.kDriveKinematics)
+						.addConstraint(autoVoltageConstraint);
+						
+
+		Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(Filesystem.getDeployDirectory().toPath.resolve("paths/TowerSimple."))
 		switch (m_chooser.getSelected()) {
 
 		case TowerSimple:
