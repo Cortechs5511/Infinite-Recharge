@@ -40,6 +40,8 @@ public class TowerSimple extends CommandBase {
 				AutoConstants.kMaxAccelerationMetersPerSecondSquared).setKinematics(DriveConstants.kDriveKinematics)
 						.addConstraint(autoVoltageConstraint);
 
+		//Trajectory trajectory = TrajectoryGenerator.generateTrajectory(new Pose2d(), new Pose2d(),
+
 		Trajectory towerSimple = TrajectoryGenerator.generateTrajectory(
 				// Start at the origin facing the +X direction
 				new Pose2d(0, 0, new Rotation2d(0)), List.of(new Translation2d(1, 0)),
@@ -47,7 +49,7 @@ public class TowerSimple extends CommandBase {
 				new Pose2d(2, 0, new Rotation2d(0)),
 				// Pass config
 				config);
-
+		
 		RamseteCommand ramseteCommand = new RamseteCommand(towerSimple, m_drive::getPose,
 				new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
 				new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,

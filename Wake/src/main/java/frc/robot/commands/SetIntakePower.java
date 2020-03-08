@@ -5,8 +5,6 @@ import frc.robot.subsystems.Drive;
 import frc.robot.OI;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 public class SetIntakePower extends CommandBase {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private Intake m_intake;

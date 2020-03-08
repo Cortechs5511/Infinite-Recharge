@@ -1,29 +1,22 @@
 package frc.robot;
 
-import frc.robot.Constants.*;
 import frc.robot.commands.*;
+import frc.robot.commands.auto.TrajectoryFollower;
 import frc.robot.commands.auto.TurnAngle;
-import frc.robot.commands.auto.groups.BackTowerSimple;
+/*import frc.robot.commands.auto.groups.BackTowerSimple;
 import frc.robot.commands.auto.groups.TowerSimple;
 import frc.robot.commands.auto.groups.TowerSimpleForward;
-import frc.robot.commands.auto.groups.TrenchSimple;
+import frc.robot.commands.auto.groups.TrenchSimple;*/
 import frc.robot.commands.drive.*;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.climber.*;
 import frc.robot.subsystems.*;
 
-import com.team254.lib.trajectory.Trajectory;
-
-import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
-import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -41,7 +34,7 @@ public class RobotContainer {
 	private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
 	private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
 
-	//0.5 degree threshold fastShootAlign prev
+	// 0.5 degree threshold fastShootAlign prev
 	private final ShootAlign m_fastShootAlign = new ShootAlign(0.5, -1, m_drive, m_shooter, m_feeder, m_limelight);
 	private final ShootAlign m_slowShootAlign = new ShootAlign(0.5, 5, m_drive, m_shooter, m_feeder, m_limelight);
 	private final Shoot m_fastShoot = new Shoot(-1, m_shooter, m_feeder, m_limelight);
@@ -49,6 +42,8 @@ public class RobotContainer {
 
 	private final StopShooter m_stopShooter = new StopShooter(m_shooter, m_limelight, m_feeder, m_drive);
 	private final LightToggle m_lightToggle = new LightToggle(m_limelight);
+
+	private final TrajectoryFollower m_trajectoryFollower = new TrajectoryFollower(m_drive);
 
 	Joystick leftStick = new Joystick(0);
 	Joystick rightStick = new Joystick(1);
@@ -113,27 +108,16 @@ public class RobotContainer {
 	}
 
 	public Command getAutonomousCommand() {
-		DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
-				new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
-						DriveConstants.kaVoltSecondsSquaredPerMeter),
-				DriveConstants.kDriveKinematics, 9);
-
-		TrajectoryConfig config = new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond,
-				AutoConstants.kMaxAccelerationMetersPerSecondSquared).setKinematics(DriveConstants.kDriveKinematics)
-						.addConstraint(autoVoltageConstraint);
-						
-
-		Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(Filesystem.getDeployDirectory().toPath.resolve("paths/TowerSimple."))
 		switch (m_chooser.getSelected()) {
 
 		case TowerSimple:
-			return new TowerSimple(0, m_shooter, m_feeder, m_limelight, m_drive);
+			return m_trajectoryFollower.getPath("paths/TowerSimple.wpilib.json");
 		case TowerSimpleForward:
-			return new TowerSimpleForward(0, m_shooter, m_feeder, m_limelight, m_drive);
+			return m_trajectoryFollower.getPath("paths/TowerSimple.wpilib.json");
 		case BackTowerSimple:
-			return new BackTowerSimple(0, m_shooter, m_feeder, m_limelight, m_drive);
+			return m_trajectoryFollower.getPath("paths/TowerSimple.wpilib.json");
 		case TrenchSimple:
-			return new TrenchSimple(0, m_shooter, m_feeder, m_limelight, m_drive);
+			return m_trajectoryFollower.getPath("paths/TowerSimple.wpilib.json");
 		default:
 			return new WaitCommand(1.0);
 		}
