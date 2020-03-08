@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.OI;
+import frc.robot.subsystems.Drive;
 import frc.robot.Constants.FeederConstants;
 
 public class Intake extends SubsystemBase {
@@ -15,13 +16,17 @@ public class Intake extends SubsystemBase {
 	private WPI_VictorSPX intake = new WPI_VictorSPX(FeederConstants.kIntakePort);
 
 	private OI m_oi = OI.getInstance();
-	private double wristInput = 0f;
+	private Drive m_drive;
 
-	public Intake() {
+	private double wristInput;
+
+	public Intake(Drive drive) {
+		m_drive = drive;
+
 		wrist.configFactoryDefault();
 		intake.configFactoryDefault();
 
-		wrist.setNeutralMode(NeutralMode.Coast);
+		wrist.setNeutralMode(NeutralMode.Brake);
 		intake.setNeutralMode(NeutralMode.Brake);
 
 		intake.configOpenloopRamp(0.5);
@@ -38,11 +43,15 @@ public class Intake extends SubsystemBase {
 		}
 
 		if (m_oi.getIntake.get()) {
-			intake.set(0.8);
+			intake.set(0.55);
 		} else if (m_oi.getIntakeBackFeed.get()) {
 			intake.set(-0.6);
 		} else {
-			intake.set(0);
+			if ((Math.abs(m_drive.getLeftVelocity.get()) + Math.abs(m_drive.getRightVelocity.get())) > 270) { // if aveage velocity > 135RPM
+				intake.set(-0.3); // sweep intake
+			} else { // when close to stopped
+				intake.set(0); // stop intake
+			}
 		}
 
 		wrist.set(ControlMode.PercentOutput, wristInput);
