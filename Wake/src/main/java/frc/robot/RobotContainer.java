@@ -30,6 +30,7 @@ public class RobotContainer {
 	private final Climber m_climber = new Climber();
 
 	private final SetFeederPower m_setFeederPower = new SetFeederPower(m_feeder);
+	private final SetIntakePower m_setIntakePower = new SetIntakePower(m_intake, m_drive);
 	private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
 	private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
 
@@ -65,6 +66,7 @@ public class RobotContainer {
 
 		m_drive.setDefaultCommand(m_setSpeed);
 		m_feeder.setDefaultCommand(m_setFeederPower);
+		m_intake.setDefaultCommand(m_setIntakePower);
 		m_climber.setDefaultCommand(m_manualClimb);
 
 		getNumber("DriveDelay", 3.0);
