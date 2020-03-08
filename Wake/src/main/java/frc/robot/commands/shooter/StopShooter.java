@@ -52,7 +52,8 @@ public class StopShooter extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		m_shooter.setPIDReference(0);
-
+		m_shooter.setSpeed(0);
+		
 		m_oi.setLeftRumble(0);
 		m_oi.setRightRumble(0);
 	}

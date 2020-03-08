@@ -93,5 +93,6 @@ public class AccelAlign extends CommandBase {
 	public boolean isFinished() {
 		return (((Math.abs(input) < threshold) && (m_drive.getLeftVelocity.get() < 30)
 				&& (m_drive.getRightVelocity.get() < 30)) && (count > 25));
+		//return false;
 	}
 }
