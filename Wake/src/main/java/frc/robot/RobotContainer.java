@@ -112,6 +112,7 @@ public class RobotContainer {
 
 		case TowerSimple:
 			return m_trajectoryFollower.getPath("paths/TowerSimple.wpilib.json");
+			// add new towersimple command here ; 
 		case TowerSimpleForward:
 			return m_trajectoryFollower.getPath("paths/TowerSimple.wpilib.json");
 		case BackTowerSimple:

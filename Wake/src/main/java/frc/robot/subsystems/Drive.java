@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
@@ -121,6 +122,8 @@ public class Drive extends SubsystemBase {
 		SmartDashboard.putNumber("Threshold", 0.5);
 
 		m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+		
+		
 	}
 
 	public void setLeft(double leftInput) {
@@ -135,6 +138,20 @@ public class Drive extends SubsystemBase {
 		return new DifferentialDriveWheelSpeeds(leftEnc.getVelocity(), rightEnc.getVelocity());
 	}
 
+	public static SimpleMotorFeedforward getFeedForward() {
+		SimpleMotorFeedforward feedForward = new SimpleMotorFeedforward(0.604, 0.00302, 0.000448);
+		return feedForward;
+	}
+
+	public static PIDController getLeftPIDController(){ 
+		PIDController leftPIDController = new PIDController(10000000657.0, 0, 14.6);
+		return leftPIDController;
+	}
+
+	public static PIDController getRightPIDController(){
+		PIDController rightPIDController = new PIDController(1000006476.0, 0, 15.3); 
+		return rightPIDController;
+	}
 	public double getHeading() {
 		return Math.IEEEremainder(navx.getAngle(), 360);
 	}
@@ -143,6 +160,10 @@ public class Drive extends SubsystemBase {
 		return m_odometry.getPoseMeters();
 	}
 
+	public void setOutput(double leftVolts, double rightVolts) { 
+		left0.set(leftVolts / 12);
+		right0.set(rightVolts / 12); 
+	}
 	public void tankDriveVolts(double leftVolts, double rightVolts) {
 		left0.setVoltage(leftVolts);
 		right0.setVoltage(-rightVolts);

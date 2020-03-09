@@ -37,11 +37,13 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.schedule();
 		}
+		
 	}
 
 	// AUTO PERIODIC
 	@Override
 	public void autonomousPeriodic() {
+	
 	}
 
 	// TELEOP INIT
