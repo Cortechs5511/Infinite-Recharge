@@ -11,7 +11,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
@@ -29,7 +28,7 @@ public class Drive extends SubsystemBase {
 
 	private CANPIDController leftNEOPID = left0.getPIDController();
 	private CANPIDController rightNEOPID = right0.getPIDController();
-	public PIDController anglePID = new PIDController(0.0, 0.0, 0.0);
+	public PIDController anglePID = new PIDController(0.03, 0.04, 0.001);
 
 	private CANEncoder leftEnc = left0.getEncoder();
 	private CANEncoder rightEnc = right0.getEncoder();
@@ -50,7 +49,7 @@ public class Drive extends SubsystemBase {
 	public Supplier<Double> getGyroAngle = () -> navx.getAngle();
 	public Supplier<Double> getMaxOutput = () -> multiplier;
 
-	private double angle_kP, angle_kI, angle_kD;
+	//private double angle_kP, angle_kI, angle_kD;
 	private final DifferentialDriveOdometry m_odometry;
 
 	public Drive() {
@@ -116,10 +115,10 @@ public class Drive extends SubsystemBase {
 		anglePID.disableContinuousInput();
 		anglePID.setIntegratorRange(-1, 1);
 
-		SmartDashboard.putNumber("Angle P", 0.03);
+		/*SmartDashboard.putNumber("Angle P", 0.03);
 		SmartDashboard.putNumber("Angle I", 0.04);
 		SmartDashboard.putNumber("Angle D", 0.001);
-		SmartDashboard.putNumber("Threshold", 0.5);
+		SmartDashboard.putNumber("Threshold", 0.5);*/
 
 		m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 		
@@ -138,20 +137,6 @@ public class Drive extends SubsystemBase {
 		return new DifferentialDriveWheelSpeeds(leftEnc.getVelocity(), rightEnc.getVelocity());
 	}
 
-	public static SimpleMotorFeedforward getFeedForward() {
-		SimpleMotorFeedforward feedForward = new SimpleMotorFeedforward(0.604, 0.00302, 0.000448);
-		return feedForward;
-	}
-
-	public static PIDController getLeftPIDController(){ 
-		PIDController leftPIDController = new PIDController(0.0372, 0, 0);
-		return leftPIDController;
-	}
-
-	public static PIDController getRightPIDController(){
-		PIDController rightPIDController = new PIDController(0.0372, 0, 0); 
-		return rightPIDController;
-	}
 	public double getHeading() {
 		return Math.IEEEremainder(navx.getAngle(), 360);
 	}
@@ -161,12 +146,8 @@ public class Drive extends SubsystemBase {
 	}
 
 	public void setOutput(double leftVolts, double rightVolts) { 
-		left0.set(leftVolts / 12);
-		right0.set(rightVolts / 12); 
-	}
-	public void tankDriveVolts(double leftVolts, double rightVolts) {
 		left0.setVoltage(leftVolts);
-		right0.setVoltage(-rightVolts);
+		right0.setVoltage(rightVolts); 
 	}
 
 	public void resetOdometry(Pose2d pose) {
@@ -204,10 +185,10 @@ public class Drive extends SubsystemBase {
 
 		SmartDashboard.putNumber("NavX Angle", navx.getAngle());
 
-		angle_kP = SmartDashboard.getNumber("Angle P", 0.03);
+		/*angle_kP = SmartDashboard.getNumber("Angle P", 0.03);
 		angle_kI = SmartDashboard.getNumber("Angle I", 0.04);
 		angle_kD = SmartDashboard.getNumber("Angle D", 0.001);
-		anglePID.setPID(angle_kP, angle_kI, angle_kD);
+		anglePID.setPID(angle_kP, angle_kI, angle_kD);*/
 
 		m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftEnc.getPosition(), rightEnc.getPosition());
 	}

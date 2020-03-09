@@ -54,7 +54,7 @@ public class TrenchSimple extends CommandBase {
 				DriveConstants.kDriveKinematics, m_drive::getWheelSpeeds,
 				new PIDController(DriveConstants.kPDriveVel, 0, 0), new PIDController(DriveConstants.kPDriveVel, 0, 0),
 				// RamseteCommand passes volts to the callback
-				m_drive::tankDriveVolts, m_drive);
+				m_drive::setOutput, m_drive);
 
 		return ramseteCommand;
 	}
