@@ -144,12 +144,12 @@ public class Drive extends SubsystemBase {
 	}
 
 	public static PIDController getLeftPIDController(){ 
-		PIDController leftPIDController = new PIDController(10000000657.0, 0, 14.6);
+		PIDController leftPIDController = new PIDController(0.0372, 0, 0);
 		return leftPIDController;
 	}
 
 	public static PIDController getRightPIDController(){
-		PIDController rightPIDController = new PIDController(1000006476.0, 0, 15.3); 
+		PIDController rightPIDController = new PIDController(0.0372, 0, 0); 
 		return rightPIDController;
 	}
 	public double getHeading() {
