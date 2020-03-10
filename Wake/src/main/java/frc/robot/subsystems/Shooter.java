@@ -41,6 +41,12 @@ public class Shooter extends SubsystemBase {
 		shoot0.setSmartCurrentLimit(200, 200, 200000);
 		shoot1.setSmartCurrentLimit(200, 200, 200000);
 
+		shoot0.setClosedLoopRampRate(1.5);
+		shoot1.setClosedLoopRampRate(1.5);
+
+		shoot0.setOpenLoopRampRate(1.5);
+		shoot1.setOpenLoopRampRate(1.5);
+
 		shoot0.setInverted(true);
 		shoot1.setInverted(false);
 

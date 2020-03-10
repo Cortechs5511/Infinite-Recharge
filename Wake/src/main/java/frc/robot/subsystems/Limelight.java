@@ -3,21 +3,26 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import java.util.function.Supplier;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight extends SubsystemBase {
-  private double x, y, v, area, distance;
-  private double RPMAdjustment, flatRPM;
+  private double x, y, v, area, distance, RPMAdjustment, flatRPM;
   private boolean RPMMode = false;
   
   private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  
   private NetworkTableEntry tx = table.getEntry("tx");
   private NetworkTableEntry ty = table.getEntry("ty");
   private NetworkTableEntry ta = table.getEntry("ta");
   private NetworkTableEntry tv = table.getEntry("tv");
   private NetworkTableEntry ledMode = table.getEntry("ledMode");
+
+  public Supplier<Boolean> invalidTarget = () -> !(v == 1);
 
   public Limelight() {
 	ledMode.setNumber(1); // sets lights off
@@ -36,6 +41,8 @@ public class Limelight extends SubsystemBase {
 	area = ta.getDouble(0.0);
 
 	SmartDashboard.putNumber("Limelight X", x);
+	SmartDashboard.putBoolean("Limelight Valid Target", v == 0);
+
 	RPMAdjustment = SmartDashboard.getNumber("RPM Adjustment", 0);
 	flatRPM = SmartDashboard.getNumber("Flat RPM", 4050);
 

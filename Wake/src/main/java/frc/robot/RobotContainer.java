@@ -1,8 +1,8 @@
 package frc.robot;
 
 import frc.robot.commands.*;
-import frc.robot.commands.auto.TrajectoryFollower;
-import frc.robot.commands.auto.TurnAngle;
+// import frc.robot.commands.auto.TrajectoryFollower;
+import frc.robot.commands.auto.paths.*;
 /*import frc.robot.commands.auto.groups.BackTowerSimple;
 import frc.robot.commands.auto.groups.TowerSimple;
 import frc.robot.commands.auto.groups.TowerSimpleForward;
@@ -34,16 +34,17 @@ public class RobotContainer {
 	private final ManualClimb m_manualClimb = new ManualClimb(m_climber);
 	private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
 
-	// 0.5 degree threshold fastShootAlign prev
-	private final ShootAlign m_fastShootAlign = new ShootAlign(0.5, -1, m_drive, m_shooter, m_feeder, m_limelight);
-	private final ShootAlign m_slowShootAlign = new ShootAlign(0.5, 5, m_drive, m_shooter, m_feeder, m_limelight);
-	private final Shoot m_fastShoot = new Shoot(-1, m_shooter, m_feeder, m_limelight);
-	private final Shoot m_slowShoot = new Shoot(5, m_shooter, m_feeder, m_limelight);
+	// 0.5 degree threshold slowShootAlign prev
+	private final ShootAlign m_fastShootAlign = new ShootAlign(0.5, -1, m_drive, m_shooter, m_feeder, m_limelight, m_intake);
+	private final ShootAlign m_slowShootAlign = new ShootAlign(0.25, 5, m_drive, m_shooter, m_feeder, m_limelight, m_intake);
+	private final Shoot m_fastShoot = new Shoot(-1, m_shooter, m_feeder, m_limelight, m_intake);
+	private final Shoot m_slowShoot = new Shoot(5, m_shooter, m_feeder, m_limelight, m_intake);
 
 	private final StopShooter m_stopShooter = new StopShooter(m_shooter, m_limelight, m_feeder, m_drive);
 	private final LightToggle m_lightToggle = new LightToggle(m_limelight);
+	private final StopDrive m_stop = new StopDrive(m_drive);
 
-	private final TrajectoryFollower m_trajectoryFollower = new TrajectoryFollower(m_drive);
+	// private final TrajectoryFollower m_trajectoryFollower = new TrajectoryFollower(m_drive);
 
 	Joystick leftStick = new Joystick(0);
 	Joystick rightStick = new Joystick(1);
@@ -101,8 +102,6 @@ public class RobotContainer {
 		new JoystickButton(rightStick, 4).whenPressed(() -> m_drive.setMaxOutput(0.25))
 				.whenReleased(() -> m_drive.setMaxOutput(0.9));
 
-		new JoystickButton(leftStick, 3).whenPressed(new TurnAngle(90, 1, m_drive)); // for testing purposes only
-
 		SmartDashboard.putData("Stop Shooting", m_stopShooter);
 		SmartDashboard.putData("Record", new DataRecorder(m_drive));
 	}
@@ -111,20 +110,20 @@ public class RobotContainer {
 		switch (m_chooser.getSelected()) {
 
 		case TowerSimple:
-			return m_trajectoryFollower.getPath("paths/TowerSimple.wpilib.json");
-			// add new towersimple command here ; 
+			return new TowerSimple(m_drive).andThen(m_stop);
 		case TowerSimpleForward:
-			return m_trajectoryFollower.getPath("paths/TowerSimple.wpilib.json");
+			return new WaitCommand(1.0);
 		case BackTowerSimple:
-			return m_trajectoryFollower.getPath("paths/TowerSimple.wpilib.json");
+			return new WaitCommand(1.0);
 		case TrenchSimple:
-			return m_trajectoryFollower.getPath("paths/TowerSimple.wpilib.json");
+			return new WaitCommand(1.0);
 		default:
 			return new WaitCommand(1.0);
 		}
 	}
 
 	public void teleopInit(Robot robot) {
+		new Coast(m_drive);
 		if (robot.m_autonomousCommand != null) {
 			robot.m_autonomousCommand.cancel();
 		}
