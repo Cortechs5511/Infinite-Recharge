@@ -66,15 +66,15 @@ public class Drive extends SubsystemBase {
 		left1.follow(left0);
 		right1.follow(right0);
 
-		left0.setIdleMode(IdleMode.kCoast);
-		left1.setIdleMode(IdleMode.kCoast);
-		right0.setIdleMode(IdleMode.kCoast);
-		right1.setIdleMode(IdleMode.kCoast);
+		left0.setIdleMode(IdleMode.kBrake);
+		left1.setIdleMode(IdleMode.kBrake);
+		right0.setIdleMode(IdleMode.kBrake);
+		right1.setIdleMode(IdleMode.kBrake);
 
-		left0.setInverted(false);
-		left1.setInverted(false);
-		right0.setInverted(true);
-		right1.setInverted(true);
+		left0.setInverted(true);
+		left1.setInverted(true);
+		right0.setInverted(false);
+		right1.setInverted(false);
 		// false, false, true, true
 
 		left0.enableVoltageCompensation(9);
@@ -97,8 +97,14 @@ public class Drive extends SubsystemBase {
 		right0.setSmartCurrentLimit(60, 60, 9000);
 		right1.setSmartCurrentLimit(60, 60, 9000);
 
-		leftEnc.setPositionConversionFactor(DriveConstants.encToM);
-		rightEnc.setPositionConversionFactor(DriveConstants.encToM);
+		leftEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse); 
+		rightEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+
+		leftEnc.setVelocityConversionFactor(DriveConstants.kEncoderMetersPerSecond);
+		rightEnc.setVelocityConversionFactor(DriveConstants.kEncoderMetersPerSecond);
+
+		leftEnc.setPosition(0);
+		rightEnc.setPosition(0);
 
 		leftNEOPID.setP(1000);
 		leftNEOPID.setI(DriveConstants.kLeftI);
@@ -120,9 +126,7 @@ public class Drive extends SubsystemBase {
 		SmartDashboard.putNumber("Angle D", 0.001);
 		SmartDashboard.putNumber("Threshold", 0.5);*/
 
-		m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
-		
-		
+		m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));		
 	}
 
 	public void setLeft(double leftInput) {
@@ -174,11 +178,14 @@ public class Drive extends SubsystemBase {
 
 	@Override
 	public void periodic() {
-		SmartDashboard.putNumber("Left Speed", leftEnc.getVelocity());
-		SmartDashboard.putNumber("Right Speed", rightEnc.getVelocity());
+		//SmartDashboard.putNumber("Left Speed", leftEnc.getVelocity());
+		//SmartDashboard.putNumber("Right Speed", rightEnc.getVelocity());
 
-		//SmartDashboard.putNumber("Left Position", leftEnc.getPosition());
-		//SmartDashboard.putNumber("Right Position", rightEnc.getPosition());
+		SmartDashboard.putNumber("Left Counts", leftEnc.getPosition());
+		SmartDashboard.putNumber("Right Counts", rightEnc.getPosition());
+
+		//SmartDashboard.putNumber("Left Position", leftEnc.getPosition() * DriveConstants.kEncoderDistancePerPulse);
+		//eSmartDashboard.putNumber("Right Position", rightEnc.getPosition() * DriveConstants.kEncoderDistancePerPulse);
 
 		SmartDashboard.putNumber("Left Power", left0.getAppliedOutput());
 		SmartDashboard.putNumber("Right Power", right0.getAppliedOutput());

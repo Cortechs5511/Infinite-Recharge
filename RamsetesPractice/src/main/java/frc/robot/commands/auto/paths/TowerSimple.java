@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
@@ -39,20 +39,17 @@ public class TowerSimple extends CommandBase {
 				AutoConstants.kMaxAccelerationMetersPerSecondSquared).setKinematics(DriveConstants.kDriveKinematics)
 						.addConstraint(autoVoltageConstraint);
 
-		Trajectory towerSimple = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-			new Pose2d(),
-			new Pose2d(3.0, -2.404364, new Rotation2d()), 
-			new Pose2d(4.5, -2.404, new Rotation2d())), 
-			config);
+		Trajectory towerSimple = TrajectoryGenerator.generateTrajectory(
+			Arrays.asList(
+				new Pose2d(3.0, -2.404364, new Rotation2d()), 
+				new Pose2d(13.5, -2.404, new Rotation2d())), config);
 
 		RamseteCommand command = new RamseteCommand(towerSimple, m_drive::getPose,
 				new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
 				new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
 						DriveConstants.kaVoltSecondsSquaredPerMeter),
-				DriveConstants.kDriveKinematics, 
-				m_drive::getWheelSpeeds,
-				new PIDController(DriveConstants.kPDriveVel, 0, 0), 
-				new PIDController(DriveConstants.kPDriveVel, 0, 0),
+				DriveConstants.kDriveKinematics, m_drive::getWheelSpeeds,
+				new PIDController(DriveConstants.kPDriveVel, 0, 0), new PIDController(DriveConstants.kPDriveVel, 0, 0),
 				m_drive::setOutput, m_drive);
 
 		return command;

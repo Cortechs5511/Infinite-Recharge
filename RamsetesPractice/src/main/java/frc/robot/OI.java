@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 public class OI {
 	private static OI oi;
 
-	private Joystick leftStick = new Joystick(0);
-	private Joystick rightStick = new Joystick(1);
+	private Joystick leftStick = new Joystick(1);
+	private Joystick rightStick = new Joystick(0);
 	private XboxController controller = new XboxController(2);
 
 	public Supplier<Double> getLeftY = () -> leftStick.getY();

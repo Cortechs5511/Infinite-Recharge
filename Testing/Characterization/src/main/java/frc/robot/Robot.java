@@ -54,29 +54,34 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    left0.setInverted(false);
-    left1.setInverted(false);
-    right0.setInverted(false);
-    right1.setInverted(false);
+    left0.setInverted(true);
+    left1.setInverted(true);
+    right0.setInverted(true);
+    right1.setInverted(true);
+
+	leftEncoder.setPositionConversionFactor(2.54 / 43.09861); 
+	rightEncoder.setPositionConversionFactor(2.54 / 43.09861);
+
+	leftEncoder.setVelocityConversionFactor(60 * (0.1524 * Math.PI));
+	rightEncoder.setVelocityConversionFactor(60 * (0.1524 * Math.PI));
 
     if (!isReal()) SmartDashboard.putData(new SimEnabler());
 
     gyroAngleRadians = () -> -1 * Math.toRadians(navx.getAngle());
 
-    double encoderConstant = (1 / 8.2) * 6 * Math.PI;
-
     leftEncoderPosition = ()
-        -> leftEncoder.getPosition() * encoderConstant;
+        -> leftEncoder.getPosition();
     leftEncoderSpeed = ()
-        -> leftEncoder.getVelocity() * encoderConstant / 60.;
+        -> leftEncoder.getVelocity();
 
     rightEncoderPosition = ()
-        -> rightEncoder.getPosition() * encoderConstant;
+        -> rightEncoder.getPosition();
     rightEncoderSpeed = ()
-        -> rightEncoder.getVelocity() * encoderConstant / 60.;
+        -> rightEncoder.getVelocity();
 
     leftEncoder.setPosition(0);
-    rightEncoder.setPosition(0);
+	rightEncoder.setPosition(0);
+	
 
     NetworkTableInstance.getDefault().setUpdateRate(0.010);
   }

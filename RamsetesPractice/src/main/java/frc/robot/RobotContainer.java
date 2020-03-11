@@ -17,11 +17,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public class RobotContainer {
 	private final Drive m_drive = new Drive();
 	private final SetSpeed m_setSpeed = new SetSpeed(m_drive);
-	private final StopDrive m_stop = new StopDrive(m_drive);
 
 	Joystick leftStick = new Joystick(0);
 	Joystick rightStick = new Joystick(1);
 	XboxController controller = new XboxController(2);
+
+	private final TowerSimple m_towerSimple = new TowerSimple(m_drive);
 
 	enum autonMode {
 		TowerSimple, BackTowerSimple, TrenchSimple, TowerSimpleForward
@@ -68,7 +69,7 @@ public class RobotContainer {
 		switch (m_chooser.getSelected()) {
 
 		case TowerSimple:
-			return new TowerSimple(m_drive).andThen(m_stop);
+			return new StopDrive(m_drive).andThen(m_towerSimple.getTowerSimple()).andThen(new StopDrive(m_drive));
 		case TowerSimpleForward:
 			return new WaitCommand(1.0);
 		case BackTowerSimple:

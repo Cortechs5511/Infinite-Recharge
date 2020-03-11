@@ -66,10 +66,10 @@ public class Drive extends SubsystemBase {
 		left1.follow(left0);
 		right1.follow(right0);
 
-		left0.setIdleMode(IdleMode.kCoast);
-		left1.setIdleMode(IdleMode.kCoast);
-		right0.setIdleMode(IdleMode.kCoast);
-		right1.setIdleMode(IdleMode.kCoast);
+		left0.setIdleMode(IdleMode.kBrake);
+		left1.setIdleMode(IdleMode.kBrake);
+		right0.setIdleMode(IdleMode.kBrake);
+		right1.setIdleMode(IdleMode.kBrake);
 
 		left0.setInverted(false);
 		left1.setInverted(false);
@@ -97,8 +97,8 @@ public class Drive extends SubsystemBase {
 		right0.setSmartCurrentLimit(60, 60, 9000);
 		right1.setSmartCurrentLimit(60, 60, 9000);
 
-		leftEnc.setPositionConversionFactor(DriveConstants.encToM);
-		rightEnc.setPositionConversionFactor(DriveConstants.encToM);
+		leftEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+		rightEnc.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
 
 		leftNEOPID.setP(1000);
 		leftNEOPID.setI(DriveConstants.kLeftI);
