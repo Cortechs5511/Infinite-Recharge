@@ -197,7 +197,7 @@ public class Drive extends SubsystemBase {
 		angle_kD = SmartDashboard.getNumber("Angle D", 0.001);
 		anglePID.setPID(angle_kP, angle_kI, angle_kD);*/
 
-		m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftEnc.getPosition(), rightEnc.getPosition());
+		m_odometry.update(Rotation2d.fromDegrees(-getHeading()), leftEnc.getPosition(), rightEnc.getPosition());
 	}
 
 	public boolean getDirection() {
@@ -224,5 +224,9 @@ public class Drive extends SubsystemBase {
 		left1.setIdleMode(IdleMode.kCoast);
 		right0.setIdleMode(IdleMode.kCoast);
 		right1.setIdleMode(IdleMode.kCoast);
+	}
+
+	public void zeroHeading() {
+		navx.reset();
 	}
 }

@@ -63,13 +63,14 @@ public class RobotContainer {
 				.whenReleased(() -> m_drive.setMaxOutput(0.9));
 
 		SmartDashboard.putData("Record", new DataRecorder(m_drive));
+		SmartDashboard.putData("Zero Encoders", new ResetEncoders(m_drive));
 	}
 
 	public Command getAutonomousCommand() {
 		switch (m_chooser.getSelected()) {
 
 		case TowerSimple:
-			return new StopDrive(m_drive).andThen(m_towerSimple.getTowerSimple()).andThen(new StopDrive(m_drive));
+			return new ResetEncoders(m_drive).andThen(m_towerSimple.getTowerSimple()).andThen(new StopDrive(m_drive));
 		case TowerSimpleForward:
 			return new WaitCommand(1.0);
 		case BackTowerSimple:

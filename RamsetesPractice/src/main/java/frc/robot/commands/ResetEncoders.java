@@ -8,14 +8,16 @@ public class ResetEncoders extends CommandBase {
 	private Drive m_drive;
 
     public ResetEncoders(Drive drive) {
-        m_drive = drive;
+		m_drive = drive;
+		
+		addRequirements(m_drive);
 	}
 
 	@Override
 	public void initialize() {
         m_drive.resetRightEnc();
-        m_drive.resetLeftEnc();
-        
+		m_drive.resetLeftEnc();
+		m_drive.zeroHeading();
 	}
 
 	@Override

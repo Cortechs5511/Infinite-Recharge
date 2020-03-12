@@ -22,11 +22,13 @@ public final class Constants {
     // public static final double enc_ToIn = 137.25 / (((5482.95 - 2949.08) + (4903.02 - 2375.024658)) / 2);
     // public static final double encToM = enc_ToIn * .0254;
 
-    public static final double ksVolts = 0.591; // s, v, a for impulse
-    public static final double kvVoltSecondsPerMeter = 0.00299;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.000438;
+    public static final double ksVolts = 0.1; //0.591; // s, v, a for impulse.
+    public static final double kvVoltSecondsPerMeter = 2.461; //0.00299;
+    public static final double kaVoltSecondsSquaredPerMeter = 1.223; //0.000438;
 
-    public static final double kPDriveVel = 0.02;
+    public static final double kPDriveVel = 0.0;
+    public static final double kIDriveVel = 0.0;
+    public static final double kDDriveVel = 0.0;
 
     public static final double kLeftP = 0.0294; // 0.146;
     public static final double kLeftI = 0;
